@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Memory Experiment</title>
+        <script src="/static/jspsych/jspsych.js"></script>
+        <link rel=stylesheet href="/static/css/bootstrap.min.css" type="text/css">
+        <link rel=stylesheet href="/static/css/style.css" type="text/css">
+        <link rel="stylesheet" href="/static/css/jspsych.css">
+        <script type="text/javascript">
+            function onexit() {
+              self.close(); 
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container-fitbit">
+            <div id="fitbit">
+            <h1> Fitbit Data Access </h1>
+            <p> We now need you to provide access to the past month of your Fitbit data. This data will be <strong> anonymized </strong> and will only be used to interpret your memory task data. Please follow the instructions below to provide this data through Fitabase:</p>
+                <p><b>[Integrate Fitabase Code Here]</b></p>  
+                <p> <input type="checkbox" id="fitbit_checkbox" /> 
+                    I agree to provide my Fitbit data for this study. </p>
+                <button type="button" id="start">Start Experiment</button>
+            </div>
+        </div>
+    </body>
+</html>

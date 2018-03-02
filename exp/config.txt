@@ -1,0 +1,35 @@
+[HIT Configuration]
+title = Memory/Fitness Experiment
+description = Take several memory tasks
+amt_keywords = Memory, Psychology, Fitbit, experiment
+lifetime = 24
+us_only = true
+approve_requirement = 95
+contact_email_on_error = contextualdynamics@gmail.com
+ad_group = jspsych memory fitness experiment
+psiturk_keywords = memory
+organization_name = Dartmouth College
+browser_exclude_rule = MSIE, mobile, tablet
+
+[Database Parameters]
+database_url = sqlite:///participants.db
+table_name = fitnessmemory
+
+[Server Parameters]
+host = 0.0.0.0
+port = 22362
+cutoff_time = 120
+logfile = server.log
+loglevel = 1
+debug = true
+login_username = examplename
+login_pw = examplepassword
+threads = auto
+
+[Task Parameters]
+experiment_code_version = 1.0
+num_conds = 1
+num_counters = 1
+
+[Shell Parameters]
+launch_in_sandbox_mode = true

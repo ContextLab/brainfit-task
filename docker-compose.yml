@@ -1,0 +1,13 @@
+version: '3'
+services:
+  psiturk:
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/psiturk/google-credentials/credentials.json
+    build: .
+    ports:
+     - 22362:22362
+    volumes:
+     - ./exp:/psiturk
+    tty: true
+    stdin_open: true
+    restart: always
