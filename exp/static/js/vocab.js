@@ -46,11 +46,12 @@ var vocabTask = function() {
     //}
         //now prep quiz
     var randomVocabArray = stimVocabArray; //take random set of stimulus array for quiz
-    //var numQuizQs = vocabNumber; // number of quiz questions to give users - currently equal to number vocab words
+    //var numQuizQs // number of quiz questions to give users - currently equal to number vocab words
     var numVocabOptions = 4; // number of options for quiz q's
     var imageIdxLog = []; //keep track of images that have been displayed
+    
          
-    for (var q = 0; q<vocabNumber; q++ ) { 
+    for (var q = 0; q<numQuizQs; q++ ) { 
         //use underscore library to generate random indexes for selecting vocab options
         var randomIdxs =[]; while(randomIdxs.length < numVocabOptions) {
             randomIdxs.push(Math.floor(Math.random()*stimVocabArray[0].length))
@@ -73,7 +74,7 @@ var vocabTask = function() {
 
         var quiz_vocab = {
           type: 'survey-multi-choice',
-          questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir+ imageOption + " height = 200></img></center>", options: options_vocab_1, required:true}],
+          questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab_1, required:true}],
           data: {
                     vocab_options: options_vocab_1,
                     image_shown: imageOption,

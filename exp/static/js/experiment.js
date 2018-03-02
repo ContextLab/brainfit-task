@@ -1,5 +1,8 @@
 var experimentTimeline = []; //create the jsPsych experimentTimeline variable
 var stimArray = [];
+var stimVocabArray = [];
+var stimMovieArray = [];
+var stimSpatialArray = [];
 
 var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size 
 
@@ -121,7 +124,7 @@ experimentTimeline.push({
     
 // } //switch end
     
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // DEBRIEFING & WRAPUP /////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

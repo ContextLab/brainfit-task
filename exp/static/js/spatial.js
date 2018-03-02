@@ -6,7 +6,7 @@ var spatialTask = function() {
     var spatialImages = []; //initialize
     var imageDir = '/static/images/' //directory of image
    
-    for (var i = 0; i< maxSpatialNumber; i++){ //number of images to display 
+    for (var i = 0; i< maxSpatialNumber+1; i++){ //number of images to display 
         spatialImages.push(imageDir+stimSpatialArray[0][i])
     };
         console.log(spatialImages)

@@ -52,6 +52,7 @@ var movieShuffle = false; // flag whether want to return shuffled movie array or
 
 //vocab pairs
 var vocabNumber = 10; // number of word-image pairs to use, depends on provided csv file
+var numQuizQs = 8; //**error here- works with 4 or 5 or even 8, but not 9 or 10
 var vocabPresTime = 4; // presentation duration
 var vocabIntertrialTime = 3; // ITI
 var vocabReps = 1; //number of repeats of vocab pairs
@@ -59,8 +60,8 @@ var vocabReps = 1; //number of repeats of vocab pairs
 //spatial task
 var spatialPresTime = 6; //seconds to display image of icons for matching arrangement
 var spatialIntertrialTime = 2; //seconds
-var minSpatialNumber = 3; //min number of icons on screen to arrange
-var maxSpatialNumber = 6; //maximum number of stimuli that will be displayed on screen for sorting (i.e. most difficult level)
+var minSpatialNumber = 2; //min number of icons on screen to arrange
+var maxSpatialNumber = 5; //**error here, doesnt work for greater than 5 //maximum number of stimuli that will be displayed on screen for sorting (i.e. most difficult level)
 //var spatialReps = 1; //number of times to repeat spatial task segments
 
 //delayed word list recall
