@@ -81,7 +81,7 @@ var loadStimuli = Promise.all([loadWordStimuli,loadVocabStimuli]).then(function(
 
 var loadStimuli = Promise.all([loadWordStimuli,loadVocabStimuli,loadMovieStimuli,loadSpatialStimuli]);
 
-
+// prepare functions are currently not functional **
 
 // takes the wordpool and organizes it into an array of stim objects
 var prepareWordTrials = function(wordData) {
@@ -92,7 +92,7 @@ var prepareWordTrials = function(wordData) {
             wordData.shift()
 
             //sort each element of the data and label its properties
-            for (var i = 0; i < numberOfLists; i++) {
+            for (var i = 0; i < totalListNumber ; i++) { //number of lists - load in all for now
 
                 stimArray.push([]);
                 var list_array = stimArray[i];

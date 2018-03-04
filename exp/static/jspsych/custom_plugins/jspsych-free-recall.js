@@ -139,7 +139,7 @@ jsPsych.plugins["free-recall"] = (function() {
         request.onreadystatechange = function() {
           console.log(request) //debug
           if (request.readyState == XMLHttpRequest.DONE) {
-            //processAndFinishTrial(request.responseText); //fails here ** replace with quail function
+            processAndFinishTrial(request.responseText); //fails here ** replace with quail function
             //request.open("POST", "/quail_decode"); //**need to create function
             console.log('Saved!')
 
