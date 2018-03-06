@@ -36,47 +36,87 @@ var vocabTask = function() {
                     image: eachVocab[0],
                     //trialNumber: ,
                 },
-                on_finish: function() {
+                //on_finish: function() {
                 //currentListVocab.push(currentVocabArray[0][currentTrialNumber][0].text) //fix
-                }
+                //console.log('finished')
+                //}
             }
                 vocabTimeline.push(block_vocab);
 
         })
     //}
         //now prep quiz
-    var randomVocabArray = stimVocabArray; //take random set of stimulus array for quiz
+    //var randomVocabArray = stimVocabArray; //take random set of stimulus array for quiz
     //var numQuizQs // number of quiz questions to give users - currently equal to number vocab words
-    var numVocabOptions = 4; // number of options for quiz q's
     var imageIdxLog = []; //keep track of images that have been displayed
-    
-         
+    //var imageIdx = [];
+    var imageRepCheck = false; 
+
     for (var q = 0; q<numQuizQs; q++ ) { 
+
+        // choose a random index out of all possible choices 
         //use underscore library to generate random indexes for selecting vocab options
-        var randomIdxs =[]; while(randomIdxs.length < numVocabOptions) {
-            randomIdxs.push(Math.floor(Math.random()*stimVocabArray[0].length))
+
+        var randomIdxs =[]; 
+        while(randomIdxs.length < numVocabOptions) {
+            randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length))) 
             randomIdxs = _.uniq(randomIdxs); //want a unique set of options
             };
+        //console.log(randomIdxs)
+        // if all the indexes in the array have already been displayed as images
+        while(_.difference(randomIdxs, imageIdxLog).length === 0) {             
+            var randomIdxs =[]; 
+            while(randomIdxs.length < numVocabOptions) { //then generate a new array until this is not the case (at least one new item)
+                randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length))) 
+                randomIdxs = _.uniq(randomIdxs); //want a unique set of options
+                };
+                //console.log('innerloop')
+        }
 
-        //start function, need to also have unique set of image indexes so not repeating questions
-        var imageIdx = randomIdxs[Math.floor(Math.random()*randomIdxs.length)] //try generating index once
+        //now shouldnt get stuck in this loop because at least one index will be novel
+        var imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))] //try generating index once
+
         while(_.contains(imageIdxLog,imageIdx)){ //but if image was already shown, generate unique idx
-            imageIdx = randomIdxs[Math.floor(Math.random()*randomIdxs.length)]
+            imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
         }  
         imageIdxLog.push(imageIdx); //push unique index to log of displayed images    
+        //console.log(imageIdxLog)
+
+        /*
+        //console.log(q)
+        //use underscore library to generate random indexes for selecting vocab options
+        var randomIdxs =[]; 
+        while(randomIdxs.length < numVocabOptions) {
+            randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length))) 
+            randomIdxs = _.uniq(randomIdxs); //want a unique set of options
+            };
+            console.log(randomIdxs)
+
+        //start function, need to also have unique set of image indexes so not repeating questions
+        //var imageIdx =[]
+        var imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))] //try generating index once
+        console.log(imageIdx)
+        while(_.contains(imageIdxLog,imageIdx)){ //but if image was already shown, generate unique idx
+            imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
+        }  
+        imageIdxLog.push(imageIdx); //push unique index to log of displayed images    
+        //console.log(imageIdxLog)
+        */
+    
         var imageOption = stimVocabArray[0][imageIdx][0]; // needs to match one of the random indexes; use to determine correct response
         var corrResp = stimVocabArray[0][imageIdx][1]; //also record correct response
 
-        var options_vocab_1 = [];
+        var options_vocab = [];
         for (var op = 0; op<randomIdxs.length; op++){
-            options_vocab_1.push(stimVocabArray[0][randomIdxs[op]][1])
+            options_vocab.push(stimVocabArray[0][randomIdxs[op]][1])
         }
+        
 
         var quiz_vocab = {
           type: 'survey-multi-choice',
-          questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab_1, required:true}],
+          questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab, required:true}],
           data: {
-                    vocab_options: options_vocab_1,
+                    vocab_options: options_vocab,
                     image_shown: imageOption,
                     correct_resp: corrResp,
                 },

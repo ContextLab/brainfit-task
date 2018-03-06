@@ -43,6 +43,7 @@ var numberOfLists = 4; // number of lists/test blocks
 var recordTime = 60; //record time NOTE: 60 secs is the max google speech can handle per request
 var wordPresTime = 2; // presentation duration
 var wordIntertrialTime = 2; // ITI
+var totalListNumber = 16; // total number of lists in the loaded csv file
 //var listReps = 1; //number of repeats of each word list
 
 //movie
@@ -52,7 +53,8 @@ var movieShuffle = false; // flag whether want to return shuffled movie array or
 
 //vocab pairs
 var vocabNumber = 10; // number of word-image pairs to use, depends on provided csv file
-var numQuizQs = 8; //**error here- works with 4 or 5 or even 8, but not 9 or 10
+var numQuizQs = 10; // number of quiz questions (probably want equal to vocabNumber, but not greater or will crash)
+var numVocabOptions = 4; // number of options for quiz q's
 var vocabPresTime = 4; // presentation duration
 var vocabIntertrialTime = 3; // ITI
 var vocabReps = 1; //number of repeats of vocab pairs
