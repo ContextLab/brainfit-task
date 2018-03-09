@@ -159,12 +159,22 @@ jsPsych.init({
         //audio: true,
     //},
     show_progress_bar: false,
+    on_data_update: function(data) {
+            psiTurk.recordTrialData(data);
+            },
     on_finish: function() {
-        experimentTimeline.push(block_debrief)
+        //experimentTimeline.push(block_debrief)
         //console.log(jsPsych.totalTime()); // see time elapsed
         //jsPsych.data.displayData(); //for debugging
         jsPsych.data.get().localSave('csv',uniqueId+'_data.csv'); //save locally for now
 
-    }
+        psiTurk.saveData({
+            success: function() {
+                psiTurk.completeHIT();
+            }
+        })
+
+
+    },
 });
 }

@@ -69,7 +69,7 @@ var screeningPages = function() {
 
     var block_screening_p3 = {
         type: 'survey-multi-select-custom',//-custom',
-        questions: [{prompt: "<b>Race</b> (check all that apply):", options: options_race, horizontal: false},{prompt: "Which of these languages are you <b> fluent </b> in?", options: options_languages, horizontal: false},{prompt: "Which of these languages do you have you learned previously (even if not fluent)?", options: options_languages, horizontal: false}],
+        questions: [{prompt: "<b>Race</b> (check all that apply):", options: options_race, horizontal: false},{prompt: "Which of these languages are you <b> fluent </b> in?", options: options_languages, horizontal: false},{prompt: "Which of these languages have you learned previously, either formally or informally, even if you are not fluent?", options: options_languages, horizontal: false}],
         required: true,
     };
     screeningTimeline.push(block_screening_p3);
