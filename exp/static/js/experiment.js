@@ -4,7 +4,7 @@ var stimVocabArray = [];
 var stimMovieArray = [];
 var stimSpatialArray = [];
 
-var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size 
+var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size
 
 
 //TODO: Overall, need to finalize tasks and stimuli (movie, word-pairs, etc), fix stylesheets to be consistent, randomize overall structure? (probably keep word list at beginning and end to allow for immediate/delayed recall)
@@ -17,7 +17,7 @@ var runExperiment = function (trials, options) {
 
     //console.log(currentStimArray)
 
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,28 +25,28 @@ var runExperiment = function (trials, options) {
 var start_time = jsPsych.startTime(); //save this
 //innerWidth and innerHeight
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
-    
+
 if(fscreen) {
-//fullscreen mode 
-experimentTimeline.push({ 
+//fullscreen mode
+experimentTimeline.push({
   type: 'fullscreen',
   fullscreen_mode: true
- }); 
+ });
 }
 
 //switch taskName for debugging a section
 //var taskName = 'delay'; //choices: 'screen', 'practiceWord','word','movie','vocab','spatial','delay'
-    
- //switch(taskName) {  //comment out switch/cases when done debugging 
 
+ //switch(taskName) {  //comment out switch/cases when done debugging
 
+/*
  // case 'screen':
     var screeningTimeline = screeningPages();
     screeningTimeline.forEach(function(screeningPage) {
             experimentTimeline.push(screeningPage)
         });
     //break;
-        
+
 ////////////////////////////////////////////////////////////////////////////////
 // PART IA. WORD LIST FREE RECALL PRACTICE /////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,10 +58,10 @@ experimentTimeline.push({
             experimentTimeline.push(wordListPracticePage)
         });
    // break;
-         
+
 ////////////////////////////////////////////////////////////////////////////////
 // PART IB. WORD LIST FREE RECALL TASK /////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////         
+////////////////////////////////////////////////////////////////////////////////
  // case 'word':
     var wordListTimeline = wordListTask();
         wordListTimeline.forEach(function(wordListPage) {
@@ -69,7 +69,7 @@ experimentTimeline.push({
         });
 
    // break;
-    
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART II. MOVIE //////////////////////////////////////////////////////////////
@@ -78,9 +78,9 @@ experimentTimeline.push({
       var movieTimeline = movieTask();
         movieTimeline.forEach(function(moviePage) {
             experimentTimeline.push(moviePage)
-        });       
+        });
    // break;
-         
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,42 +88,42 @@ experimentTimeline.push({
 ////////////////////////////////////////////////////////////////////////////////
 
 //TODO: need to load in selected stimuli pairs into stimuli.js like other function (make csv of image-word pairs)
-    
+
  // case 'vocab':
       var vocabTimeline = vocabTask();
         vocabTimeline.forEach(function(vocabPage) {
             experimentTimeline.push(vocabPage)
-        }); 
+        });
    //break;
-   
- 
-    
+*/
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // PART IV. SPATIAL TASK ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//TODO: finalize format and create loop of images and responses, output initial and ending positions; add in stimuli just like word lists and vocab 
- // case 'spatial':       
+//TODO: finalize format and create loop of images and responses, output initial and ending positions; add in stimuli just like word lists and vocab
+ // case 'spatial':
     var spatialTimeline = spatialTask();
         spatialTimeline.forEach(function(spatialPage) {
             experimentTimeline.push(spatialPage)
-        }); 
-         
+        });
+
  // break;
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // PART V. DELAYED WORD FREE RECALL ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
+/*
  // case 'delay':
     var delayRecallTimeline = delayRecallTask();
         delayRecallTimeline.forEach(function(delayRecallPage) {
             experimentTimeline.push(delayRecallPage)
-        }); 
+        });
   //  break;
-    
+*/
 // } //switch end
-    
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // DEBRIEFING & WRAPUP /////////////////////////////////////////////////////////
@@ -131,15 +131,15 @@ experimentTimeline.push({
 
 //need to save data when reaches this screen, or next ***
 
-        
+
 var block_debrief = {
     type: "instructions",
     pages: ["<h1>Thank you for participating in this study!</h1> <p>The general purpose of this research is to understand how memory performance is impacted by fitness and exercise activities through examining both Fitbit data and task scores.</p><p>Each of these tasks examined a different aspect of memory so we can determine whether the relationship of fitness on memory is generalizable, or specific, across domains. Your participation will help us elucidate this connection. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
     show_clickable_nav: true,
 }
 experimentTimeline.push(block_debrief)
-    
-/*    
+
+/*
 var block_thankyou= {
     type: "html-keyboard-response",
     stimulus: "<p>Thank you for participating in this study!</p>",
@@ -148,7 +148,7 @@ var block_thankyou= {
     trial_duration: 5000,
 }
 experimentTimeline.push(block_thankyou)*/
-    
+
 
 /*start experiment*/
 jsPsych.init({
@@ -160,21 +160,20 @@ jsPsych.init({
     //},
     show_progress_bar: false,
     on_data_update: function(data) {
-            psiTurk.recordTrialData(data);
+            psiTurk.recordTrialData(data)//jsPsych.data.getLastTrialData()); //data
+            //psiTurk.saveData();
             },
     on_finish: function() {
         //experimentTimeline.push(block_debrief)
         //console.log(jsPsych.totalTime()); // see time elapsed
         //jsPsych.data.displayData(); //for debugging
-        jsPsych.data.get().localSave('csv',uniqueId+'_data.csv'); //save locally for now
+        //jsPsych.data.get().localSave('csv',uniqueId+'_data.csv'); //save locally for now
 
         psiTurk.saveData({
             success: function() {
                 psiTurk.completeHIT();
             }
         })
-
-
     },
 });
 }

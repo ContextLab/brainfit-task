@@ -58,7 +58,7 @@ var screeningPages = function() {
 
     var options_race = ['American Indian or Alaska Native', 'Asian', 'Native Hawaiian or Other Pacific Islander','Black or African American','White','Other', 'Prefer Not to Say'];
 
-    var options_languages = ['English','Spanish','French','German', 'Italian', 'Chinese','Japanese','Korean','Vietnamese','Portugese','Turkish', 'Persian', 'Swedish', 'Norwegian Bokmål', 'Danish', 'Welsh', 'Czech', 'Greek', 'Arabic', 'Hindi', 'Bengali','Urdu','Russian','Polish','Romanian','Ukranian','Hebrew','Irish','Other','None']; //Gaelic','Swahili','Indonesian'
+    var options_languages = ['English','Spanish','French','German', 'Italian', 'Chinese','Japanese','Korean','Vietnamese','Portugese','Turkish', 'Persian', 'Swedish', 'Norwegian Bokmål', 'Danish', 'Welsh','Scottish', 'Czech', 'Greek', 'Arabic', 'Hindi', 'Bengali','Urdu','Russian','Polish','Romanian','Ukranian','Hebrew','Irish','Other','None']; //Gaelic','Swahili','Indonesian'
 
     var options_caffeine = ['0','1','2','3','4','5','6 or more'];
     var options_water = ['0','1','2','3','4','5','6 or more'];
@@ -66,6 +66,7 @@ var screeningPages = function() {
     var options_alert = ['Very sluggish', 'A little sluggish', 'Neutral', 'A little alert', 'Very alert'];
     var options_job = ['Highly Active (e.g., heavy lifting)','Active','Slightly active','Sedentary (e.g., desk job)'];
     var options_residence = ['Rural','Small town','Suburban','Small city','Large city'];
+    var options_stress = ['Very stressed','A little stressed','Neutral','A little relaxed','Very relaxed']
 
     var block_screening_p3 = {
         type: 'survey-multi-select-custom',//-custom',
@@ -82,11 +83,11 @@ var screeningPages = function() {
         questions: [{prompt: '<b>Highest Degree</b>', options: options_school, required:true,},
                    {prompt: '<b>Do you have any reading impairments or uncorrected vision (e.g. dyslexia, uncorrected near- or far-sightedness, etc.)?</b>', options: ['Yes','No'], required:true,},
                    {prompt: '<b>Do you have normal color vision?</b>', options: ['Yes','No'], required:true,},
-                   {prompt: '<b>How alert are you feeling?</b>', options:options_alert,required:true,},],
+                   {prompt: '<b>How alert are you feeling?</b>', options:options_alert,required:true,},
+                   {prompt: '<b>How stressed do you typically feel?</b>', options:options_stressed, required:true},]
         
         };
     screeningTimeline.push(block_screening_p4);
-
 
 
     var block_screening_p5 = {
