@@ -3,8 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // collects custom ID and experimenter name if run in the lab
-mode = 'debug';
-//mode = 'lab';
+//mode = 'debug';
+mode = 'lab';
 
 // initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
@@ -17,7 +17,7 @@ var spatialStimPath = 'static/files/spatialpool.csv'
 
 var returnSpeech = false;
 
-// create empty folder for audio files 
+// create empty folder for audio files
 $.post('/create-audio-folder', {
     'data': uniqueId
 })
@@ -49,7 +49,7 @@ var totalListNumber = 16; // total number of lists in the loaded csv file
 //movie
 var movieNumber = 1;  //number of movies to display from provided csv file
 var movieRecallSecs = 120; //number of seconds to give individuals to recall movie
-var movieShuffle = false; // flag whether want to return shuffled movie array or not 
+var movieShuffle = false; // flag whether want to return shuffled movie array or not
 
 //vocab pairs
 var vocabNumber = 10; // number of word-image pairs to use, depends on provided csv file

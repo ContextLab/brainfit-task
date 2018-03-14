@@ -17,4 +17,3 @@ loadStimuli.then(function(loadedFileData) {
     runExperiment(trials, options)
   });
 });
-

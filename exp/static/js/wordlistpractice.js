@@ -1,4 +1,5 @@
 var recPracticeWords = [];
+var nReps = 0;
 
 // create a timer function that turns off the microphone
 var startTimer = function(timeSecs) {
@@ -16,7 +17,7 @@ var wordListPractice = function() {
     var wordListPracticeTimeline = [];
     var instructions_wordListPractice = {
         type: "instructions",
-        pages: ["<h1> Part I. Word List Recall Practice </h1>"+ 
+        pages: ["<h1> Part I. Word List Recall Practice </h1>"+
             "<p> In the initial task, you will see a sequence of words appear in the middle of the screen, one at a time. </p>" + "<p> Your task will be to remember these words and recite them out loud, in the order you saw them presented, to the best of your ability.</p> <p> Please make sure your speakers are turned up and microphone are turned on for this section and remain on for the remainder of the task. </p>",
             "<p> Following each word list, you will see the following icon: <i style='color:red' class='fa fa-microphone'></i>. This indicates that the computer microphone has started recording.</p> <p> From that point on, you will recite all of the words you remember from the list you just saw, in any order.</p>",
             "<p>Let's try a quick practice round. </p> <p>In this practice list, you will see a total of three words, presented one at a time.</p>" +
@@ -60,17 +61,28 @@ var wordListPractice = function() {
     wordListPracticeTimeline.push(instructions_wordListRecite);
 
 
-    // create the practice test, which call the testPractice function 
+    // create the practice test, which call the testPractice function
     var practiceTest = {
         type: 'call-function-custom',
         func: testPractice,
         post_trial_gap: practiceRecordTime * 1000, //updated to new jspysch
     };
     wordListPracticeTimeline.push(practiceTest);
-    
+
     //if (typeof practicePass !== 'undefined') {
     try {
-        
+
+        /*
+        if (nReps > 4) {
+          display_element.querySelector(".fail-message").innerHTML = '<span style="color: red;" class="required"> You have failed the practice test. Please notify the experimenter.</span>';// if failed more than 5 times, alert and quit exp
+          console.log('practice failed 5 times.')
+          console.log(nReps)
+        } else {
+            nReps = nReps+1 // increment fail counter
+            console.log(nReps)
+        }
+        */
+
         if (recPracticeWords.length === 0) { //also need condition if no words are spoken
                 practicePass = false;
         }
@@ -82,7 +94,7 @@ var wordListPractice = function() {
             + practiceWords[2] +
             "</strong> after the red microphone icon <i style='color:red' class='fa fa-microphone'> </i> appears on the next page. </p>"],
             show_clickable_nav: true,
-            data: { 
+            data: {
                 passed: false,
                 //recPracticeWords: recPracticeWords,
             },
@@ -117,9 +129,9 @@ var wordListPractice = function() {
         var success = {
             type: 'instructions',
             pages: ["<p>That's it!</p> <p>Try to do the same for the next section when the red microphone icon <i style='color:red' class='fa fa-microphone'> </i> appears. You are now ready to start the task.</p>"],
-            data: { 
+            data: {
                 passed: true,
-                //recPracticeWords: recPracticeWords, 
+                //recPracticeWords: recPracticeWords,
             },
             show_clickable_nav: true,
         };
@@ -193,5 +205,5 @@ var testPractice = function() {
     annyang.start();
     console.log('Microphone turned on.');
     startTimer(practiceRecordTime);
-    
+
 };

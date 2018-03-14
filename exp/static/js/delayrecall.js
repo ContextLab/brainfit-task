@@ -8,7 +8,7 @@ var delayRecallTask = function() {
       show_clickable_nav: true
     };
     delayRecallTimeline.push(instructions_delayrecall);
-         
+
     // need to fix this part - account for separate lists?
     var block_delayrecall = {
         type: 'free-recall',
@@ -21,7 +21,7 @@ var delayRecallTask = function() {
         //speech_recognizer: 'google', //later functionality
         data: {
             totalListNumber: numberOfLists,
-            allListWords: stimArray, 
+            allListWords: stimArray,
         },
         /*on_finish: function() {
             console.log('Saving data...')
@@ -41,7 +41,7 @@ var delayRecallTask = function() {
 
     };
     delayRecallTimeline.push(block_delayrecall)
-    
+
     return delayRecallTimeline;
-    
+
     }

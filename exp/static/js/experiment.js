@@ -6,8 +6,7 @@ var stimSpatialArray = [];
 
 var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size
 
-
-//TODO: Overall, need to finalize tasks and stimuli (movie, word-pairs, etc), fix stylesheets to be consistent, randomize overall structure? (probably keep word list at beginning and end to allow for immediate/delayed recall)
+//TODO: stylesheets?
 
 var runExperiment = function (trials, options) {
     stimArray = trials[0];
@@ -26,20 +25,27 @@ var start_time = jsPsych.startTime(); //save this
 //innerWidth and innerHeight
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
 
-if(fscreen) {
-//fullscreen mode
-experimentTimeline.push({
-  type: 'fullscreen',
-  fullscreen_mode: true
- });
-}
+if(mode == 'lab'){
 
+  if(fscreen) {
+    //fullscreen mode
+    experimentTimeline.push({
+      type: 'fullscreen',
+      fullscreen_mode: true
+     });
+    }
+
+    var subjectID = {
+        type: 'survey-text',
+        questions: [{prompt: "Subject ID: ", value: 'BFM-1.0-MMDDYY-SN', rows: 1, columns: 20}, {prompt: "Experimenter Initials: ", value: ' ',rows: 1, columns: 7},],
+    };
+    experimentTimeline.push(subjectID)
 //switch taskName for debugging a section
 //var taskName = 'delay'; //choices: 'screen', 'practiceWord','word','movie','vocab','spatial','delay'
 
  //switch(taskName) {  //comment out switch/cases when done debugging
 
-/*
+
  // case 'screen':
     var screeningTimeline = screeningPages();
     screeningTimeline.forEach(function(screeningPage) {
@@ -58,6 +64,7 @@ experimentTimeline.push({
             experimentTimeline.push(wordListPracticePage)
         });
    // break;
+} // only run screening, fullscreen, and word list practice if in lab mode
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART IB. WORD LIST FREE RECALL TASK /////////////////////////////////////////
@@ -75,10 +82,10 @@ experimentTimeline.push({
 // PART II. MOVIE //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
  // case 'movie':
-      var movieTimeline = movieTask();
-        movieTimeline.forEach(function(moviePage) {
-            experimentTimeline.push(moviePage)
-        });
+    var movieTimeline = movieTask();
+      movieTimeline.forEach(function(moviePage) {
+          experimentTimeline.push(moviePage)
+      });
    // break;
 
 
@@ -95,7 +102,7 @@ experimentTimeline.push({
             experimentTimeline.push(vocabPage)
         });
    //break;
-*/
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,14 +121,14 @@ experimentTimeline.push({
 ////////////////////////////////////////////////////////////////////////////////
 // PART V. DELAYED WORD FREE RECALL ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/*
+
  // case 'delay':
     var delayRecallTimeline = delayRecallTask();
         delayRecallTimeline.forEach(function(delayRecallPage) {
             experimentTimeline.push(delayRecallPage)
         });
   //  break;
-*/
+
 // } //switch end
 
 
@@ -131,10 +138,11 @@ experimentTimeline.push({
 
 //need to save data when reaches this screen, or next ***
 
+//    is impacted by fitness and exercise activities through examining both Fitbit data and task scores.</p><p>Each of these tasks examined a different aspect of memory so we can determine whether the relationship of fitness on memory is generalizable, or specific, across domains. Your participation will help us elucidate this connection. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
 
 var block_debrief = {
     type: "instructions",
-    pages: ["<h1>Thank you for participating in this study!</h1> <p>The general purpose of this research is to understand how memory performance is impacted by fitness and exercise activities through examining both Fitbit data and task scores.</p><p>Each of these tasks examined a different aspect of memory so we can determine whether the relationship of fitness on memory is generalizable, or specific, across domains. Your participation will help us elucidate this connection. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
+    pages: ["<h1>Thank you for participating in this study!</h1> <p>The general purpose of this research is to understand how performance on each of these memory domain tasks relate to each other. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
     show_clickable_nav: true,
 }
 experimentTimeline.push(block_debrief)
@@ -160,20 +168,25 @@ jsPsych.init({
     //},
     show_progress_bar: false,
     on_data_update: function(data) {
-            psiTurk.recordTrialData(data)//jsPsych.data.getLastTrialData()); //data
-            //psiTurk.saveData();
+            if (mode == 'lab'){
+              psiTurk.recordTrialData(data) //jsPsych.data.getLastTrialData()); //data
+              //psiTurk.saveData();
+              }
             },
     on_finish: function() {
         //experimentTimeline.push(block_debrief)
         //console.log(jsPsych.totalTime()); // see time elapsed
         //jsPsych.data.displayData(); //for debugging
         //jsPsych.data.get().localSave('csv',uniqueId+'_data.csv'); //save locally for now
-
-        psiTurk.saveData({
-            success: function() {
-                psiTurk.completeHIT();
-            }
+        console.log('Saving data...')
+        if (mode === 'lab') {
+          psiTurk.saveData({
+              success: function() {
+                  console.log('Data saved!')
+                  psiTurk.completeHIT();
+              }
         })
+      }
     },
 });
 }

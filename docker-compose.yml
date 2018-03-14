@@ -5,7 +5,7 @@ services:
       - GOOGLE_APPLICATION_CREDENTIALS=/psiturk/google-credentials/credentials.json
     build: .
     ports:
-     - 22362:22362
+     - 22364:22364
     volumes:
      - ./exp:/psiturk
     tty: true
