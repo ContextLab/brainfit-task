@@ -14,12 +14,14 @@ var spatialTask = function() {
 
     var instructions_spatial = {
       type: 'instructions',
-      pages: ['<h1> Part IV. Spatial Task </h1> <br/> <p> You will first see an arrangement of symbols on the screen.</p> <p>Try to remember the locations of these shapes and recreate their positions on the following screen by dragging the icons to their displayed locations. </p>'],
+      pages: ['<h1> Part IV. Spatial Task </h1> <br/> <p> In this task, you will view see an arrangement of symbols on the screen.</p> <p>Try to remember the locations of these shapes and recreate their positions on the following screen by dragging the icons to their displayed locations. </p>'],
       show_clickable_nav: true
     };
     spatialTimeline.push(instructions_spatial);
 
     for (var i = minSpatialNumber-1; i< maxSpatialNumber; i++){ //select in config file
+      for (var r = 0; r < spatialReps; r++){
+
         var instructions_spatial_trial = {
             type: 'instructions',
             pages: ['<p>You will now see <b>' + (i+1) + '</b> shapes to arrange within the outlined rectangular region.</p> <p>Press the button to continue.</p>'],
@@ -42,10 +44,8 @@ var spatialTask = function() {
             sort_area_height: 800, //window.innerHeight-200,
             sort_area_width: 800, //window.innerHeight-100,
         };
-    spatialTimeline.push(quiz_spatial);
+        spatialTimeline.push(quiz_spatial);
     }
-
+}
     return spatialTimeline;
 }
-
-//TODO: will need screen resolution to determine this

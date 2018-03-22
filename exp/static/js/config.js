@@ -64,7 +64,7 @@ var spatialPresTime = 6; //seconds to display image of icons for matching arrang
 var spatialIntertrialTime = 2; //seconds
 var minSpatialNumber = 2; //min number of icons on screen to arrange
 var maxSpatialNumber = 5; //**error here, doesnt work for greater than 5 //maximum number of stimuli that will be displayed on screen for sorting (i.e. most difficult level)
-//var spatialReps = 1; //number of times to repeat spatial task segments
+var spatialReps = 5; //number of times to repeat spatial task segments
 
 //delayed word list recall
 
