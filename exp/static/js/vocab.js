@@ -10,10 +10,10 @@ var vocabTask = function() {
     };
     vocabTimeline.push(instructions_vocab)
 
-         
+
     var imageDir = '/static/images/' //directory of images
     //presently Duolingo Irish lessons Basics 1 + 2
-    
+
     //for (var r = 0; r < vocabReps; r++){
         currentVocabArray = jsPsych.randomization.shuffleNoRepeats(stimVocabArray[0]) //issue with file output**
         console.log(currentVocabArray);
@@ -50,24 +50,24 @@ var vocabTask = function() {
     //var numQuizQs // number of quiz questions to give users - currently equal to number vocab words
     var imageIdxLog = []; //keep track of images that have been displayed
     //var imageIdx = [];
-    var imageRepCheck = false; 
+    var imageRepCheck = false;
 
-    for (var q = 0; q<numQuizQs; q++ ) { 
+    for (var q = 0; q<numQuizQs; q++ ) {
 
-        // choose a random index out of all possible choices 
+        // choose a random index out of all possible choices
         //use underscore library to generate random indexes for selecting vocab options
 
-        var randomIdxs =[]; 
+        var randomIdxs =[];
         while(randomIdxs.length < numVocabOptions) {
-            randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length))) 
+            randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length)))
             randomIdxs = _.uniq(randomIdxs); //want a unique set of options
             };
         //console.log(randomIdxs)
         // if all the indexes in the array have already been displayed as images
-        while(_.difference(randomIdxs, imageIdxLog).length === 0) {             
-            var randomIdxs =[]; 
+        while(_.difference(randomIdxs, imageIdxLog).length === 0) {
+            var randomIdxs =[];
             while(randomIdxs.length < numVocabOptions) { //then generate a new array until this is not the case (at least one new item)
-                randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length))) 
+                randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length)))
                 randomIdxs = _.uniq(randomIdxs); //want a unique set of options
                 };
                 //console.log('innerloop')
@@ -78,31 +78,10 @@ var vocabTask = function() {
 
         while(_.contains(imageIdxLog,imageIdx)){ //but if image was already shown, generate unique idx
             imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
-        }  
-        imageIdxLog.push(imageIdx); //push unique index to log of displayed images    
+        }
+        imageIdxLog.push(imageIdx); //push unique index to log of displayed images
         //console.log(imageIdxLog)
 
-        /*
-        //console.log(q)
-        //use underscore library to generate random indexes for selecting vocab options
-        var randomIdxs =[]; 
-        while(randomIdxs.length < numVocabOptions) {
-            randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length))) 
-            randomIdxs = _.uniq(randomIdxs); //want a unique set of options
-            };
-            console.log(randomIdxs)
-
-        //start function, need to also have unique set of image indexes so not repeating questions
-        //var imageIdx =[]
-        var imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))] //try generating index once
-        console.log(imageIdx)
-        while(_.contains(imageIdxLog,imageIdx)){ //but if image was already shown, generate unique idx
-            imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
-        }  
-        imageIdxLog.push(imageIdx); //push unique index to log of displayed images    
-        //console.log(imageIdxLog)
-        */
-    
         var imageOption = stimVocabArray[0][imageIdx][0]; // needs to match one of the random indexes; use to determine correct response
         var corrResp = stimVocabArray[0][imageIdx][1]; //also record correct response
 
@@ -110,7 +89,7 @@ var vocabTask = function() {
         for (var op = 0; op<randomIdxs.length; op++){
             options_vocab.push(stimVocabArray[0][randomIdxs[op]][1])
         }
-        
+
 
         var quiz_vocab = {
           type: 'survey-multi-choice',
@@ -121,11 +100,11 @@ var vocabTask = function() {
                     correct_resp: corrResp,
                 },
         };
-        
+
         vocabTimeline.push(quiz_vocab)
         //console.log(quiz_vocab.responses)
     }
 
-    
+
     return vocabTimeline
 }

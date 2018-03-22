@@ -99,8 +99,12 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     for (var i = 0; i < trial.stimuli.length; i++) {
       //var coords = initial_coordinate(trial.stim_width/2+(3*trial.stim_width/2)*i, trial.sort_area_height/2-trial.stim_height/2);
         //trial.stim_width/2)+
-        //** debug here
-      var coords = initial_coordinate(Math.floor(((i+1)/(trial.stimuli.length+1))*trial.sort_area_width-(trial.stim_width/2)),Math.floor((trial.sort_area_height/2)-(trial.stim_height/2))) // remove function later
+        //**TODO: debug here ** only works for 7 or fewer stimuli
+        //if(i < 6) {
+          var coords = initial_coordinate(Math.floor(((i+1)/(trial.stimuli.length+1))*trial.sort_area_width-(trial.stim_width/2)),Math.floor((trial.sort_area_height/2)-(trial.stim_height/2))) // remove function later
+        //}else{
+          //var coords = initial_coordinate(Math.floor(((i-5)/(trial.stimuli.length+1))*trial.sort_area_width-(trial.stim_width/2)),Math.floor((2*trial.sort_area_height/3)-(trial.stim_height/2))) // remove function later
+        //}
       //console.log(coords)
       //console.log(trial.sort_area_width)
       //console.log(((i+1)/trial.stimuli.length)*trial.sort_area_height)

@@ -27,7 +27,7 @@ var loadVocabStimuli = new Promise(
     function(resolve, reject) {
         var vocabData;
         Papa.parse(vocabStimPath, {
-            delimiter: ',', //csv 
+            delimiter: ',', //csv
             download: true,
             complete: function(results) {
                 vocabData = results.data;
@@ -44,7 +44,7 @@ var loadMovieStimuli = new Promise(
     function(resolve, reject) {
         var movieData;
         Papa.parse(movieStimPath, {
-            delimiter: ',', //csv 
+            delimiter: ',', //csv
             download: true,
             complete: function(results) {
                 movieData = results.data;
@@ -59,7 +59,7 @@ var loadSpatialStimuli = new Promise(
     function(resolve, reject) {
         var spatialData;
         Papa.parse(spatialStimPath, {
-            delimiter: ',', //csv 
+            delimiter: ',', //csv
             download: true,
             complete: function(results) {
                 spatialData = results.data;
@@ -128,7 +128,7 @@ var prepareWordTrials = function(wordData) {
                 }
             }
             //console.log(stimArray)
-            
+
             // shuffle list order across subjects
             //var repeatedSet = jsPsych.randomization.repeat(stimArray,nreps); //repeat each list r times
 
@@ -162,7 +162,7 @@ var prepareVocabTrials = function(vocabData) {
 
                 for (var j = 0; j < vocabNumber; j++) {
 
-                    var item = vocabData[0]; 
+                    var item = vocabData[0];
                     //console.log('item ' + item)
                     //elements of the first row of data
                     //var image = item[0];
@@ -177,16 +177,16 @@ var prepareVocabTrials = function(vocabData) {
                     vocabData.shift();
                 }
             }
-            
+
             //list_vocab_array = [].concat.apply([], list_vocab_array) //fix odd structure
             list_vocab_array = [].concat([], list_vocab_array) //fix odd structure
             var shuffledVocabArray = jsPsych.randomization.shuffleNoRepeats(list_vocab_array)
             //console.log(shuffledVocabArray) //**not resolving properly*****
-            
+
             resolve(shuffledVocabArray)//**not resolving properly*****
             reject(console.log('vocab data rejected - loaded in order but not shuffled'))
             //console.log(stimVocabArray)
-            
+
             // shuffle list order across subjects
             //var repeatedSet = jsPsych.randomization.repeat(stimVocabArray,nreps); //repeat each list r times
             //**DEBUG HERE 02/16/18 ** figure out why not shuffling AND why only picking from 1st 2 word lists in other task
@@ -198,7 +198,7 @@ var prepareVocabTrials = function(vocabData) {
             var shuffledVocabArray = [];
             shuffledVocabLists.forEach(function(list, idx) {
                 shuffledVocabArray.push(jsPsych.randomization.shuffleNoRepeats(shuffledVocabLists[idx]))
-                
+
                 })
             console.log(shuffledVocabArray)
 
@@ -227,7 +227,7 @@ var prepareMovieTrials = function(movieData) {
                     movieData.shift();
                 }
             }
-            
+
             // movieShuffle = true will randomize movie display
             if (movieShuffle) {
               var shuffledMovieLists = jsPsych.randomization.shuffleNoRepeats(stimMovieArray)
@@ -236,7 +236,7 @@ var prepareMovieTrials = function(movieData) {
               var shuffledMovieArray = [];
               shuffledMovieLists.forEach(function(list, idx) {
               shuffledMovieArray.push(jsPsych.randomization.shuffleNoRepeats(shuffledMovieLists[idx]))
-                
+
                  })
              //console.log(shuffledMovieArray)
 
@@ -270,7 +270,7 @@ var prepareSpatialTrials = function(spatialData) {
                     spatialData.shift();
                 }
             }
-            
+
 
             var shuffledSpatialLists = jsPsych.randomization.shuffleNoRepeats(stimSpatialArray)
 
@@ -278,7 +278,7 @@ var prepareSpatialTrials = function(spatialData) {
             var shuffledSpatialArray = [];
             shuffledSpatialLists.forEach(function(list, idx) {
               shuffledSpatialArray.push(jsPsych.randomization.shuffleNoRepeats(shuffledSpatialLists[idx]))
-                
+
                 })
 
             resolve(shuffledSpatialArray)

@@ -265,15 +265,18 @@ var block_debrief = {
 }
 experimentTimeline.push(block_debrief)
 
-/*
-var block_thankyou= {
-    type: "html-keyboard-response",
-    stimulus: "<p>Thank you for participating in this study!</p>",
-    choices: jsPsych.NO_KEYS,
-    //stimulus_duration: 5000, //5 secs
-    trial_duration: 5000,
-}
-experimentTimeline.push(block_thankyou)*/
+
+//var block_thankyou= {
+//    type: "html-keyboard-response",
+//    stimulus: "<p>Thank you for participating in this study!</p>",
+//    choices: jsPsych.NO_KEYS,
+//    //stimulus_duration: 5000, //5 secs
+//    trial_duration: 5000,
+//}
+//experimentTimeline.push(block_thankyou)
+
+
+
 
 
 /*start experiment*/
