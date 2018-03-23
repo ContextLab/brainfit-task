@@ -4,7 +4,7 @@ var delayRecallTask = function() {
 
     var instructions_delayrecall = {
       type: 'instructions',
-      pages: ["<h1> Part V. Delayed Recall </h1> <br/><p> Now you will recall as many words as you can remember from the initial word list task (but <b>NOT</b> the initial three practice words).</p> <p> When you see the <i style='color:red' class='fa fa-microphone'></i> on the next page, please begin the word recall. </p> <p> Please remember to speak <strong>clearly</strong>, pausing for about 2 seconds between words. </p> <p> Press next to begin this recall. You will have " + delayRecordTime + " seconds to recall as many words as you can remember. </p>"],
+      pages: ["<h1> Part V. Delayed Recall </h1> <br/><p> Now you will recall as many words as you can remember from the initial word list task (but <b>NOT</b> the initial three practice words).</p> <p> When you see the <i style='color:red' class='fa fa-microphone'></i> on the next page, please begin the word recall. </p> <p> Please remember to speak <strong>clearly</strong>, pausing for about 1-2 seconds between words. </p> <p>Press next to begin this recall. You will have " + delayRecordTime + " seconds to recall as many words as you can remember. </p>"],
       show_clickable_nav: true
     };
     delayRecallTimeline.push(instructions_delayrecall);

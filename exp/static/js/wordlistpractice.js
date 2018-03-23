@@ -18,11 +18,10 @@ var wordListPractice = function() {
     var instructions_wordListPractice = {
         type: "instructions",
         pages: ["<h1> Part I. Word List Recall Practice </h1>"+
-            "<p> In the initial task, you will see a sequence of words appear in the middle of the screen, one at a time. </p>" + "<p> Your task will be to remember these words and recite them out loud, in the order you saw them presented, to the best of your ability.</p> <p> Please make sure your speakers are turned up and microphone are turned on for this section and remain on for the remainder of the task. </p>",
-            "<p> Following each word list, you will see the following icon: <i style='color:red' class='fa fa-microphone'></i>. This indicates that the computer microphone has started recording.</p> <p> From that point on, you will recite all of the words you remember from the list you just saw, in any order.</p>",
+            "<p>In the initial practice task, you will see a sequence of words appear in the middle of the screen, one at a time. </p>" + "<p> Your task will be to remember these words and recite them out loud when prompted.</p>",
             "<p>Let's try a quick practice round. </p> <p>In this practice list, you will see a total of three words, presented one at a time.</p>" +
-            "<p>Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, try to recall as many words as you can. You will have have " + practiceRecordTime + " seconds to recite these words. </p>" +
-            "<p> Please speak <strong>slowly</strong> and <strong>clearly</strong>, and close to your computer.</p>"
+            "<p>Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall the three words in the order they were presented. You will have have " + practiceRecordTime + " seconds to recite these words. </p>" +
+            "<p>Please speak <strong>slowly</strong> and <strong>clearly</strong>, and close to your computer.</p>"
         ],
        show_clickable_nav: true
 

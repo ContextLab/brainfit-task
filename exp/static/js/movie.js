@@ -6,7 +6,7 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ['<h1> Part II. Movie </h1> <br/><p> You will now watch a short video. After the video you will be prompted to recite out loud everything you remember in the video, and then answer some questions on what you watched. </p><p>Press the button to begin playing the video.</p>'],
+      pages: ['<h1> Part II. Movie </h1> <br/><p> You will now watch a short video. After the video you will be prompted to recite out loud everything you remember from the video, and then answer some questions on what you watched. </p><p>Press the button to begin playing the video.</p>'],
         show_clickable_nav: true
     };
     movieTimeline.push(instructions_movie);
@@ -28,7 +28,7 @@ var movieTask = function() {
 
         var block_pre_movie_recall = {
             type: 'instructions',
-            pages: ["<p> You will now recite aloud everything you remember seeing in the video. When you see the <i style='color:red' class='fa fa-microphone'></i> icon on the next page, please begin. You will have " + movieRecallSecs + " seconds to complete this recall. </p><p> Please remember to speak <strong>clearly</strong> about 1-2 feet from your computer.</p>"],
+            pages: ["<p> You will now recite aloud everything you remember seeing in the video. When you see the <i style='color:red' class='fa fa-microphone'></i> icon on the next page, please begin. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the microphone icon to disappear to continue. </p><p> Please remember to speak <strong>clearly</strong> about 1-2 feet from your computer.</p>"],
             show_clickable_nav: true,
         }
 

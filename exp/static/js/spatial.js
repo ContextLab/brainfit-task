@@ -34,8 +34,8 @@ var spatialTask = function() {
             stimuli: spatialImages.slice(0,i+1),
             sort_area_height: 800, //window.innerHeight-200,
             sort_area_width: 800, //window.innerHeight-100,
-            stim_height: 70,
-            stim_width: 70,
+            stim_height: 80,
+            stim_width: 80,
             stim_duration: spatialPresTime*1000, //convert seconds to ms
         };
         spatialTimeline.push(block_spatial);

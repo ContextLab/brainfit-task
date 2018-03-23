@@ -173,7 +173,7 @@ var instructions_vocab = {
   pages: ['<h1> Part VII. Delayed Vocabulary-Image Pair Questions </h1> <br/><p> Now you will be asked to recall the Irish language vocabulary pairs you learned earlier.</p><p> Please press Next > to continue. </p>'],
   show_clickable_nav: true
 };
-vocabTimeline.push(instructions_vocab)
+experimentTimeline.push(instructions_vocab)
 
 imageIdxLog = [];
   for (var q = 0; q<numQuizQs; q++ ) {
@@ -234,7 +234,7 @@ imageIdxLog = [];
 // PART VIII. STRESS AND ANXIETY SURVEY ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-options_stress_survey = ['Not at all sure', 'Several days','Over half the days','Nearly every day','Prefer not to answer']
+options_stress_survey = ['Not at all', 'Several days','Over half the days','Nearly every day','Prefer not to answer']
 
 var stress_survey = {
     type: 'survey-multi-choice',

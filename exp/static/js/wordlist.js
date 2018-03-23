@@ -15,28 +15,28 @@ var wordData = { //data object to keep track of recalled words
 var wordListTask = function() {
 
     var wordListTimeline = [];
-    
+
     var instructions_beginwordlist = {
             type: 'instructions',
-            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> You've passed the microphone checks! Now let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words. The words from each list will appear in the middle of the screen, one at a time.</p> <p>Please proceed when you are ready. </p>" ],
+            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> You've passed the microphone checks! Now let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall the words from the most recent list in <b> any order</b>.</p><p>Please proceed when you are ready. </p>" ],
             show_clickable_nav: true,
         }
         wordListTimeline.push(instructions_beginwordlist);
-    
+
     for (var listNumber = 0; listNumber <= numberOfLists - 1; listNumber++) {
         currentStimArray = stimArray[listNumber];
         console.log(currentStimArray);
         wordData.listWords.push([]);
 
-        
+
         // reminder before starting each list
         var instructions_wordlist = {
             type: 'instructions',
-            pages: ["<p> You will now view words from a word list. </p> <p> Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
+            pages: ["<p>You will now view words from a word list. </p> <p> Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
             show_clickable_nav: true,
         }
         wordListTimeline.push(instructions_wordlist);
-        
+
         currentStimArray.forEach(function(eachWord){
             console.log(eachWord)
             var block_words = {
@@ -65,9 +65,9 @@ var wordListTask = function() {
             pages: ["<p> <b>Remember:</b> When you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall as many words from the list you just viewed, in any order. </p> <p> You will have " + recordTime + " seconds to recall as many words as you can once the icon appears.</p> <p> Please speak <strong>clearly</strong> at a distance  1-2 feet away from your computer, and pause for about 1-2 seconds between each word. </p>"],
             show_clickable_nav: true,
         }
-        
+
         wordListTimeline.push(block_pre_recall)
-        
+
         //TODO: need to add microphone checks in warnings file?
         var block_recall = {
             type: 'free-recall',
@@ -96,12 +96,12 @@ var wordListTask = function() {
                 //currentTrialNumber = 0; // reset trial number counter
                 //currentListNumber++ // add to list counter
             //}
-              
+
 
         };
         wordListTimeline.push(block_recall)
     };
-    
+
     return wordListTimeline;
 
 };
