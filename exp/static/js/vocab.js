@@ -45,6 +45,14 @@ var vocabTask = function() {
 
         })
     //}
+
+    var instructions_vocabQuiz = {
+      type: 'instructions',
+      pages: ['<p> Now you will match the presented images with Irish language vocabulary terms.</p><p> Please press Next > to continue. </p>'],
+      show_clickable_nav: true
+     };
+     vocabTimeline.push(instructions_vocabQuiz)
+
         //now prep quiz
     //var randomVocabArray = stimVocabArray; //take random set of stimulus array for quiz
     //var numQuizQs // number of quiz questions to give users - currently equal to number vocab words
