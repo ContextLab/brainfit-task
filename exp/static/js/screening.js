@@ -28,7 +28,7 @@ var screeningPages = function() {
         cont_btn: 'start',
         check_fn: check_fitbit,
     }
-    // screeningTimeline.push(block_fitbit); //add back in when using fitness data
+    screeningTimeline.push(block_fitbit); //add back in when using fitness data
 
     //TODO: combine all questions into one page, if possible; add alert if one of the parameters is undefined instead of printing out message near the button
     /*var block_screening_p1 = {

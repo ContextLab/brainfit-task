@@ -26,12 +26,18 @@ mysql-python \
 google-cloud-speech \
 psiturk \
 pydub \
-quail
+quail \
+fitbit \
+pandas \
+datetime \
+python-dateutil \
+requests-oauthlib \
+cherrypy
 
 # install ffmpeg
-RUN git clone https://github.com/FFmpeg/FFmpeg
-RUN cd FFmpeg && ./configure --enable-gpl && \
-make && make install && ldconfig
+#RUN git clone https://github.com/FFmpeg/FFmpeg
+#RUN cd FFmpeg && ./configure --enable-gpl && \
+#make && make install && ldconfig
 
 # need google-cloud-speech version 0.30 instead of 0.32
 RUN pip install google-cloud
@@ -50,5 +56,3 @@ ENV PSITURK_GLOBAL_CONFIG_LOCATION=/psiturk/
 
 # expose port to access psiturk from outside
 EXPOSE 22364
-
-

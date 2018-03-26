@@ -51,6 +51,12 @@ import pickle
 # import quail for speech decoding
 import quail
 
+#import fitbit related packages
+import fitbit
+import gather_keys_oauth2 as Oauth2
+import pandas as pd
+import datetime
+
 @custom_code.route('/create-audio-folder',methods=['POST'])
 def create_folder():
     print('creating audio folder...')
@@ -70,6 +76,25 @@ def save_audio():
         print('Error with saving audio.')
         resp = {"audioSaved" : "failed"}
     return jsonify(**resp)
+
+@custom_code.route('/access-fitbit-data',methods=['POST'])
+def access_fitbit_data():
+
+    CLIENT_ID = '22CV44'
+    CLIENT_SECRET = '181ad1d21458261e54e979a8e65e85c9'
+
+    server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
+    server.browser_authorize()
+    ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
+    REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
+    auth2_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+
+    today = str(datetime.datetime.now().strftime("%Y%m%d"))
+
+    fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date=today, detail_level='1sec')
+    resp = fit_statsHR
+    return jsonify(**resp)
+
 
 #@custom_code.route('/decode-experiment',methods=['POST'])
 #def decode_experiment():

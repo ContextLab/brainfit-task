@@ -8,7 +8,14 @@
         <link rel="stylesheet" href="/static/css/jspsych.css">
         <script type="text/javascript">
             function onexit() {
-              self.close(); 
+              self.close();
+            }
+            function accessFitbit() {
+              $.post("/access-fitbit-data", {
+                //"clientID": cID,
+                //"clientSecret": cS,
+                console.log('retrieving Fitbit data')
+              });
             }
         </script>
     </head>
@@ -16,9 +23,9 @@
         <div id="container-fitbit">
             <div id="fitbit">
             <h1> Fitbit Data Access </h1>
-            <p> We now need you to provide access to the past month of your Fitbit data. This data will be <strong> anonymized </strong> and will only be used to interpret your memory task data. Please follow the instructions below to provide this data through Fitabase:</p>
-                <p><b>[Integrate Fitabase Code Here]</b></p>  
-                <p> <input type="checkbox" id="fitbit_checkbox" /> 
+            <p> We now need you to provide read-only access to your Fitbit data. This data will be <strong> anonymized </strong> and will only be used to interpret your memory task data. </p>
+                <button type="button" onclick="accessFitbit()">Authorize Fitbit Data</button>
+                <p> <input type="checkbox" id="fitbit_checkbox" />
                     I agree to provide my Fitbit data for this study. </p>
                 <button type="button" id="start">Start Experiment</button>
             </div>
