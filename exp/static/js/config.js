@@ -17,10 +17,19 @@ var spatialStimPath = 'static/files/spatialpool.csv'
 
 var returnSpeech = false;
 
-// create empty folder for audio files
-$.post('/create-audio-folder', {
+// create empty folders for audio and fitbit files
+//$.post('/create-audio-folder', {
+//    'data': uniqueId
+//})
+
+$.post('/create-folders', {
     'data': uniqueId
 })
+
+// create empty folder for fitness tracker data files
+/*$.post('/create-fitbit-folder', {
+    'data': uniqueId
+})*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // SET EXPERIMENTAL PARAMETERS /////////////////////////////////////////////////

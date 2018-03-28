@@ -14,6 +14,12 @@ from psiturk.db import db_session, init_db
 from psiturk.models import Participant
 from json import dumps, loads
 
+#for fitbit functionality
+import fitbit
+import gather_keys_oauth2 as Oauth2
+#import pandas as pd
+import datetime
+
 # # to call script on finish
 from subprocess import call
 import os
@@ -51,17 +57,18 @@ import pickle
 # import quail for speech decoding
 import quail
 
-#import fitbit related packages
+#import fitbit related packages ***
 import fitbit
-import gather_keys_oauth2 as Oauth2
+#import gather_keys_oauth2 as Oauth2
 import pandas as pd
 import datetime
 
-@custom_code.route('/create-audio-folder',methods=['POST'])
+@custom_code.route('/create-folders',methods=['POST'])
 def create_folder():
-    print('creating audio folder...')
+    print('creating data folders...')
     call('mkdir -p audio/' + request.form['data'],shell=True)
-    resp = {"folderCreated": "success"}
+    call('mkdir -p fitbit/' + request.form['data'],shell=True)
+    resp = {"foldersCreated": "success"}
     return jsonify(**resp)
 
 @custom_code.route('/save-audio',methods=['POST'])
@@ -77,22 +84,27 @@ def save_audio():
         resp = {"audioSaved" : "failed"}
     return jsonify(**resp)
 
+
+#@custom_code.route('/create-fitbit-folder',methods=['POST'])
+#def create_folder():
+#    print('creating fitbit folder...')
+#    call('mkdir -p fitbit/' + request.form['data'],shell=True) #creates folder with uniqueId
+#    resp = {"folderCreated": "success"}
+#    return jsonify(**resp)
+
 @custom_code.route('/access-fitbit-data',methods=['POST'])
 def access_fitbit_data():
-
+    #subID = request.form['uniqueId'] #need to send this from javascript on page
+    #console.log(subID)
     CLIENT_ID = '22CV44'
     CLIENT_SECRET = '181ad1d21458261e54e979a8e65e85c9'
 
     server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
     server.browser_authorize()
-    ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
-    REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
-    auth2_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
 
-    today = str(datetime.datetime.now().strftime("%Y%m%d"))
+    #TODO: add try and except - return success if fitbit data retrieved
+    resp = {"fitbitDataRetrieved": "success"}
 
-    fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date=today, detail_level='1sec')
-    resp = fit_statsHR
     return jsonify(**resp)
 
 
