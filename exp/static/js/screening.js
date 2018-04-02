@@ -13,14 +13,14 @@ var screeningPages = function() {
     //TODO: need to integrate Fitabase data access or another solution, add check whether data access given
     var check_fitbit = function(elem) {
         if ($('#fitbit_checkbox').is(':checked')) {
-                return true;
+              return true;
             }
             else {
-                alert("If you wish to participate, you must check the box next to the statement 'I agree to provide my Fitbit data for this study.'");
-                return false;
+              alert("If you wish to participate, you must check the box next to the statement 'I agree to provide my Fitbit data for this study.'");
+              return false;
             }
         //return false;
-        };
+    };
 
     var block_fitbit = {
         type: 'external-html',

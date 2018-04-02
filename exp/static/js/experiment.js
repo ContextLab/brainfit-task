@@ -25,6 +25,7 @@ var start_time = jsPsych.startTime(); //save this
 //innerWidth and innerHeight
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
 
+/*
 if(mode == 'lab'){
 
   if(fscreen) {
@@ -47,14 +48,14 @@ if(mode == 'lab'){
 
  //switch(taskName) {  //comment out switch/cases when done debugging
 
-
+*/
  // case 'screen':
     var screeningTimeline = screeningPages();
     screeningTimeline.forEach(function(screeningPage) {
             experimentTimeline.push(screeningPage)
         });
     //break;
-
+/*
 ////////////////////////////////////////////////////////////////////////////////
 // PART IA. WORD LIST FREE RECALL PRACTICE /////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +68,7 @@ if(mode == 'lab'){
         });
    // break;
 } // only run screening, fullscreen, and word list practice if in lab mode
-
+*/
 
 
 ////////////////////////////////////////////////////////////////////////////////
