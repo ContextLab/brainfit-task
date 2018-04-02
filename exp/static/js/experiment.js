@@ -5,6 +5,7 @@ var stimMovieArray = [];
 var stimSpatialArray = [];
 
 var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size
+var fitbitSuccess = false; //don't initially have fitbit data so will be false
 
 //TODO: stylesheets?
 
@@ -49,6 +50,32 @@ if(mode == 'lab'){
  //switch(taskName) {  //comment out switch/cases when done debugging
 
 */
+// create initial fitbit timeline as early exclusion (if dont authorize data)
+
+//TODO: need to integrate Fitabase data access or another solution, add check whether data access provided
+w = false;
+w.fitbitSuccess = false; //initialize
+
+var check_fitbit = function(elem) {
+    if (($('#fitbit_checkbox').is(':checked'))& (w.fitbitSuccess)) { //have boolean flag to confirm if data authorized
+          return true; // also add condition for returned
+      }
+        else {
+          alert("If you wish to participate, you must provide access to your Fitbit data.");
+          return false;
+        }
+    //return false;
+};
+
+var block_fitbit = {
+    type: 'external-html',
+    url: '/fitbit.html',
+    cont_btn: 'start',
+    check_fn: check_fitbit,
+}
+experimentTimeline.push(block_fitbit);
+
+
  // case 'screen':
     var screeningTimeline = screeningPages();
     screeningTimeline.forEach(function(screeningPage) {

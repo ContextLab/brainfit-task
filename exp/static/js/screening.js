@@ -10,25 +10,6 @@ var screeningPages = function() {
     };
     screeningTimeline.push(instructions_main); //you will be asked to provide access to your Fitbit data.</p><p> Then
 
-    //TODO: need to integrate Fitabase data access or another solution, add check whether data access given
-    var check_fitbit = function(elem) {
-        if ($('#fitbit_checkbox').is(':checked')) {
-              return true;
-            }
-            else {
-              alert("If you wish to participate, you must check the box next to the statement 'I agree to provide my Fitbit data for this study.'");
-              return false;
-            }
-        //return false;
-    };
-
-    var block_fitbit = {
-        type: 'external-html',
-        url: '/fitbit.html',
-        cont_btn: 'start',
-        check_fn: check_fitbit,
-    }
-    screeningTimeline.push(block_fitbit); //add back in when using fitness data
 
     //TODO: combine all questions into one page, if possible; add alert if one of the parameters is undefined instead of printing out message near the button
     /*var block_screening_p1 = {

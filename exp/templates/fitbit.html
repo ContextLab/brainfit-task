@@ -6,17 +6,17 @@
         <link rel=stylesheet href="/static/css/bootstrap.min.css" type="text/css">
         <link rel=stylesheet href="/static/css/style.css" type="text/css">
         <link rel="stylesheet" href="/static/css/jspsych.css">
-        <script></script>
     </head>
     <body>
         <div id="container-fitbit">
             <div id="fitbit">
             <h1> Fitbit Data Access </h1>
             <p> We now need you to provide read-only access to your Fitbit data. This data will be <strong> anonymized </strong> and will only be used to interpret your memory task data. </p>
-            <p><button type="button" onclick = "window.open('http://localhost:22364/fitbit_auth.html')" >Authorize Fitbit Data</button></p>
+            <p><button type="button" onclick = "w = window.open('http://localhost:22364/fitbit_auth.html','','width=600,height=600')" >Authorize Fitbit Data</button></p>
             <p><input type="checkbox" id="fitbit_checkbox" />
-                    I have provided my Fitbit data for this study. </p>
-                <button type="button" id="start">Start Experiment</button>
+                    I have provided my Fitbit data for this study. </p>     
+            <button type="button" id="start">Start Experiment</button>
+
             </div>
         </div>
     </body>
