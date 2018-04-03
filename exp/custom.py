@@ -100,6 +100,19 @@ def save_audio():
         resp = {"audioSaved" : "failed"}
     return jsonify(**resp)
 
+@custom_code.route('/save-fitbit',methods=['POST'])
+def save_fitbit():
+    filename = request.form['fitbit-filename']
+    foldername = request.form['fitbit-foldername']
+    fit = request.files
+    try:
+        fit['fitbit-blob'].save("fitbit/" + foldername + "/" + filename)
+        resp = {"fitbitSaved" : "success"}
+    except:
+        print('Error with saving audio.')
+        resp = {"fitbitSaved" : "failed"}
+    return jsonify(**resp)
+
 
 #@custom_code.route('/create-fitbit-folder',methods=['POST'])
 #def create_folder():
