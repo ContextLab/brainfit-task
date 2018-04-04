@@ -119,19 +119,37 @@ function fitbit_data_auth(){
         console.log(resp) //look at data in console
 
 
+        //var blob = new Blob([resp], { type: "text/json"});
+        //nf = new File([blob], "./fitbit/thisisafilename.json", {type: "text/json;charset=utf-8"});
+        //console.log(nf)
+
          //if want like how saving audio - currently not working
         var fileType = 'fitbit';
         var fileName = uniqueId + '-' + 'heartrate' + '.txt';//'.json';
-        var blob = new Blob([resp], { type: "json"});
+        var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
         var formData = new FormData();
         formData.append(fileType + '-filename', fileName);
         formData.append(fileType + '-foldername', uniqueId);
+        /*
         for ( var key in resp ) {
-          console.log(key)
-          formData.append(fileType + '-blob', new Blob(resp[key],{ type: "text"}));
+          console.log(resp[key])
+          respkey = resp[key]
+          for (var subkey in respkey)
+            console.log(subkey)
+            //console.log(respkey)
+            subrespkey = respkey[subkey]
+            for (var subsubkey in subrespkey)
+              subsubrespkey = subrespkey[subsubkey]
+              console.log(subsubrespkey)
+              //formData.append(fileType + '-blob', new Blob(subsubrespkey,{ type: "text/json"}));
+              //var blob = new Blob([subsubrespkey], { type: "text/json"});
+              //formData.append(fileType + '-blob', new Blob([JSON.stringify(subsubrespkey)],{ type: "text/json"}));
+          formData.append(fileType + '-blob', new Blob([JSON.stringify(resp[key])],{ type: "text/json"}));
+
         }
-        //formData.append(fileType + '-blob', blob);
+        */
+        formData.append(fileType + '-blob', blob);
 
         var request = new XMLHttpRequest();
         request.timeout = 60000; // time in milliseconds
