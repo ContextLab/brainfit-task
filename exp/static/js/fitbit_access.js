@@ -118,6 +118,7 @@ function fitbit_data_auth(){
 
         //TODO: need to figure out how to get this into a loop in which urls match their labels (currently variable lag between fetch and saving)
 
+
       ////////// RETRIEVE TODAY'S HEART RATE DATA  ////////
       fetch('https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json',
             {
@@ -560,41 +561,6 @@ function fitbit_data_auth(){
         //  }
       })
 
-      /*
-      ////////// RETRIEVE SUMMARY WEIGHT DATA ///////////
-      fetch('https://api.fitbit.com/1/user/-/body/log/weight/date/'+ year_ago_date + '/today.json',
-            {
-              method: 'GET',
-              headers: new Headers({
-                'Authorization': 'Bearer ' + access_token
-              }),
-              //mode:'cors',
-            }
-        ).then(function(response){
-          data_fetch = response.json()
-          //console.log(data_fetch)
-          return data_fetch
-        }).then(function(resp){
-          console.log(resp) //look at data in console
-          var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + 'yearlyWeight' + '.json';//'.json';
-          var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
-
-          var formData = new FormData();
-          formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
-          formData.append(fileType + '-blob', blob);
-
-          var request = new XMLHttpRequest();
-          //request.timeout = 30000; //60000; // time in milliseconds
-
-          request.open("POST", "/save-fitbit");
-          request.send(formData);
-
-          //request.onreadystatechange = function() {
-        //    console.log(request) //debug
-        //  }
-      })*/
 
       ////////// RETRIEVE SUMMARY DEVICE DATA ///////////
       fetch('https://api.fitbit.com/1/user/-/devices.json',
@@ -631,6 +597,223 @@ function fitbit_data_auth(){
         //  }
       })
 
+        ////////// RETRIEVE WEIGHT DATA ///////////
+        // 1/user/-/body/log/weight/date/today.json',
+        fetch('https://api.fitbit.com/1/user/-/body/weight/date/' + three_month_ago_date + '/today.json',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            console.log(resp) //look at data in console
+            var fileType = 'fitbit';
+            var fileName = uniqueId + '-' + '3monthWeight' + '.json';//todayWeight
+            var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
+
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-blob', blob);
+
+            var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            request.open("POST", "/save-fitbit");
+            request.send(formData);
+
+            //request.onreadystatechange = function() {
+          //    console.log(request) //debug
+          //  }
+        })
+
+        ////////// RETRIEVE BMI DATA ///////////
+        fetch('https://api.fitbit.com/1/user/-/body/bmi/date/' + three_month_ago_date + '/today.json',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            console.log(resp) //look at data in console
+            var fileType = 'fitbit';
+            var fileName = uniqueId + '-' + '3monthBMI' + '.json';//todayWeight
+            var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
+
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-blob', blob);
+
+            var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            request.open("POST", "/save-fitbit");
+            request.send(formData);
+
+            //request.onreadystatechange = function() {
+          //    console.log(request) //debug
+          //  }
+        })
+
+        ////////// RETRIEVE BODY FAT DATA ///////////
+        fetch('https://api.fitbit.com/1/user/-/body/fat/date/' + three_month_ago_date + '/today.json',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            console.log(resp) //look at data in console
+            var fileType = 'fitbit';
+            var fileName = uniqueId + '-' + '3monthBodyFat' + '.json';//todayWeight
+            var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
+
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-blob', blob);
+
+            var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            request.open("POST", "/save-fitbit");
+            request.send(formData);
+
+            //request.onreadystatechange = function() {
+          //    console.log(request) //debug
+          //  }
+        })
+
+        ////////// RETRIEVE FOOD DATA ///////////
+        //https://api.fitbit.com/1/user/-/foods/log/date/today.json
+        fetch('https://api.fitbit.com/1/user/-/foods/log/caloriesIn/date/' + three_month_ago_date + '/today.json',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            console.log(resp) //look at data in console
+            var fileType = 'fitbit';
+            var fileName = uniqueId + '-' + '3monthFood' + '.json';//'.json';
+            var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
+
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-blob', blob);
+
+            var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            request.open("POST", "/save-fitbit");
+            request.send(formData);
+
+            //request.onreadystatechange = function() {
+          //    console.log(request) //debug
+          //  }
+        })
+
+
+        ////////// RETRIEVE WATER DATA ///////////
+        //'https://api.fitbit.com/1/user/-/foods/log/water/date/today.json'
+        fetch('https://api.fitbit.com/1/user/-/foods/log/water/date/' + three_month_ago_date + '/today.json',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            console.log(resp) //look at data in console
+            var fileType = 'fitbit';
+            var fileName = uniqueId + '-' + '3monthWater' + '.json';//'.json';
+            var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
+
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-blob', blob);
+
+            var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            request.open("POST", "/save-fitbit");
+            request.send(formData);
+
+            //request.onreadystatechange = function() {
+          //    console.log(request) //debug
+          //  }
+        })
+
+
+        ////////// RETRIEVE SLEEP DATA ///////////
+        //https://api.fitbit.com/1.2/user/-/sleep/list.json
+        //'https://api.fitbit.com/1.2/user/-/sleep/date/' + three_month_ago_date + '/today.json'
+        //91 log limit for past 3 mos
+        fetch('https://api.fitbit.com/1.2/user/-/sleep/list.json?beforeDate=today&sort=asc&offset=0&limit=91',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            console.log(resp) //look at data in console
+            var fileType = 'fitbit';
+            var fileName = uniqueId + '-' + '3monthsleep' + '.json';//'.json';
+            var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
+
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-blob', blob);
+
+            var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            request.open("POST", "/save-fitbit");
+            request.send(formData);
+
+            //request.onreadystatechange = function() {
+          //    console.log(request) //debug
+          //  }
+        })
         //return resp
 
       //}
