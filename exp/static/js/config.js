@@ -38,7 +38,7 @@ $.post('/create-folders', {
 //TODO: create function to import these params ****
 var client_id="22CV44"
 var client_secret = "181ad1d21458261e54e979a8e65e85c9"
-var scope="activity heartrate sleep weight nutrition"
+var scope="activity heartrate sleep weight nutrition settings" //profile
 var redirect_uri = 'http://localhost:22364/redirect.html' // needs to match app settings on dev.fitbit.com (and mturk server url)
 
 
