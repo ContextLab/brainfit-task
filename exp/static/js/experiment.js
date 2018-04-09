@@ -29,13 +29,6 @@ window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.scre
 /*
 if(mode == 'lab'){
 
-  if(fscreen) {
-    //fullscreen mode
-    experimentTimeline.push({
-      type: 'fullscreen',
-      fullscreen_mode: true
-     });
-    }
 
     var subjectID = {
         type: 'survey-text',
@@ -50,18 +43,22 @@ if(mode == 'lab'){
  //switch(taskName) {  //comment out switch/cases when done debugging
 
 */
+
+//TODO: will need to change consent form to new one
+//TODO: figure out changes needed prior to running on MTurk
+
 // create initial fitbit timeline as early exclusion (if dont authorize data)
 
 //TODO: need to integrate Fitabase data access or another solution, add check whether data access provided
 w = false;
-w.fitbitSuccess = false; //initialize
+w.fitbitSuccess = false; //initialize as false since wont have data immediately
 
 var check_fitbit = function(elem) {
     if (($('#fitbit_checkbox').is(':checked'))& (w.fitbitSuccess)) { //have boolean flag to confirm if data authorized
           return true; // also add condition for returned
       }
         else {
-          alert("If you wish to participate, you must provide access to your Fitbit data.");
+          alert("If you wish to participate, you must provide access to your Fitbit data and check the box confirming this.");
           return false;
         }
     //return false;
@@ -75,6 +72,15 @@ var block_fitbit = {
 }
 experimentTimeline.push(block_fitbit);
 
+//now can make fullscreen once fitbit data provided
+
+if(fscreen) {
+  //fullscreen mode
+  experimentTimeline.push({
+    type: 'fullscreen',
+    fullscreen_mode: true
+   });
+  }
 
  // case 'screen':
     var screeningTimeline = screeningPages();
@@ -278,7 +284,7 @@ var stress_survey = {
                {prompt: '<b>Feeling afraid as if something awful might happen</b>', options:options_stress_survey, required:true},]
 
     };
-experimentTimeline.push(stress_survey);
+//experimentTimeline.push(stress_survey);
 
 ////////////////////////////////////////////////////////////////////////////////
 // DEBRIEFING & WRAPUP /////////////////////////////////////////////////////////

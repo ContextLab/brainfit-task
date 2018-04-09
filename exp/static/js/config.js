@@ -35,11 +35,32 @@ $.post('/create-folders', {
 // SET FITBIT PARAMETERS ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//TODO: create function to import these params ****
-var client_id="22CV44"
-var client_secret = "181ad1d21458261e54e979a8e65e85c9"
-var scope="activity heartrate sleep weight nutrition settings" //profile
-var redirect_uri = 'http://localhost:22364/redirect.html' // needs to match app settings on dev.fitbit.com (and mturk server url)
+//load Fitbit credentials file (need to keep client secret out of public code!)
+
+var fit_creds_loc = '/static/credentials/credentials_fitbit.json'
+// initialize at higher scope so accessible
+var client_id
+var client_secret
+var scope
+var redirect_uri
+//var prompt_flag = "login" //none is default_value
+//var expires_in = 86400 for 1 day, 604800 for 1 week, 2592000 for 30 days, 31536000 for 1 year
+
+
+fit_json = $.getJSON(fit_creds_loc, function (data) {
+  console.log('Loading Fitbit credentials ...') //data
+}).done(function(fit_creds){ //then when done, assign vals
+
+  console.log('Fitbit credentials loaded.')
+  client_id= fit_creds['client_id']
+  client_secret = fit_creds['client_secret']
+  scope = fit_creds['scope']
+  redirect_uri = fit_creds['redirect_uri']
+
+  return fit_creds //if need to re-ref
+}).fail(function(){
+  console.log('JSON credentials file failed to load.')
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +104,7 @@ var vocabReps = 1; //number of repeats of vocab pairs
 var spatialPresTime = 10; //seconds to display image of icons for matching arrangement
 var spatialIntertrialTime = 2; //seconds
 var minSpatialNumber = 2; //min number of icons on screen to arrange
-var maxSpatialNumber = 8; //**NOTE: need to make stimuli smaller if want more than 10 on the screen, currently a bug
+var maxSpatialNumber = 7; //**NOTE: need to make stimuli smaller if want more than 10 on the screen, currently a bug
 var spatialReps = 3; //number of times to repeat spatial task segments
 
 //delayed word list recall

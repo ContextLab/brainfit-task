@@ -4,7 +4,7 @@ var screeningPages = function() {
 
     var instructions_main = {
         type: 'instructions',
-        pages: ['<h1> Thank you for participating in our study! </h1> <p> The purpose of this study is to better understand several domains of memory. </p><p>First, you will be asked a few questions about you and your daily habits so we can better understand the data we are gathering.</p><p> Next, you will be presented with several short memory tasks, with task-specific instructions provided at the start of each section. </p>',
+        pages: ['<h1> Thank you for participating in our study! </h1> <p> We are interested in how memories for different types of information are related, and how memory is affected by fitness and exercise. </p><p>First, you will be asked a few questions about you and your daily habits so we can better understand the data we are gathering.</p><p> Next, you will be presented with several short memory tasks, with task-specific instructions provided at the start of each section. </p>',
         '<h1>Task Overview </h1> <p> The first task involves learning and reciting aloud words from visually-presented word lists. </p> <p> The second task requires viewing a short movie, reciting what you recall from the video, and answering questions on the video content. </p> <p> The third task involves remembering and matching foreign language vocabulary-image pairs. </p> <p> For the fourth task, you will use the mouse to drag and drop shapes on the screen to match the presented arrangement. </p><p> The entire experiment should take approximately 40 minutes. Please press Next > to proceed to the initial screening section. </p>', ],
         show_clickable_nav: true
     };
