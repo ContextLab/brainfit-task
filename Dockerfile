@@ -31,8 +31,7 @@ fitbit \
 pandas \
 datetime \
 python-dateutil \
-requests-oauthlib \
-cherrypy
+requests-oauthlib
 
 # install ffmpeg
 #RUN git clone https://github.com/FFmpeg/FFmpeg

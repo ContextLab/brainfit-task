@@ -7,8 +7,6 @@ var stimSpatialArray = [];
 var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size
 var fitbitSuccess = false; //don't initially have fitbit data so will be false
 
-//TODO: stylesheets?
-
 var runExperiment = function (trials, options) {
     stimArray = trials[0];
     vocabArray = trials[1];
@@ -26,30 +24,27 @@ var start_time = jsPsych.startTime(); //save this
 //innerWidth and innerHeight
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
 
-/*
-if(mode == 'lab'){
 
+if(mode == 'lab'){
 
     var subjectID = {
         type: 'survey-text',
         questions: [{prompt: "Subject ID: ", value: 'BFM-1.0-MMDDYY-SN', rows: 1, columns: 20}, {prompt: "Experimenter Initials: ", value: ' ',rows: 1, columns: 7},],
     };
     experimentTimeline.push(subjectID)
-  //} //comment out later ** TODO
+}
 
 //switch taskName for debugging a section
 //var taskName = 'delay'; //choices: 'screen', 'practiceWord','word','movie','vocab','spatial','delay'
 
  //switch(taskName) {  //comment out switch/cases when done debugging
 
-*/
+
 
 //TODO: will need to change consent form to new one
 //TODO: figure out changes needed prior to running on MTurk
 
 // create initial fitbit timeline as early exclusion (if dont authorize data)
-
-//TODO: need to integrate Fitabase data access or another solution, add check whether data access provided
 w = false;
 w.fitbitSuccess = false; //initialize as false since wont have data immediately
 
@@ -58,7 +53,7 @@ var check_fitbit = function(elem) {
           return true; // also add condition for returned
       }
         else {
-          alert("If you wish to participate, you must provide access to your Fitbit data and check the box confirming this.");
+          alert("If you wish to participate, you must provide access to your Fitbit data and check the box confirming this authorization.");
           return false;
         }
     //return false;
@@ -72,7 +67,7 @@ var block_fitbit = {
 }
 experimentTimeline.push(block_fitbit);
 
-//now can make fullscreen once fitbit data provided
+//now can make fullscreen once fitbit data provided (otherwise popup will disrupt)
 
 if(fscreen) {
   //fullscreen mode
@@ -88,7 +83,7 @@ if(fscreen) {
             experimentTimeline.push(screeningPage)
         });
     //break;
-/*
+
 ////////////////////////////////////////////////////////////////////////////////
 // PART IA. WORD LIST FREE RECALL PRACTICE /////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -100,8 +95,8 @@ if(fscreen) {
             experimentTimeline.push(wordListPracticePage)
         });
    // break;
-} // only run screening, fullscreen, and word list practice if in lab mode
-*/
+//} // only run screening, fullscreen, and word list practice if in lab mode
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,6 +114,7 @@ if(fscreen) {
 ////////////////////////////////////////////////////////////////////////////////
 // PART II. MOVIE //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
  // case 'movie':
     var movieTimeline = movieTask();
       movieTimeline.forEach(function(moviePage) {
@@ -132,7 +128,6 @@ if(fscreen) {
 // PART III. VOCABULARY-IMAGE PAIRS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//TODO: need to load in selected stimuli pairs into stimuli.js like other function (make csv of image-word pairs)
 
  // case 'vocab':
       var vocabTimeline = vocabTask();
@@ -141,13 +136,10 @@ if(fscreen) {
         });
    //break;
 
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // PART IV. SPATIAL TASK ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//TODO: finalize format and create loop of images and responses, output initial and ending positions; add in stimuli just like word lists and vocab
  // case 'spatial':
     var spatialTimeline = spatialTask();
         spatialTimeline.forEach(function(spatialPage) {
@@ -169,7 +161,7 @@ if(fscreen) {
 
 // } //switch end
 
-//added in following sections before debrief to extend duration of study (will split into separate functions eventually)
+//added in following sections before debrief to extend duration of study (TODO: split into separate functions eventually)
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART VI. DELAYED MOVIE RECALL ///////////////////////////////////////////////
@@ -270,6 +262,8 @@ imageIdxLog = [];
 // PART VIII. STRESS AND ANXIETY SURVEY ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+//if we want to have a stress-related component, here's a GAD survey (not included currently)
+
 options_stress_survey = ['Not at all', 'Several days','Over half the days','Nearly every day','Prefer not to answer']
 
 var stress_survey = {
@@ -292,27 +286,12 @@ var stress_survey = {
 
 //need to save data when reaches this screen, or next ***
 
-//    is impacted by fitness and exercise activities through examining both Fitbit data and task scores.</p><p>Each of these tasks examined a different aspect of memory so we can determine whether the relationship of fitness on memory is generalizable, or specific, across domains. Your participation will help us elucidate this connection. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
-
 var block_debrief = {
     type: "instructions",
-    pages: ["<h1>Thank you for participating in this study!</h1> <p>The general purpose of this research is to understand how performance on each of these memory domain tasks relate to each other. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
+    pages: ["<h1>Thank you for participating in this study!</h1> <p>The general purpose of this research is to understand how performance on each of these memory domain tasks relate to each other, and how fitness and physical activity may modulate this relationship. </p><p> Thank you again! Press Next > to exit and save your data. </p>"],
     show_clickable_nav: true,
 }
 experimentTimeline.push(block_debrief)
-
-
-//var block_thankyou= {
-//    type: "html-keyboard-response",
-//    stimulus: "<p>Thank you for participating in this study!</p>",
-//    choices: jsPsych.NO_KEYS,
-//    //stimulus_duration: 5000, //5 secs
-//    trial_duration: 5000,
-//}
-//experimentTimeline.push(block_thankyou)
-
-
-
 
 
 /*start experiment*/
@@ -343,7 +322,7 @@ jsPsych.init({
                   psiTurk.completeHIT();
               }
         })
-      }
+      } // TODO: also save when online
     },
 });
 }

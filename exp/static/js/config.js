@@ -9,27 +9,22 @@ mode = 'lab';
 // initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
+var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
+var serverporturl = 'http://localhost:'+serverport+'/';
+
 // path to wordpool file
 var wordStimPath = 'static/files/wordpool.csv'
 var vocabStimPath = 'static/files/vocabpool.csv'
 var movieStimPath = 'static/files/moviepool.csv'
 var spatialStimPath = 'static/files/spatialpool.csv'
-
 var returnSpeech = false;
 
-// create empty folders for audio and fitbit files
-//$.post('/create-audio-folder', {
-//    'data': uniqueId
-//})
+// create empty folders for audio and fitbit files named with subject's ID
 
 $.post('/create-folders', {
     'data': uniqueId
 })
 
-// create empty folder for fitness tracker data files
-/*$.post('/create-fitbit-folder', {
-    'data': uniqueId
-})*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // SET FITBIT PARAMETERS ///////////////////////////////////////////////////////

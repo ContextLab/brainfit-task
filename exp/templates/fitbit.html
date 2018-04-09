@@ -13,7 +13,7 @@
             <h1> Fitbit Data Access </h1>
             <p> We now need you to provide read-only access to your Fitbit data. This data will be <strong> anonymized </strong> and will only be used to interpret your memory task data. </p>
             <p> Please click on the following button, log in to your Fitbit account and check the box <strong>'Select all'</strong> to proceed.</p>
-            <p><button type="button" onclick = "w = window.open('http://localhost:22364/fitbit_auth.html','','width=600,height=600'); w.uniqueId = uniqueId; w.client_id = client_id;w.client_secret=client_secret; w.scope = scope; w.redirect_uri = redirect_uri; " >Authorize Fitbit Data</button></p>
+            <p><button type="button" onclick = "w = window.open(serverporturl + 'fitbit_auth.html','','width=600,height=600'); w.uniqueId = uniqueId; w.client_id = client_id;w.client_secret=client_secret; w.scope = scope; w.redirect_uri = redirect_uri; " >Authorize Fitbit Data</button></p>
             <p><input type="checkbox" id="fitbit_checkbox" />
                     I have provided my Fitbit data for this study. </p>
             <button type="button" id="start">Start Experiment</button>
