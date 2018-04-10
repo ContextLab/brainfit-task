@@ -10,7 +10,7 @@ jsPsych.plugins["free-recall"] = (function() {
         name: "free-recall",
         parameters: {
           stimulus: {
-            type: jsPsych.plugins.parameterType.HTML_STRING, 
+            type: jsPsych.plugins.parameterType.HTML_STRING,
             default_value: "<p>stimulus</p>",
           },
           stim_duration: {
@@ -49,8 +49,8 @@ jsPsych.plugins["free-recall"] = (function() {
         }
       }
      }
-    
-    
+
+
   plugin.trial = function(display_element, trial) {
     // set default values for parameters
     //trial.list_words = [];
@@ -68,7 +68,7 @@ jsPsych.plugins["free-recall"] = (function() {
 
     trial.recalled_words = [];
     */
-      
+
     // allow variables as functions
     // this allows any trial variable to be specified as a function
     // that will be evaluated when the trial runs. this allows users
@@ -79,7 +79,7 @@ jsPsych.plugins["free-recall"] = (function() {
     //trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
 
     var setTimeoutHandlers = [];
-    
+
       display_element.innerHTML = trial.stimulus;
     /*display_element.append($('<div>', {
       html: trial.stimulus,
@@ -115,11 +115,11 @@ jsPsych.plugins["free-recall"] = (function() {
       mediaRecorder.sampleRate = 44100;
       mediaRecorder.ondataavailable = function (blob) {
         var fileType = 'audio'; // or "audio"
-        var fileName = uniqueId + '-' + trial.identifier + '.wav';  // or "wav" //trial.list_number + '-' 
+        var fileName = newuniqueId + '-' + trial.identifier + '.wav';  // or "wav" //trial.list_number + '-'
 
         var formData = new FormData();
         formData.append(fileType + '-filename', fileName);
-        formData.append(fileType + '-foldername', uniqueId);
+        formData.append(fileType + '-foldername', newuniqueId);
         formData.append(fileType + '-blob', blob);
 
         var request = new XMLHttpRequest();
@@ -132,10 +132,10 @@ jsPsych.plugins["free-recall"] = (function() {
         /*display_element.append($('<div>', {
           html: "<p class='loading'><i class='fa fa-cog fa-spin '></i></p>"
         }));*/
-        
+
         // FOR LIVE DECODING
         //display_element.innerHTML = "<p class='loading'><i class='fa fa-cog fa-spin '></i></p>";
-        
+
         request.onreadystatechange = function() {
           console.log(request) //debug
           if (request.readyState == XMLHttpRequest.DONE) {
@@ -160,15 +160,15 @@ jsPsych.plugins["free-recall"] = (function() {
       if (data){
         try{
           resp=JSON.parse(data);
-          console.log(resp.result) //undefined so throws error 
+          console.log(resp.result) //undefined so throws error
           trial.recalled_words = JSON.parse(resp.result)
           console.log(trial.recalled_words)
         }catch(e){
           trial.recalled_words = [];
           console.log("Error",e)
         }
-      } 
-        
+      }
+
         //from EL code //**here
         /*if (data){
             try{
@@ -188,7 +188,7 @@ jsPsych.plugins["free-recall"] = (function() {
               console.log("Error",e)
             }
         }  */
-        
+
 
       // kill any remaining setTimeout handlers
       for (var i = 0; i < setTimeoutHandlers.length; i++) {

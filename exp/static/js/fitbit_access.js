@@ -8,6 +8,9 @@ var redirect_uri = window.opener.redirect_uri;
 var fitbitSuccess = false; //initialize in outer scope
 var access_token = 'string'
 
+var newuniqueId = uniqueId.replace(':','-') // need to change to dash because character issues when slash / used to replace
+
+
 // need code provided within authorization url to access data
 urlstring = String(window.location.href)
 urlsplit = urlstring.split('code=')
@@ -146,12 +149,15 @@ function fitbit_data_auth(){
           //curr_label = data_labels[0];
           //console.log(curr_label)
           //data_labels.shift() // remove 1st element of array if used as label since loop too fast to index
-          var fileName = uniqueId + '-' + 'todayHR' + '.json';//'.txt';
+
+          //need to edit uniqueId since /'s in name create issues when analyzing data (this matches audio names that do this automatically)
+
+          var fileName = newuniqueId + '-' + 'todayHR' + '.json';//'.txt';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -191,12 +197,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthHR' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthHR' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -227,12 +233,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthSteps' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthSteps' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -262,12 +268,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthDistance' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthDistance' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -297,12 +303,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthFloors' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthFloors' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -332,12 +338,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthElevation' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthElevation' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -367,12 +373,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthMinsSed' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthMinsSed' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -402,12 +408,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthMinsLightAct' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthMinsLightAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -437,12 +443,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthMinsFairlyAct' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthMinsFairlyAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -472,12 +478,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthMinsVeryAct' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthMinsVeryAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -507,12 +513,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthCalories' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthCalories' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -542,12 +548,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + '3monthCaloriesBMR' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + '3monthCaloriesBMR' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -578,12 +584,12 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = uniqueId + '-' + 'devices' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'devices' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
           formData.append(fileType + '-filename', fileName);
-          formData.append(fileType + '-foldername', uniqueId);
+          formData.append(fileType + '-foldername', newuniqueId);
           formData.append(fileType + '-blob', blob);
 
           var request = new XMLHttpRequest();
@@ -614,12 +620,12 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = uniqueId + '-' + '3monthWeight' + '.json';//todayWeight
+            var fileName = newuniqueId + '-' + '3monthWeight' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
             formData.append(fileType + '-filename', fileName);
-            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-foldername', newuniqueId);
             formData.append(fileType + '-blob', blob);
 
             var request = new XMLHttpRequest();
@@ -649,12 +655,12 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = uniqueId + '-' + '3monthBMI' + '.json';//todayWeight
+            var fileName = newuniqueId + '-' + '3monthBMI' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
             formData.append(fileType + '-filename', fileName);
-            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-foldername', newuniqueId);
             formData.append(fileType + '-blob', blob);
 
             var request = new XMLHttpRequest();
@@ -684,12 +690,12 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = uniqueId + '-' + '3monthBodyFat' + '.json';//todayWeight
+            var fileName = newuniqueId + '-' + '3monthBodyFat' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
             formData.append(fileType + '-filename', fileName);
-            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-foldername', newuniqueId);
             formData.append(fileType + '-blob', blob);
 
             var request = new XMLHttpRequest();
@@ -720,12 +726,12 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = uniqueId + '-' + '3monthFood' + '.json';//'.json';
+            var fileName = newuniqueId + '-' + '3monthFood' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
             formData.append(fileType + '-filename', fileName);
-            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-foldername', newuniqueId);
             formData.append(fileType + '-blob', blob);
 
             var request = new XMLHttpRequest();
@@ -757,12 +763,12 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = uniqueId + '-' + '3monthWater' + '.json';//'.json';
+            var fileName = newuniqueId + '-' + '3monthWater' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
             formData.append(fileType + '-filename', fileName);
-            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-foldername', newuniqueId);
             formData.append(fileType + '-blob', blob);
 
             var request = new XMLHttpRequest();
@@ -796,12 +802,12 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = uniqueId + '-' + '3monthsleep' + '.json';//'.json';
+            var fileName = newuniqueId + '-' + '3monthsleep' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
             formData.append(fileType + '-filename', fileName);
-            formData.append(fileType + '-foldername', uniqueId);
+            formData.append(fileType + '-foldername', newuniqueId);
             formData.append(fileType + '-blob', blob);
 
             var request = new XMLHttpRequest();

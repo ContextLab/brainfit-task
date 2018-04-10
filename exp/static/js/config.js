@@ -10,7 +10,7 @@ mode = 'lab';
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
 var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
-var serverporturl = 'http://localhost:'+serverport+'/';
+var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
 
 // path to wordpool file
 var wordStimPath = 'static/files/wordpool.csv'
@@ -19,10 +19,12 @@ var movieStimPath = 'static/files/moviepool.csv'
 var spatialStimPath = 'static/files/spatialpool.csv'
 var returnSpeech = false;
 
+var newuniqueId = uniqueId.replace(':','-') // save folder with dash instead of slash to avoid issues with name during analysis
+
 // create empty folders for audio and fitbit files named with subject's ID
 
 $.post('/create-folders', {
-    'data': uniqueId
+    'data': newuniqueId
 })
 
 
