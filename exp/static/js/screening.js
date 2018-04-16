@@ -24,6 +24,9 @@ var screeningPages = function() {
     var options_residence = ['Rural','Small town','Suburban','Small city','Large city'];
     var options_stressed = ['Very stressed','A little stressed','Neutral','A little relaxed','Very relaxed'];
     var options_school = ['Some high school', 'High school graduate', "Associate's Degree", 'Some college', 'College graduate', 'Some graduate training', "Master's degree", 'Doctorate','Other Graduate/Professional School']
+    var options_exercise_motiv = ['Physical Health', 'Mental Health/Wellness', 'Social Reasons', 'External Pressure (Friends, Family, Partner)', 'Feel like I should']
+    var options_fit_wear = ['Every Day','Most Days','Some Days','Rarely']
+    var options_fitbit_feats = ['Activity Recording/Logging','Sleep Tracking','Food Logs','Water Logs','Weight Logs','Challenges/Badges','Guidance Feature','Community/Social','Alarms/Reminders/Notifcations',]
 
     var block_screening_p1 = {
         type: 'survey-multi-choice',
@@ -94,11 +97,26 @@ var screeningPages = function() {
     var block_screening_p10 = {
         type: 'survey-multi-choice',
         questions: [{prompt: '<b>Have you exercised today?</b>', options: ['Yes','No'], required:true,}, {prompt: '<b>Do you plan to exercise later?</b>', options: ['Yes','No'], required:true,},
-                    {prompt: '<b>Do you wear a personal fitness tracker (e.g. Fitbit or Apple Watch device)?</b>', options: ['Yes','No'], required:true,},
-                    {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},]
+                    {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},
+                    {prompt: '<b>What motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
+                    {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,}]
     };
 
     screeningTimeline.push(block_screening_p10);
+
+    var block_screening_p11 = {
+        type: 'survey-multi-select-custom',
+        questions: [{prompt: "<b>Which Fitbit features do you frequently track or use (check all that apply)?</b>", options: options_fitbit_feats, horizontal: false}],
+        required: true,
+    };
+    screeningTimeline.push(block_screening_p11);
+
+    var block_screening_p12 = {
+      type: 'survey-text',
+      questions: [{prompt: '<b>What motivates you to wear your fitness tracker?</b>', value: ' ', rows: 4, columns: 50},]
+    };
+
+    screeningTimeline.push(block_screening_p12);
 
 
  return screeningTimeline
