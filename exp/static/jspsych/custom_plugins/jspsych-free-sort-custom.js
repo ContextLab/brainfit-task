@@ -77,7 +77,7 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     var html = "";
     // check if there is a prompt and if it is shown above
     if (trial.prompt !== null && trial.prompt_location == "above") {
-      html += trial.prompt;
+      html += "<div id = 'instrpro'>" + trial.prompt + "</div>";
     }
 
     html += '<div '+
@@ -88,7 +88,7 @@ jsPsych.plugins['free-sort-custom'] = (function() {
 
     // check if prompt exists and if it is shown below
     if (trial.prompt !== null && trial.prompt_location == "below") {
-      html += trial.prompt;
+      html += "<div id = 'instrpro'>" + trial.prompt + "</div>";
     }
 
     display_element.innerHTML = html;
@@ -160,7 +160,10 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     display_element.querySelector('#jspsych-free-sort-custom-done-btn').addEventListener('click', function(){
 
     if (moves.length<draggables.length) { //have boolean flag to check whether users moved shapes
-        alert("Please click and drag each shape to the positions just displayed.");
+        //alert("Please click and drag each shape to the positions just displayed."); //alert will mess up fullscreen mode
+        //display_element.innerHTML += "<p style='color:red'><b>Please click and drag each shape to the positions displayed before continuing.</p></b>"
+        document.getElementById("instrpro").innerHTML = "<p style='color:red'> <b>ALERT:</b> Please click and drag each shape to the positions displayed before continuing.</p>";
+
     }
     else {
       var end_time = (new Date()).getTime();
