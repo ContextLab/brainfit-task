@@ -106,22 +106,70 @@ function fitbit_data_auth(){
       today_date = yyyy+ '-' + mm + '-' + dd; //format according to fitbit urls (YYYY-MM-DD)
 
       year_ago_date = String(Number(yyyy)-1) + '-' + mm + '-' + dd; //TODO: make sure enough data to pull this request
-      three_month_ago_date = yyyy + '-' + m3 + '-' + dd; // probably want a scope like this
+      //three_month_ago_date = yyyy + '-' + m3 + '-' + dd; // probably want a scope like this
+      //month_ago_date = yyyy + '-' + String(Number(mm)-1) + '-' + dd;
+
       //console.log(year_ago_date)
-      month_ago_date = yyyy + '-' + String(Number(mm)-1) + '-' + dd;
       //console.log(month_ago_date)
       //join_date = ; //need this in case dont have data within time limit requested
-      // will get second level resolution later
-      //NOTE: need to go smaller files to bigger files (faster to slower) or labels will be off (TODO: check filename associations once second-level data access granted)
+      // TODO will get second level resolution later
       //data_urls = ['https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json', 'https://api.fitbit.com/1/user/-/activities/steps/date/today/1d/1min.json', 'https://api.fitbit.com/1/user/-/activities/heart/date/'+ year_ago_date + '/today.json', 'https://api.fitbit.com/1/user/-/activities/steps/date/'+ year_ago_date + '/today.json', ] // now for each url, access data and append to parameter to save
-      //var data_labels = ['todayHR','todaySteps','yearlyHR','yearlySteps']; //define filenames corresponding to urls
-      //for (var u = 0; u<data_urls.length; u++){
-        //var curr_label = data_labels[u]; //iterates too quickly
-        //console.log(data_labels[u])
 
-        //TODO: need to figure out how to get this into a loop in which urls match their labels (currently variable lag between fetch and saving)
+      // now set which date we want to use for data
+      var retrieve_date = year_ago_date
+      console.log(retrieve_date)
 
+        // need to retrieve user profile to determine whether year_ago_date prior to
 
+        ////////// RETRIEVE USER'S START DATE FROM PROFILE ////////
+        fetch('https://api.fitbit.com/1/user/-/profile.json',
+              {
+                method: 'GET',
+                headers: new Headers({
+                  'Authorization': 'Bearer ' + access_token
+                }),
+                //mode:'cors',
+              }
+          ).then(function(response){
+            data_fetch = response.json()
+            //console.log(data_fetch)
+            return data_fetch
+          }).then(function(resp){
+            //console.log(resp) //look at data in console
+            //var fileType = 'fitbit';
+            //var fileName = newuniqueId + '-' + 'profile' + '.json';//'.json'; //probably dont want to save all this info
+            //var blob = new Blob([JSON.stringify(resp)], {type: "text/json"});
+            jsonResp =  resp //JSON.stringify(resp)
+            //console.log(jsonResp)
+            //console.log(jsonResp['user']['memberSince'])
+            prof_date = jsonResp['user']['memberSince']
+            if(new Date(prof_date) > new Date(retrieve_date)){
+              retrieve_date = prof_date // if the user joined more recently than the retrieval date, use the profile date instead
+              //console.log(prof_date)
+              //console.log(retrieve_date)
+              //return retrieve_date
+              }
+            }).then(function(respo){
+              console.log(retrieve_date) //make sure output right value
+            //}) //moved this to encompass following retrievals so have correct date before continuing
+
+            //return retrieve_date
+            //var formData = new FormData();
+            //formData.append(fileType + '-filename', fileName);
+            //formData.append(fileType + '-foldername', newuniqueId);
+            //formData.append(fileType + '-blob', blob);
+
+            //var request = new XMLHttpRequest();
+            //request.timeout = 30000; //60000; // time in milliseconds
+
+            //request.open("POST", "/save-fitbit");
+            //request.send(formData);
+
+            //request.onreadystatechange = function() {
+              //console.log(request) //debug
+            //}
+        //})
+ //DEBUG START
       ////////// RETRIEVE TODAY'S HEART RATE DATA  ////////
       fetch('https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json',
             {
@@ -182,7 +230,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY HEART RATE DATA  ////////
-      fetch('https://api.fitbit.com/1/user/-/activities/heart/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/heart/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -197,7 +245,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthHR' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearHR' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -216,9 +264,9 @@ function fitbit_data_auth(){
           //}
       })
 
-
+//DEBUG START 2
       ////////// RETRIEVE SUMMARY STEP DATA  ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/steps/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/steps/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -233,7 +281,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthSteps' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearSteps' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -253,7 +301,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY DISTANCE ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/distance/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/distance/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -268,7 +316,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthDistance' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearDistance' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -288,7 +336,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY FLOORS ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/floors/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/floors/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -303,7 +351,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthFloors' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearFloors' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -323,7 +371,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY ELEVATION ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/elevation/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/elevation/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -338,7 +386,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthElevation' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearElevation' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -358,7 +406,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY MINUTES SEDENTARY ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/minutesSedentary/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/minutesSedentary/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -373,7 +421,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthMinsSed' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearMinsSed' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -393,7 +441,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY MINUTES LIGHTLY ACTIVE ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/minutesLightlyActive/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/minutesLightlyActive/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -408,7 +456,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthMinsLightAct' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearMinsLightAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -428,7 +476,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY MINUTES FAIRLY ACTIVE ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/minutesFairlyActive/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/minutesFairlyActive/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -443,7 +491,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthMinsFairlyAct' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearMinsFairlyAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -463,7 +511,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY MINUTES VERY ACTIVE ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/minutesVeryActive/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/minutesVeryActive/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -478,7 +526,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthMinsVeryAct' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearMinsVeryAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -498,7 +546,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY ALL CALORIES ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/calories/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/calories/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -513,7 +561,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthCalories' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearCalories' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -533,7 +581,7 @@ function fitbit_data_auth(){
       })
 
       ////////// RETRIEVE SUMMARY ALL CALORIES BMR ///////////
-      fetch('https://api.fitbit.com/1/user/-/activities/caloriesBMR/date/'+ three_month_ago_date + '/today.json',
+      fetch('https://api.fitbit.com/1/user/-/activities/caloriesBMR/date/'+ retrieve_date + '/today.json',
             {
               method: 'GET',
               headers: new Headers({
@@ -548,7 +596,7 @@ function fitbit_data_auth(){
         }).then(function(resp){
           console.log(resp) //look at data in console
           var fileType = 'fitbit';
-          var fileName = newuniqueId + '-' + '3monthCaloriesBMR' + '.json';//'.json';
+          var fileName = newuniqueId + '-' + 'yearCaloriesBMR' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
           var formData = new FormData();
@@ -605,7 +653,7 @@ function fitbit_data_auth(){
 
         ////////// RETRIEVE WEIGHT DATA ///////////
         // 1/user/-/body/log/weight/date/today.json',
-        fetch('https://api.fitbit.com/1/user/-/body/weight/date/' + three_month_ago_date + '/today.json',
+        fetch('https://api.fitbit.com/1/user/-/body/weight/date/' + retrieve_date + '/today.json',
               {
                 method: 'GET',
                 headers: new Headers({
@@ -620,7 +668,7 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = newuniqueId + '-' + '3monthWeight' + '.json';//todayWeight
+            var fileName = newuniqueId + '-' + 'yearWeight' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
@@ -640,7 +688,7 @@ function fitbit_data_auth(){
         })
 
         ////////// RETRIEVE BMI DATA ///////////
-        fetch('https://api.fitbit.com/1/user/-/body/bmi/date/' + three_month_ago_date + '/today.json',
+        fetch('https://api.fitbit.com/1/user/-/body/bmi/date/' + retrieve_date + '/today.json',
               {
                 method: 'GET',
                 headers: new Headers({
@@ -655,7 +703,7 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = newuniqueId + '-' + '3monthBMI' + '.json';//todayWeight
+            var fileName = newuniqueId + '-' + 'yearBMI' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
@@ -675,7 +723,7 @@ function fitbit_data_auth(){
         })
 
         ////////// RETRIEVE BODY FAT DATA ///////////
-        fetch('https://api.fitbit.com/1/user/-/body/fat/date/' + three_month_ago_date + '/today.json',
+        fetch('https://api.fitbit.com/1/user/-/body/fat/date/' + retrieve_date + '/today.json',
               {
                 method: 'GET',
                 headers: new Headers({
@@ -690,7 +738,7 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = newuniqueId + '-' + '3monthBodyFat' + '.json';//todayWeight
+            var fileName = newuniqueId + '-' + 'yearBodyFat' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
@@ -711,7 +759,7 @@ function fitbit_data_auth(){
 
         ////////// RETRIEVE FOOD DATA ///////////
         //https://api.fitbit.com/1/user/-/foods/log/date/today.json
-        fetch('https://api.fitbit.com/1/user/-/foods/log/caloriesIn/date/' + three_month_ago_date + '/today.json',
+        fetch('https://api.fitbit.com/1/user/-/foods/log/caloriesIn/date/' + retrieve_date + '/today.json',
               {
                 method: 'GET',
                 headers: new Headers({
@@ -726,7 +774,7 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = newuniqueId + '-' + '3monthFood' + '.json';//'.json';
+            var fileName = newuniqueId + '-' + 'yearFood' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
@@ -748,7 +796,7 @@ function fitbit_data_auth(){
 
         ////////// RETRIEVE WATER DATA ///////////
         //'https://api.fitbit.com/1/user/-/foods/log/water/date/today.json'
-        fetch('https://api.fitbit.com/1/user/-/foods/log/water/date/' + three_month_ago_date + '/today.json',
+        fetch('https://api.fitbit.com/1/user/-/foods/log/water/date/' + retrieve_date + '/today.json',
               {
                 method: 'GET',
                 headers: new Headers({
@@ -763,7 +811,7 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = newuniqueId + '-' + '3monthWater' + '.json';//'.json';
+            var fileName = newuniqueId + '-' + 'yearWater' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
@@ -787,7 +835,7 @@ function fitbit_data_auth(){
         //https://api.fitbit.com/1.2/user/-/sleep/list.json
         //'https://api.fitbit.com/1.2/user/-/sleep/date/' + three_month_ago_date + '/today.json'
         //91 log limit for past 3 mos
-        fetch('https://api.fitbit.com/1.2/user/-/sleep/list.json?beforeDate=today&sort=asc&offset=0&limit=91',
+        fetch('https://api.fitbit.com/1.2/user/-/sleep/list.json?beforeDate=today&sort=asc&offset=0&limit=100', //'Limit cannot be greater than 100'
               {
                 method: 'GET',
                 headers: new Headers({
@@ -802,7 +850,7 @@ function fitbit_data_auth(){
           }).then(function(resp){
             console.log(resp) //look at data in console
             var fileType = 'fitbit';
-            var fileName = newuniqueId + '-' + '3monthsleep' + '.json';//'.json';
+            var fileName = newuniqueId + '-' + 'yearSleep' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
 
             var formData = new FormData();
@@ -821,7 +869,8 @@ function fitbit_data_auth(){
           //  }
         })
         //return resp
-
+ //DEBUG END
+})
       //}
   }
 )} //maybe make into IEF
