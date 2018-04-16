@@ -159,6 +159,10 @@ jsPsych.plugins['free-sort-custom'] = (function() {
 
     display_element.querySelector('#jspsych-free-sort-custom-done-btn').addEventListener('click', function(){
 
+    if (moves.length<draggables.length) { //have boolean flag to check whether users moved shapes
+        alert("Please click and drag each shape to the positions just displayed.");
+    }
+    else {
       var end_time = (new Date()).getTime();
       var rt = end_time - start_time;
       // gather data
@@ -184,8 +188,8 @@ jsPsych.plugins['free-sort-custom'] = (function() {
       // advance to next part
       display_element.innerHTML = '';
       jsPsych.finishTrial(trial_data);
+      };
     });
-
   };
 
   // helper functions
