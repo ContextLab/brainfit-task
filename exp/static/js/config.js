@@ -40,8 +40,8 @@ var client_id
 var client_secret
 var scope
 var redirect_uri
-//var prompt_flag = "login" //none is default_value
-//var expires_in = 86400 for 1 day, 604800 for 1 week, 2592000 for 30 days, 31536000 for 1 year
+var prompt_flag //= "login" //none is default_value
+var expires_in //= 86400 for 1 day, 604800 for 1 week, 2592000 for 30 days, 31536000 for 1 year
 
 
 fit_json = $.getJSON(fit_creds_loc, function (data) {
@@ -53,6 +53,8 @@ fit_json = $.getJSON(fit_creds_loc, function (data) {
   client_secret = fit_creds['client_secret']
   scope = fit_creds['scope']
   redirect_uri = fit_creds['redirect_uri']
+  prompt_flag = fit_creds['prompt_flag'] //currently login
+  expires_in = fit_creds['expires_in'] //currently 1 day
 
   return fit_creds //if need to re-ref
 }).fail(function(){

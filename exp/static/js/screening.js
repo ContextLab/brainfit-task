@@ -99,7 +99,7 @@ var screeningPages = function() {
         questions: [{prompt: '<b>Have you exercised today?</b>', options: ['Yes','No'], required:true,}, {prompt: '<b>Do you plan to exercise later?</b>', options: ['Yes','No'], required:true,},
                     {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},
                     {prompt: '<b>What motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
-                    {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,}]
+                    {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,},]
     };
 
     screeningTimeline.push(block_screening_p10);
