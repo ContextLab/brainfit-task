@@ -118,7 +118,7 @@ if(fscreen) {
  // case 'movie':
     var movieTimeline = movieTask();
       movieTimeline.forEach(function(moviePage) {
-          experimentTimeline.push(moviePage)
+          //experimentTimeline.push(moviePage)
       });
    // break;
 
@@ -132,7 +132,7 @@ if(fscreen) {
  // case 'vocab':
       var vocabTimeline = vocabTask();
         vocabTimeline.forEach(function(vocabPage) {
-            experimentTimeline.push(vocabPage)
+            //experimentTimeline.push(vocabPage)
         });
    //break;
 
@@ -155,7 +155,7 @@ if(fscreen) {
  // case 'delay':
     var delayRecallTimeline = delayRecallTask();
         delayRecallTimeline.forEach(function(delayRecallPage) {
-            experimentTimeline.push(delayRecallPage)
+            //experimentTimeline.push(delayRecallPage)
         });
   //  break;
 
@@ -175,7 +175,7 @@ var instr_delayRecall_movie = {
     show_clickable_nav: true,
 }
 
-experimentTimeline.push(instr_delayRecall_movie)
+//experimentTimeline.push(instr_delayRecall_movie)
 
 
 var delayRecall_movie = {
@@ -190,7 +190,7 @@ var delayRecall_movie = {
     //    movieContent: movieArray[0][0][1], //save description
     //},
   }
- experimentTimeline.push(delayRecall_movie);
+ //experimentTimeline.push(delayRecall_movie);
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART VII. DELAYED VOCAB QUIZ ////////////////////////////////////////////////
@@ -201,7 +201,7 @@ var instructions_vocab = {
   pages: ['<h1> Part VII. Delayed Vocabulary-Image Pair Questions </h1> <br/><p> Now you will be asked to recall the Irish language vocabulary pairs you learned earlier.</p><p> Please press Next > to continue. </p>'],
   show_clickable_nav: true
 };
-experimentTimeline.push(instructions_vocab)
+//experimentTimeline.push(instructions_vocab)
 
 imageIdxLog = [];
   for (var q = 0; q<numQuizQs; q++ ) {
@@ -254,7 +254,7 @@ imageIdxLog = [];
               },
       };
 
-      experimentTimeline.push(quiz_vocab)
+      //experimentTimeline.push(quiz_vocab)
       //console.log(quiz_vocab.responses)
   }
 
