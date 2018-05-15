@@ -18,8 +18,8 @@ var runExperiment = function (trials, options) {
 
 //MANUAL ADD (ERROR BEFORE)*********** TODO: find where overwritten with localhost
 
-var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
-var redirect_uri =  'http://127.0.0.1/redirect.html' //not registering in saved file??
+//var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+//var redirect_uri =  'http://127.0.0.1/redirect.html' //not registering in saved file??
 
 ////////////////////////////////////////////////////////////////////////////////
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
@@ -29,7 +29,7 @@ var start_time = jsPsych.startTime(); //save this
 //innerWidth and innerHeight
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
 
-
+/*
 if(mode == 'lab'){
 
     var subjectID = {
@@ -37,7 +37,7 @@ if(mode == 'lab'){
         questions: [{prompt: "Subject ID: ", value: 'BFM-1.0-MMDDYY-SN', rows: 1, columns: 20}, {prompt: "Experimenter Initials: ", value: ' ',rows: 1, columns: 7},],
     };
     experimentTimeline.push(subjectID)
-}
+}*/
 
 //switch taskName for debugging a section
 //var taskName = 'delay'; //choices: 'screen', 'practiceWord','word','movie','vocab','spatial','delay'

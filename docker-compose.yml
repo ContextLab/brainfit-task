@@ -23,8 +23,6 @@ services:
 
   psiturk:
     build: .
-    ports:
-     - 22364:22364
     volumes:
      - ./exp:/psiturk
     tty: true
@@ -32,6 +30,6 @@ services:
     restart: always
 
   adminer:
-    image: adminer
+    image: adminer:latest
     ports:
       - 127.0.0.1:8080:8080

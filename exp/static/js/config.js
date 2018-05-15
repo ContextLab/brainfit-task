@@ -13,7 +13,7 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 //var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
 //var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
 
-//testing here ****
+//testing here - replace with static IP for online use!
 var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
 
 // path to wordpool file

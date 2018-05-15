@@ -41,7 +41,7 @@ make && make install && ldconfig
 RUN pip install google-cloud
 
 # add experiment folder
-#ADD exp /psiturk/exp
+# ADD exp /psiturk/exp
 
 #add environment variable for Google credentials (?)
 #ENV GOOGLE_APPLICATION_CREDENTIALS=/psiturk/exp/google-credentials/credentials.json
