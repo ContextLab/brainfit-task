@@ -1,6 +1,6 @@
 # Dockerfile for BrainFit container
 FROM debian:stretch
-MAINTAINER Contextual Dynamics Lab <contextualdynamics@gmail.com>
+MAINTAINER Contextual Dynamics Lab <cdlbrainfit@gmail.com>
 
 # install debian-related stuff
 RUN apt-get update
@@ -25,7 +25,6 @@ requests \
 mysql-python \
 google-cloud-speech \
 psiturk \
-pydub \
 quail \
 fitbit \
 pandas \
@@ -34,9 +33,9 @@ python-dateutil \
 requests-oauthlib
 
 # install ffmpeg
-#RUN git clone https://github.com/FFmpeg/FFmpeg
-#RUN cd FFmpeg && ./configure --enable-gpl && \
-#make && make install && ldconfig
+RUN git clone https://github.com/FFmpeg/FFmpeg
+RUN cd FFmpeg && ./configure --enable-gpl && \
+make && make install && ldconfig
 
 # need google-cloud-speech version 0.30 instead of 0.32
 RUN pip install google-cloud

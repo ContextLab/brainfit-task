@@ -16,6 +16,11 @@ var runExperiment = function (trials, options) {
     //console.log(currentStimArray)
 
 
+//MANUAL ADD (ERROR BEFORE)*********** TODO: find where overwritten with localhost
+
+var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+var redirect_uri =  'http://127.0.0.1/redirect.html' //not registering in saved file??
+
 ////////////////////////////////////////////////////////////////////////////////
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

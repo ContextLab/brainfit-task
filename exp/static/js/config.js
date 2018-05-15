@@ -9,8 +9,12 @@ mode = 'lab';
 // initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
-var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
-var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
+//local testing and running *****
+//var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
+//var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
+
+//testing here ****
+var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
 
 // path to wordpool file
 var wordStimPath = 'static/files/wordpool.csv'
@@ -47,7 +51,7 @@ var expires_in //= 86400 for 1 day, 604800 for 1 week, 2592000 for 30 days, 3153
 fit_json = $.getJSON(fit_creds_loc, function (data) {
   console.log('Loading Fitbit credentials ...') //data
 }).done(function(fit_creds){ //then when done, assign vals
-
+  //console.log(fit_creds)
   console.log('Fitbit credentials loaded.')
   client_id= fit_creds['client_id']
   client_secret = fit_creds['client_secret']
@@ -55,7 +59,6 @@ fit_json = $.getJSON(fit_creds_loc, function (data) {
   redirect_uri = fit_creds['redirect_uri']
   prompt_flag = fit_creds['prompt_flag'] //currently login
   expires_in = fit_creds['expires_in'] //currently 1 day
-
   return fit_creds //if need to re-ref
 }).fail(function(){
   console.log('JSON credentials file failed to load.')

@@ -51,7 +51,7 @@ import json
 #    speech_context = [row[0] for row in reader]
 
 # audio processing package
-from pydub import AudioSegment
+#from pydub import AudioSegment
 
 # import pickle to save google speech results
 import pickle

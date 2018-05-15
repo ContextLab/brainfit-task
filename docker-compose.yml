@@ -1,8 +1,27 @@
 version: '3'
 services:
-  psiturk:
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./exp:/var/www/exp:ro
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+
+  db:
+    image: mysql:latest
+    volumes:
+     - ./data/db:/var/lib/mysql
+    restart: always
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/psiturk/google-credentials/credentials.json
+      MYSQL_ROOT_PASSWORD: psipsi
+      MYSQL_DATABASE: participants
+      MYSQL_USER: psiturk
+      MYSQL_PASSWORD: psiturk
+
+  psiturk:
     build: .
     ports:
      - 22364:22364
@@ -11,3 +30,8 @@ services:
     tty: true
     stdin_open: true
     restart: always
+
+  adminer:
+    image: adminer
+    ports:
+      - 127.0.0.1:8080:8080

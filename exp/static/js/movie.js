@@ -18,8 +18,8 @@ var movieTask = function() {
            sources: ['/static/video/' + movieArray[0][i][0]],
            //width: Math.round(window.innerWidth*0.8),
            //height: Math.round(window.innerHeight*0.8), //approximately X% of window
-            start: movieArray[0][i][2], // time to start video
-            stop: movieArray[0][i][3], //seconds
+            //start: movieArray[0][i][2], // time to start video
+            //stop: movieArray[0][i][3], //seconds
             height: 500,
             width: 880,
             //controls: true, //for debugging
