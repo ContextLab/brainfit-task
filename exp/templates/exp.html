@@ -31,6 +31,7 @@
         <script src="/static/jspsych/plugins/jspsych-survey-multi-select.js"></script>
 
         <script src="/static/jspsych/custom_plugins/jspsych-survey-multi-select-custom.js"></script>
+        <script src="/static/jspsych/custom_plugins/jspsych-survey-text-custom.js"></script>
         <script src="/static/jspsych/custom_plugins/jspsych-free-sort-static.js"></script>
         <script src="/static/jspsych/custom_plugins/jspsych-free-sort-custom.js"></script>
         <script src="/static/jspsych/custom_plugins/jspsych-free-recall.js"></script>
@@ -53,11 +54,37 @@
         var counterbalance = {{ counterbalance }}; // a number indexing counterbalancing conditions
         var adServerLoc = "{{ adServerLoc }}"; // the location of your ad (so you can send user back at end of experiment)
         var mode = "{{ mode }}";
+
+        var alltext = []; //initialize out here so wont reset
+        var allwordsrecalled =[]; //keep track of last letter
+
+        //ADDED FUNCTION: function to write text to screen upon typing for recall text
+        function writeText(val){
+        	var textval = val.value
+          var lasttextval = textval.slice(-1)[0]
+
+          if (event.which == 13 || event.which == 188 || event.which == 186 || event.which == 32 || event.which == 9 || event.which == 110){ //if return, comma, semicolon, space, tab, period
+            allwordsrecalled.push(textval) //if want to remove characters here, add this (but doesnt work for return key)//(textval.slice(0,textval.length-1)) //if enter, save what was put in the text box
+            console.log(allwordsrecalled)
+            alltext = []; //clear array of strings
+            //console.log('submit word')
+            document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed
+          }
+          // console.log(textval.slice(-1)[0])
+          // console.log(textval.keyCode)
+          // alltext.push(textval.slice(-1)[0]) //TODO: save this var to check whether changed response
+        	// //console.log(alltext.slice(-1)[0])
+          // console.log(alltext)
+
+        }
+
         </script>
 
         <!-- basic psiturk functionality -->
         <script src="/static/js/utils.js" type="text/javascript"> </script>
         <script src="/static/js/psiturk.js" type="text/javascript"> </script>
+
+
 
         <!-- experiment code/pages -->
         <script src="/static/js/config.js" type="text/javascript"> </script>
