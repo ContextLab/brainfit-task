@@ -36,6 +36,12 @@ jsPsych.plugins['survey-text-custom'] = (function() {
             default: null,
             description: 'The strings will be used to populate the response fields with editable answers.'
           },
+          recall_mode: {
+            type: jsPsych.plugins.parameterType.STRING,
+            pretty_name: 'Mode',
+            default: 'word',
+            description: 'This will switch between word recall mode and narrative recall mode.'
+          }
           // rows: {
           //   type: jsPsych.plugins.parameterType.INT,
           //   pretty_name: 'Rows',
@@ -113,10 +119,14 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       html += '<div id="jspsych-survey-text-custom-"'+i+'" class="jspsych-survey-text-custom-question" style="margin: 2em 0em;">';
       html += '<p class="jspsych-survey-text-custom">' + trial.questions[i].prompt + '</p>';
       //if(trial.questions[i].rows == 1){ //check this case too
-      html += '<input type="text" id = "recall-box" onkeyup=writeText(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+trial.questions[i].columns+'" value="'+trial.questions[i].value+'" required></input><br />';
+      if (trial.questions[i].recall_mode == 'word'){
+      html += '<input type="text" id = "recall-box" onkeyup=writeWords(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+trial.questions[i].columns+'" value="'+trial.questions[i].value+'" required></input><br />';
       //} else {
       //  html += '<textarea id = "recall-text" onkeyup=writeText(this) name="#jspsych-survey-text-custom-response-' + i + '" cols="' + trial.questions[i].columns + '" rows="' + trial.questions[i].rows + '" required>'+trial.questions[i].value+'</textarea>';
       //}
+    } else if (trial.questions[i].recall_mode == 'narrative') { //movie/story recall
+          html += '<input type="text" id = "recall-box" onkeyup=writeNarrative(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+150+'" value="'+trial.questions[i].value+'" required></input><br />';
+      }
       html += '</div>';
     }
 
@@ -138,7 +148,8 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       var matches = display_element.querySelectorAll('div.jspsych-survey-text-custom-question');
       for(var index=0; index<matches.length; index++){
         var id = "Q" + index;
-        var val = matches[index].querySelector('textarea, input').value;
+        //var val = matches[index].querySelector('textarea, input').value;
+        var val = allwordsrecalled
         var obje = {};
         obje[id] = val;
         Object.assign(question_data, obje); //TODO: update this as well to reflect unedited values
@@ -147,7 +158,13 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       var trialdata = {
         "rt": response_time,
         "responses": JSON.stringify(question_data)
+        //"words_recalled": [allwordsrecalled], //TODO: save as arrays?
+        //"text_recalled": [alltextrecalled]
       };
+
+      //NOTE: ADDED RESET or will just keep appending values in new trials
+      allwordsrecalled = []
+      //alltextrecalled =[]
 
       display_element.innerHTML = '';
 

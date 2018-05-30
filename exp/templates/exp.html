@@ -55,27 +55,38 @@
         var adServerLoc = "{{ adServerLoc }}"; // the location of your ad (so you can send user back at end of experiment)
         var mode = "{{ mode }}";
 
-        var alltext = []; //initialize out here so wont reset
+        //var alltextrecalled = []; //initialize out here so wont reset
         var allwordsrecalled =[]; //keep track of last letter
 
-        //ADDED FUNCTION: function to write text to screen upon typing for recall text
-        function writeText(val){
+        //ADDED FUNCTIONS: function to write text to screen upon typing for recall text
+        function writeWords(val){
         	var textval = val.value
-          var lasttextval = textval.slice(-1)[0]
+          //var lasttextval = textval.slice(-1)[0]
 
-          if (event.which == 13 || event.which == 188 || event.which == 186 || event.which == 32 || event.which == 9 || event.which == 110){ //if return, comma, semicolon, space, tab, period
+          if (event.which == 13) { //if return, save text as is
             allwordsrecalled.push(textval) //if want to remove characters here, add this (but doesnt work for return key)//(textval.slice(0,textval.length-1)) //if enter, save what was put in the text box
             console.log(allwordsrecalled)
-            alltext = []; //clear array of strings
+            //alltext = []; //clear array of strings
             //console.log('submit word')
+            document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
+          } else if (event.which == 188 || event.which == 186 || event.which == 32 || event.which == 9 || event.which == 190){ // if comma, semicolon, space, tab, period - remove symbol before appending
+            allwordsrecalled.push((textval.slice(0,textval.length-1)))
+            console.log(allwordsrecalled)
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed
           }
-          // console.log(textval.slice(-1)[0])
-          // console.log(textval.keyCode)
-          // alltext.push(textval.slice(-1)[0]) //TODO: save this var to check whether changed response
-        	// //console.log(alltext.slice(-1)[0])
-          // console.log(alltext)
+            //return allwordsrecalled
+        }
 
+        function writeNarrative(val){
+          var textval = val.value
+          if (event.which == 190 || event.which == 13) { //if ends in period or enter key, save sentence and clear from field
+            allwordsrecalled.push(textval) //
+            console.log(allwordsrecalled)
+            //alltext = []; //clear array of strings
+            //console.log('submit word')
+            document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
+          }
+            //return alltextrecalled
         }
 
         </script>
