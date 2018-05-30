@@ -17,6 +17,12 @@ jsPsych.plugins['survey-text-custom'] = (function() {
     name: 'survey-text-custom',
     description: '',
     parameters: {
+      recall_time: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Timer',
+        default: 60000, //60 seconds
+        description: 'Time to enter recall responses before continuing on to next page (in seconds)'
+      },
       questions: {
         type: jsPsych.plugins.parameterType.COMPLEX,
         array: true,
@@ -41,7 +47,7 @@ jsPsych.plugins['survey-text-custom'] = (function() {
             pretty_name: 'Mode',
             default: 'word',
             description: 'This will switch between word recall mode and narrative recall mode.'
-          }
+          },
           // rows: {
           //   type: jsPsych.plugins.parameterType.INT,
           //   pretty_name: 'Rows',
@@ -75,18 +81,18 @@ jsPsych.plugins['survey-text-custom'] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    if (typeof trial.questions[0].rows == 'undefined') {
-      trial.questions[0].rows = [];
-      for (var i = 0; i < trial.questions.length; i++) {
-        trial.questions[i].rows.push(1);
-      }
-    }
-    if (typeof trial.questions[0].columns == 'undefined') {
-      trial.questions[0].columns = [];
-      for (var i = 0; i < trial.questions.length; i++) {
-        trial.questions[i].columns.push(40);
-      }
-    }
+    // if (typeof trial.questions[0].rows == 'undefined') {
+    //   trial.questions[0].rows = [];
+    //   for (var i = 0; i < trial.questions.length; i++) {
+    //     trial.questions[i].rows.push(1);
+    //   }
+    // }
+    // if (typeof trial.questions[0].columns == 'undefined') {
+    //   trial.questions[0].columns = [];
+    //   for (var i = 0; i < trial.questions.length; i++) {
+    //     trial.questions[i].columns.push(40);
+    //   }
+    // }
     if (typeof trial.questions[0].value == 'undefined') {
       trial.questions[0].value = [];
       for (var i = 0; i < trial.questions.length; i++) {
@@ -120,12 +126,12 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       html += '<p class="jspsych-survey-text-custom">' + trial.questions[i].prompt + '</p>';
       //if(trial.questions[i].rows == 1){ //check this case too
       if (trial.questions[i].recall_mode == 'word'){
-      html += '<input type="text" id = "recall-box" onkeyup=writeWords(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+trial.questions[i].columns+'" value="'+trial.questions[i].value+'" required></input><br />';
+      html += '<input type="text" id = "recall-box" onkeyup=writeWords(this) style="text-transform:uppercase" name="#jspsych-survey-text-custom-response-' + i + '" size="'+50+'" value="'+trial.questions[i].value+'" required></input><br />';
       //} else {
       //  html += '<textarea id = "recall-text" onkeyup=writeText(this) name="#jspsych-survey-text-custom-response-' + i + '" cols="' + trial.questions[i].columns + '" rows="' + trial.questions[i].rows + '" required>'+trial.questions[i].value+'</textarea>';
       //}
     } else if (trial.questions[i].recall_mode == 'narrative') { //movie/story recall
-          html += '<input type="text" id = "recall-box" onkeyup=writeNarrative(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+150+'" value="'+trial.questions[i].value+'" required></input><br />';
+          html += '<input type="text" id = "recall-box" onkeyup=writeNarrative(this) style="text-transform:uppercase" name="#jspsych-survey-text-custom-response-' + i + '" size="'+150+'" value="'+trial.questions[i].value+'" required></input><br />';
       }
       html += '</div>';
     }
@@ -133,12 +139,14 @@ jsPsych.plugins['survey-text-custom'] = (function() {
     //display text already typed using jquery and read-only text area (TODO), set position next to text entry above (e.g. have text entry box move with text)
     //use onkeyup = fcn to print out html or add entered text to read-only text box
 
-    // add submit button
-    html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
+    // add submit button (removed since on timer)
+    //html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
 
     display_element.innerHTML = html;
 
-    display_element.querySelector('#jspsych-survey-text-custom-next').addEventListener('click', function() {
+
+    //display_element.querySelector('#jspsych-survey-text-custom-next').addEventListener('click', function() {
+    var recallTimer = function() {
       // measure response time
       var endTime = (new Date()).getTime();
       var response_time = endTime - startTime;
@@ -152,7 +160,7 @@ jsPsych.plugins['survey-text-custom'] = (function() {
         var val = allwordsrecalled
         var obje = {};
         obje[id] = val;
-        Object.assign(question_data, obje); //TODO: update this as well to reflect unedited values
+        Object.assign(question_data, obje); //TODO: update this to include unsubmitted values
       }
       // save data
       var trialdata = {
@@ -168,9 +176,12 @@ jsPsych.plugins['survey-text-custom'] = (function() {
 
       display_element.innerHTML = '';
 
-      // next trial
+      //save data
       jsPsych.finishTrial(trialdata);
-    });
+    };
+
+    // ADDED: move on to next trial after timer finished (set recall time in config file)
+    jsPsych.pluginAPI.setTimeout(recallTimer,trial.recall_time*1000) //needs to be converted to ms
 
     var startTime = (new Date()).getTime();
   };
