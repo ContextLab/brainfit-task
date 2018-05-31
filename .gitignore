@@ -1,0 +1,7 @@
+*.pyc
+data/*
+exp/config.txt
+exp/fitbit/*
+exp/audio/*
+exp/fitbit/.DS_Store
+exp/static/credentials/*
