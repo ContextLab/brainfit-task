@@ -18,27 +18,28 @@ var wordListTask = function() {
 
     var instructions_beginwordlist = {
             type: 'instructions',
-            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> You've passed the microphone checks! Now let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall the words from the most recent list in <b> any order</b>.</p><p>Please proceed when you are ready. </p>" ],
+            // pages: ["<h1> Part I. Word List Recall </h1>" + "<p> You've passed the microphone checks! Now let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall the words from the most recent list in <b> any order</b>.</p><p>Please proceed when you are ready. </p>" ],
+            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> Let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the prompt, type in the words from the most recent list, one at a time, in <b> any order</b>.</p><p>Please proceed to the next screen when you are ready. </p>" ],
             show_clickable_nav: true,
         }
         wordListTimeline.push(instructions_beginwordlist);
 
     for (var listNumber = 0; listNumber <= numberOfLists - 1; listNumber++) {
         currentStimArray = stimArray[listNumber];
-        console.log(currentStimArray);
+        //console.log(currentStimArray);
         wordData.listWords.push([]);
 
 
         // reminder before starting each list
         var instructions_wordlist = {
             type: 'instructions',
-            pages: ["<p>You will now view words from a word list. </p> <p> Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
+            pages: ["<p>You will now view words from a word list. </p> <p>Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
             show_clickable_nav: true,
         }
         wordListTimeline.push(instructions_wordlist);
 
         currentStimArray.forEach(function(eachWord){
-            console.log(eachWord)
+            //console.log(eachWord)
             var block_words = {
                 type: 'html-keyboard-response',
                 stimulus: "<div style='font-size:70px'>" + eachWord + "</div>",
@@ -62,43 +63,50 @@ var wordListTask = function() {
 
         var block_pre_recall = {
             type: 'instructions',
-            pages: ["<p> <b>Remember:</b> When you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall as many words from the list you just viewed, in any order. </p> <p> You will have " + recordTime + " seconds to recall as many words as you can once the icon appears.</p> <p> Please speak <strong>clearly</strong> at a distance  1-2 feet away from your computer, and pause for about 1-2 seconds between each word. </p>"],
+            pages: ["<p> <b>Remember:</b> When you see the text box prompt, type in as many words from the list you just viewed, in any order, separated by a space or comma. </p> <p> You will have " + recordTime + " seconds to recall as many words as you can before the screen progresses to the next section.</p>"],
             show_clickable_nav: true,
         }
 
         wordListTimeline.push(block_pre_recall)
 
-        //TODO: need to add microphone checks in warnings file?
+        //AUDIO
+        // var block_recall = {
+        //     type: 'free-recall',
+        //     stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
+        //     //list_number: currentListNumber,
+        //     identifier: 'wordlist-' + (listNumber+1), //save file with task and list number, shift initial 0 idx to 1
+        //     stim_duration: recordTime * 1000,
+        //     trial_duration: recordTime * 1000, // +  2000,
+        //     record_audio: true,
+        //     //speech_recognizer: 'google',
+        //     data: {
+        //         listNumber: listNumber,
+        //         list_words: currentStimArray,
+        //     },
+        //     //on_finish: function() {
+        //         //console.log('Saving data...')
+        //         /*if (mode === 'lab') {
+        //             psiTurk.saveData({
+        //                 success: function() {
+        //                     console.log('Data saved!')
+        //                 }
+        //             }) */ // not sure if need until later
+        //        // }
+        //         //*** is the following necessary?
+        //         //currentList = []; // reset currentList array
+        //         //currentTrialNumber = 0; // reset trial number counter
+        //         //currentListNumber++ // add to list counter
+        //     //}
+        //
+        //
+        // };
+
         var block_recall = {
-            type: 'free-recall',
-            stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
-            //list_number: currentListNumber,
-            identifier: 'wordlist-' + (listNumber+1), //save file with task and list number, shift initial 0 idx to 1
-            stim_duration: recordTime * 1000,
-            trial_duration: recordTime * 1000, // +  2000,
-            record_audio: true,
-            //speech_recognizer: 'google',
-            data: {
-                listNumber: listNumber,
-                list_words: currentStimArray,
-            },
-            //on_finish: function() {
-                //console.log('Saving data...')
-                /*if (mode === 'lab') {
-                    psiTurk.saveData({
-                        success: function() {
-                            console.log('Data saved!')
-                        }
-                    }) */ // not sure if need until later
-               // }
-                //*** is the following necessary?
-                //currentList = []; // reset currentList array
-                //currentTrialNumber = 0; // reset trial number counter
-                //currentListNumber++ // add to list counter
-            //}
+            type: 'survey-text-custom',
+            recall_time: recordTime, //seconds, converted to ms within the plugin
+            questions: [{prompt: '<b>Please type each word you recall from the most recent list, in any order. <p>Press Enter/Return, a space, a comma, a semicolon or period to submit each word.</p></b><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out):</p>', value: '', recall_mode: 'word'}]
+        }
 
-
-        };
         wordListTimeline.push(block_recall)
     };
 

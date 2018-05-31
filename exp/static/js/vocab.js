@@ -16,7 +16,7 @@ var vocabTask = function() {
 
     //for (var r = 0; r < vocabReps; r++){
         currentVocabArray = jsPsych.randomization.shuffleNoRepeats(stimVocabArray[0]) //issue with file output**
-        console.log(currentVocabArray);
+        //console.log(currentVocabArray);
         //vocabData.listWords.push([]);
 
         currentVocabArray.forEach(function(eachVocab){

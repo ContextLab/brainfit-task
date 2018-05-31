@@ -4,8 +4,8 @@
 
 // collects custom ID and experimenter name if run in the lab
 //mode = 'debug';
-mode = 'lab';
-
+//mode = 'lab';
+mode = 'mturk'
 // initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
@@ -14,7 +14,9 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 //var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
 
 //testing here - replace with static IP for online use!
-var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+//var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+
+var serverporturl = 'http://129.170.30.179/'
 
 // path to wordpool file
 var wordStimPath = 'static/files/wordpool.csv'
@@ -93,6 +95,7 @@ var totalListNumber = 16; // total number of lists in the loaded csv file
 var movieNumber = 1;  //number of movies to display from provided csv file
 var movieRecallSecs = 120; //number of seconds to give individuals to recall movie
 var movieShuffle = false; // flag whether want to return shuffled movie array or not
+var delayMovieRecallSecs = 100; //for delayed recall
 
 //vocab pairs
 var vocabNumber = 10; // number of word-image pairs to use, depends on provided csv file

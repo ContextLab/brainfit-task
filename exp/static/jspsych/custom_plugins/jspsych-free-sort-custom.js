@@ -159,7 +159,7 @@ jsPsych.plugins['free-sort-custom'] = (function() {
 
     display_element.querySelector('#jspsych-free-sort-custom-done-btn').addEventListener('click', function(){
 
-    if (moves.length<draggables.length) { //have boolean flag to check whether users moved shapes
+    if (moves.length<(draggables.length-1)) { //have boolean flag to check whether users moved shapes
         //alert("Please click and drag each shape to the positions just displayed."); //alert will mess up fullscreen mode
         //display_element.innerHTML += "<p style='color:red'><b>Please click and drag each shape to the positions displayed before continuing.</p></b>"
         document.getElementById("instrpro").innerHTML = "<p style='color:red'> <b>ALERT:</b> Please click and drag each shape to the positions displayed before continuing.</p>";

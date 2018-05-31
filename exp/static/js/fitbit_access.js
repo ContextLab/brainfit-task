@@ -117,7 +117,7 @@ function fitbit_data_auth(){
 
       // now set which date we want to use for data
       var retrieve_date = year_ago_date
-      console.log(retrieve_date)
+      //console.log(retrieve_date)
 
         // need to retrieve user profile to determine whether year_ago_date prior to
 
@@ -136,6 +136,7 @@ function fitbit_data_auth(){
             return data_fetch
           }).then(function(resp){
             //console.log(resp) //look at data in console
+            console.log('Profile data loaded.')
             //var fileType = 'fitbit';
             //var fileName = newuniqueId + '-' + 'profile' + '.json';//'.json'; //probably dont want to save all this info
             //var blob = new Blob([JSON.stringify(resp)], {type: "text/json"});
@@ -150,7 +151,8 @@ function fitbit_data_auth(){
               //return retrieve_date
               }
             }).then(function(respo){
-              console.log(retrieve_date) //make sure output right value
+              //console.log(retrieve_date) //make sure output right value
+              console.log('Join date loaded.')
             //}) //moved this to encompass following retrievals so have correct date before continuing
 
             //return retrieve_date
@@ -184,8 +186,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
-
+          //console.log(resp) //look at data in console
+          console.log('Daily heart rate data loaded.')
           //var blob = new Blob([resp], { type: "text/json"});
           //nf = new File([blob], "./fitbit/thisisafilename.json", {type: "text/json;charset=utf-8"});
           //console.log(nf)
@@ -243,7 +245,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Yearly heart rate data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearHR' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -279,7 +282,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Step data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearSteps' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -314,7 +318,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Distance data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearDistance' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -349,7 +354,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Floor data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearFloors' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -384,7 +390,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Elevation data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearElevation' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -419,7 +426,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Minutes sedentary loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearMinsSed' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -454,7 +462,7 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearMinsLightAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -489,7 +497,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Minutes fairly active loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearMinsFairlyAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -524,7 +533,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Minutes very active loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearMinsVeryAct' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -559,7 +569,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('All calorie data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearCalories' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -594,7 +605,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('BMR calorie data loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'yearCaloriesBMR' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -630,7 +642,8 @@ function fitbit_data_auth(){
           //console.log(data_fetch)
           return data_fetch
         }).then(function(resp){
-          console.log(resp) //look at data in console
+          //console.log(resp) //look at data in console
+          console.log('Device info loaded.')
           var fileType = 'fitbit';
           var fileName = newuniqueId + '-' + 'devices' + '.json';//'.json';
           var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -666,7 +679,8 @@ function fitbit_data_auth(){
             //console.log(data_fetch)
             return data_fetch
           }).then(function(resp){
-            console.log(resp) //look at data in console
+            //console.log(resp) //look at data in console
+            console.log('Weight data loaded.')
             var fileType = 'fitbit';
             var fileName = newuniqueId + '-' + 'yearWeight' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -701,7 +715,8 @@ function fitbit_data_auth(){
             //console.log(data_fetch)
             return data_fetch
           }).then(function(resp){
-            console.log(resp) //look at data in console
+            //console.log(resp) //look at data in console
+            console.log('BMI data loaded.')
             var fileType = 'fitbit';
             var fileName = newuniqueId + '-' + 'yearBMI' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -736,7 +751,8 @@ function fitbit_data_auth(){
             //console.log(data_fetch)
             return data_fetch
           }).then(function(resp){
-            console.log(resp) //look at data in console
+            //console.log(resp) //look at data in console
+            console.log('Body fat data loaded.')
             var fileType = 'fitbit';
             var fileName = newuniqueId + '-' + 'yearBodyFat' + '.json';//todayWeight
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -772,7 +788,8 @@ function fitbit_data_auth(){
             //console.log(data_fetch)
             return data_fetch
           }).then(function(resp){
-            console.log(resp) //look at data in console
+            //console.log(resp) //look at data in console
+            console.log('Calories consumed data loaded.')
             var fileType = 'fitbit';
             var fileName = newuniqueId + '-' + 'yearFood' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -809,7 +826,9 @@ function fitbit_data_auth(){
             //console.log(data_fetch)
             return data_fetch
           }).then(function(resp){
-            console.log(resp) //look at data in console
+            //console.log(resp) //look at data in console
+            console.log('Water data loaded.')
+
             var fileType = 'fitbit';
             var fileName = newuniqueId + '-' + 'yearWater' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});
@@ -848,7 +867,9 @@ function fitbit_data_auth(){
             //console.log(data_fetch)
             return data_fetch
           }).then(function(resp){
-            console.log(resp) //look at data in console
+            //console.log(resp) //look at data in console
+            console.log('Sleep data loaded.')
+
             var fileType = 'fitbit';
             var fileName = newuniqueId + '-' + 'yearSleep' + '.json';//'.json';
             var blob = new Blob([JSON.stringify(resp)], { type: "text/json"});

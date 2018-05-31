@@ -3,7 +3,7 @@ var nReps = 0;
 
 // create a timer function that turns off the microphone
 var startTimer = function(timeSecs) {
-    console.log("timer started")
+    console.log("Timer started. Microphone turned on.")
     setTimeout(function() {
         $(".mic").remove();
         annyang.abort();

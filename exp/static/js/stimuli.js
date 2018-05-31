@@ -142,7 +142,7 @@ var prepareWordTrials = function(wordData) {
             //console.log(shuffledStimArray)
 
             resolve(shuffledStimArray)
-            reject(console.log('word data rejected - loaded in order but not shuffled'))
+            reject(console.log('word data loaded in order but not shuffled'))
 
         })
 };
@@ -184,7 +184,7 @@ var prepareVocabTrials = function(vocabData) {
             //console.log(shuffledVocabArray) //**not resolving properly*****
 
             resolve(shuffledVocabArray)//**not resolving properly*****
-            reject(console.log('vocab data rejected - loaded in order but not shuffled'))
+            reject(console.log('vocab data loaded in order but not shuffled'))
             //console.log(stimVocabArray)
 
             // shuffle list order across subjects
@@ -241,11 +241,11 @@ var prepareMovieTrials = function(movieData) {
              //console.log(shuffledMovieArray)
 
              resolve(shuffledMovieArray)
-             reject(console.log('movie data rejected - loaded in order but not shuffled'))
+             reject(console.log('movie data loaded in order but not shuffled'))
 
             } else {
              resolve(stimMovieArray)
-             reject(console.log('movie data rejected - loaded in order but not shuffled'))
+             reject(console.log('movie data loaded in order but not shuffled'))
 
             }
         })
@@ -282,7 +282,7 @@ var prepareSpatialTrials = function(spatialData) {
                 })
 
             resolve(shuffledSpatialArray)
-            reject(console.log('spatial data rejected - loaded in order but not shuffled'))
+            reject(console.log('spatial data loaded in order but not shuffled'))
 
         })
 

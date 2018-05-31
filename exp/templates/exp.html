@@ -65,13 +65,13 @@
 
           if (event.which == 13) { //if return, save text as is
             allwordsrecalled.push(textval) //if want to remove characters here, add this (but doesnt work for return key)//(textval.slice(0,textval.length-1)) //if enter, save what was put in the text box
-            console.log(allwordsrecalled)
+            //console.log(allwordsrecalled)
             //alltext = []; //clear array of strings
             //console.log('submit word')
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
           } else if (event.which == 188 || event.which == 186 || event.which == 32 || event.which == 9 || event.which == 190){ // if comma, semicolon, space, tab, period - remove symbol before appending
             allwordsrecalled.push((textval.slice(0,textval.length-1)))
-            console.log(allwordsrecalled)
+            //console.log(allwordsrecalled)
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed
           }
             //return allwordsrecalled
@@ -81,7 +81,7 @@
           var textval = val.value
           if (event.which == 190 || event.which == 13) { //if ends in period or enter key, save sentence and clear from field
             allwordsrecalled.push(textval) //
-            console.log(allwordsrecalled)
+            //console.log(allwordsrecalled)
             //alltext = []; //clear array of strings
             //console.log('submit word')
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
@@ -107,6 +107,10 @@
         <script src="/static/js/vocab.js" type="text/javascript"> </script>
         <script src="/static/js/spatial.js" type="text/javascript"> </script>
         <script src="/static/js/delayrecall.js" type="text/javascript"> </script>
+        <script src="/static/js/delayrecallmovie.js" type="text/javascript"> </script>
+        <script src="/static/js/delayvocabquiz.js" type="text/javascript"> </script>
+        <script src="/static/js/postsurveytask.js" type="text/javascript"> </script>
+
         <script src="/static/js/experiment.js" type="text/javascript"> </script>
         <script src="/static/js/run.js" type="text/javascript"> </script>
 

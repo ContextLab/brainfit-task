@@ -137,7 +137,7 @@ jsPsych.plugins["free-recall"] = (function() {
         //display_element.innerHTML = "<p class='loading'><i class='fa fa-cog fa-spin '></i></p>";
 
         request.onreadystatechange = function() {
-          console.log(request) //debug
+          //console.log(request) //debug
           if (request.readyState == XMLHttpRequest.DONE) {
             processAndFinishTrial(request.responseText); //fails here ** replace with quail function
             //request.open("POST", "/quail_decode"); //**need to create function
@@ -160,9 +160,10 @@ jsPsych.plugins["free-recall"] = (function() {
       if (data){
         try{
           resp=JSON.parse(data);
-          console.log(resp.result) //undefined so throws error
+          //console.log(resp.result) //undefined so throws error
           trial.recalled_words = JSON.parse(resp.result)
-          console.log(trial.recalled_words)
+          //console.log(trial.recalled_words)
+          console.log('Success.')
         }catch(e){
           trial.recalled_words = [];
           console.log("Error",e)

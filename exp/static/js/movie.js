@@ -6,7 +6,7 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ['<h1> Part II. Movie </h1> <br/><p> You will now watch a short video. After the video you will be prompted to recite out loud everything you remember from the video, and then answer some questions on what you watched. </p><p>Press the button to begin playing the video.</p>'],
+      pages: ['<h1> Part II. Movie </h1> <br/><p> You will now watch a short video, an illustrated StoryCorps narrative. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p>Press the button to begin playing the video.</p>'],
         show_clickable_nav: true
     };
     movieTimeline.push(instructions_movie);
@@ -28,37 +28,44 @@ var movieTask = function() {
 
         var block_pre_movie_recall = {
             type: 'instructions',
-            pages: ["<p> You will now recite aloud everything you remember seeing in the video. When you see the <i style='color:red' class='fa fa-microphone'></i> icon on the next page, please begin. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the microphone icon to disappear to continue. </p><p> Please remember to speak <strong>clearly</strong> about 1-2 feet from your computer.</p>"],
+            pages: ["<p> You will now type sentences describing what you remember seeing in the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or a period mark. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the timer to complete and the page will automatically redirect. </p>"],
             show_clickable_nav: true,
         }
 
         movieTimeline.push(block_pre_movie_recall)
 
+        // AUDIO
+        // var recall_movie = {
+        //     type: 'free-recall',
+        //     stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
+        //     //list_number: movieNumber,
+        //     stim_duration: movieRecallSecs * 1000,
+        //     trial_duration: movieRecallSecs * 1000, // +  2000,
+        //     record_audio: true,
+        //     identifier: 'movie-' + movieNumber, //save file with task and number
+        //     //speech_recognizer: 'google', //later functionality
+        //     data: {
+        //         movieFile: movieArray[0][i][0],
+        //         movieContent: movieArray[0][i][1], //save description
+        //     },
+        //     //on_finish: function() {
+        //         //console.log('Saving data...')
+        //         /*if (mode === 'lab') {
+        //             psiTurk.saveData({
+        //                 success: function() {
+        //                     console.log('Data saved!')
+        //                 }
+        //             })
+        //         }*/
+        //     //}
+        // }
 
-        var recall_movie = {
-            type: 'free-recall',
-            stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
-            //list_number: movieNumber,
-            stim_duration: movieRecallSecs * 1000,
-            trial_duration: movieRecallSecs * 1000, // +  2000,
-            record_audio: true,
-            identifier: 'movie-' + movieNumber, //save file with task and number
-            //speech_recognizer: 'google', //later functionality
-            data: {
-                movieFile: movieArray[0][i][0],
-                movieContent: movieArray[0][i][1], //save description
-            },
-            //on_finish: function() {
-                //console.log('Saving data...')
-                /*if (mode === 'lab') {
-                    psiTurk.saveData({
-                        success: function() {
-                            console.log('Data saved!')
-                        }
-                    })
-                }*/
-            //}
-        }
+         var recall_movie = {
+             type: 'survey-text-custom',
+             recall_time: recordTime, //seconds, converted to ms within the plugin
+             questions: [{prompt: '<b>Please type sentences of what you remember happening in the video you just watched. <p>Press Enter/Return or a period to submit each sentence.</p><p>(NOTE: the sentence will disappear once submitted and the screen will progress once time has run out)</p> </b>', value: '', recall_mode: 'narrative'}]
+         }
+
          movieTimeline.push(recall_movie);
 
          //for(var q = 2; q < movieArray[0][i].length) { //assuming 3 qs for each movie

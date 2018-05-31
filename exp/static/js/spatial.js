@@ -9,7 +9,7 @@ var spatialTask = function() {
     for (var i = 0; i< maxSpatialNumber+1; i++){ //number of images to display
         spatialImages.push(imageDir+stimSpatialArray[0][i])
     };
-        console.log(spatialImages)
+        //console.log(spatialImages)
 
 
     var instructions_spatial = {

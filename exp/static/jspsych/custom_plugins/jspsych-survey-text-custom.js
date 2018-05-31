@@ -1,5 +1,5 @@
 /**
- * jspsych-survey-text
+ * code based on jspsych-survey-text
  * a jspsych plugin for free response survey questions
  *
  * Josh de Leeuw
@@ -8,6 +8,7 @@
  *
  */
 
+//set up for recording uneditable free-recall text
 
 jsPsych.plugins['survey-text-custom'] = (function() {
 
@@ -131,13 +132,11 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       //  html += '<textarea id = "recall-text" onkeyup=writeText(this) name="#jspsych-survey-text-custom-response-' + i + '" cols="' + trial.questions[i].columns + '" rows="' + trial.questions[i].rows + '" required>'+trial.questions[i].value+'</textarea>';
       //}
     } else if (trial.questions[i].recall_mode == 'narrative') { //movie/story recall
-          html += '<input type="text" id = "recall-box" onkeyup=writeNarrative(this) style="text-transform:uppercase" name="#jspsych-survey-text-custom-response-' + i + '" size="'+150+'" value="'+trial.questions[i].value+'" required></input><br />';
+          html += '<input type="text" id = "recall-box" onkeyup=writeNarrative(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+150+'" value="'+trial.questions[i].value+'" required></input><br />';
       }
       html += '</div>';
     }
 
-    //display text already typed using jquery and read-only text area (TODO), set position next to text entry above (e.g. have text entry box move with text)
-    //use onkeyup = fcn to print out html or add entered text to read-only text box
 
     // add submit button (removed since on timer)
     //html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
