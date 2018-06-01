@@ -6,7 +6,7 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ['<h1> Part II. Movie </h1> <br/><p> You will now watch a short video, an illustrated StoryCorps narrative. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p>Press the button to begin playing the video.</p>'],
+      pages: ['<h1> Part II. Video </h1> <br/><p> You will now watch an illustrated StoryCorps narrative video. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p><b>NOTE: </b>Please make sure your volume is turned on for this section.</p><p>Press the button to begin playing the video.</p>'],
         show_clickable_nav: true
     };
     movieTimeline.push(instructions_movie);
@@ -63,25 +63,36 @@ var movieTask = function() {
          var recall_movie = {
              type: 'survey-text-custom',
              recall_time: recordTime, //seconds, converted to ms within the plugin
-             questions: [{prompt: '<b>Please type sentences of what you remember happening in the video you just watched. <p>Press Enter/Return or a period to submit each sentence.</p><p>(NOTE: the sentence will disappear once submitted and the screen will progress once time has run out)</p> </b>', value: '', recall_mode: 'narrative'}]
+             questions: [{prompt: 'Please type sentences of what you remember happening in the video you just watched. <p>Press Enter/Return or a period to submit each sentence.</p><p>(<b>NOTE: </b> The sentence will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'narrative'}]
          }
 
          movieTimeline.push(recall_movie);
 
          //for(var q = 2; q < movieArray[0][i].length) { //assuming 3 qs for each movie
 
-        //TODO: determine number of questions from length of array, use that to increment rather than hard-code
+        //create array of questions from length of csv file row
+        var numBeginningVals = 4 //number corresponding to non-question columns before questions start
+        qArray = [{prompt: 'Have you seen this movie before?', options: ['Yes','No'], required: true }] //initial question
+        //create array of prompts for survey-multi-choice with loop
+        for (var q = numBeginningVals; q < (movieArray[0][i].length) ; q += 2 ){ //exclude first 4 since descriptors, increment evey other since ordered question, response, question, response
+          nextQ = {prompt: movieArray[0][i][q], options: movieArray[0][i][q+1].split(','), required:true}
+          qArray.push(nextQ) //add this new question value to the array
+        }
+
 
             var quiz_movie = {
               type: 'survey-multi-choice',
-              preamble: 'Now answer the following questions on the movie you just viewed.',
-              questions: [
-                  {prompt: 'Have you seen this movie before?', options: ['Yes','No'], required: true },
-                  {prompt: movieArray[0][i][4], options: movieArray[0][i][5].split(','), required:true}, {prompt: movieArray[0][i][6], options: movieArray[0][i][7].split(','), required: true},
-                  {prompt: movieArray[0][i][8], options: movieArray[0][i][9].split(','), required: true},
-              ],
+              preamble: '<b>Now answer the following questions on the movie you just viewed.</b>',
+              questions: qArray,
             };
             movieTimeline.push(quiz_movie);
+
+//              questions: [
+//                   {prompt: 'Have you seen this movie before?', options: ['Yes','No'], required: true },
+//                   {prompt: movieArray[0][i][4], options: movieArray[0][i][5].split(','), required:true},
+//                   {prompt: movieArray[0][i][6], options: movieArray[0][i][7].split(','), required: true},
+//                   {prompt: movieArray[0][i][8], options: movieArray[0][i][9].split(','), required: true},
+//               ],
 
          //}
      }
