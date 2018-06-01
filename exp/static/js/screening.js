@@ -2,13 +2,12 @@ var screeningPages = function() {
 
     var screeningTimeline = [];
 
-    var instructions_main = {
+    var instructions_screening = {
         type: 'instructions',
-        pages: ['<h1> Thank you for participating in our study! </h1> <p> We are interested in how memories for different types of information are related, and how memory is affected by fitness and exercise. </p><p>First, you will be asked to provide authorization to your fitness tracker data (specifically, Fitbit). Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering.</p><p> Next, you will be presented with several short memory tasks, with task-specific instructions provided at the start of each section. </p>',
-        '<h1>Task Overview </h1> <p> The first task involves learning and reciting aloud words from visually-presented word lists. </p> <p> The second task requires viewing a short movie, reciting what you recall from the video, and answering questions on the video content. </p> <p> The third task involves remembering and matching foreign language vocabulary-image pairs. </p> <p> For the fourth task, you will use the mouse to drag and drop shapes on the screen to match the presented arrangement. </p><p> The entire experiment should take approximately 40-50 minutes. Please press Next > to proceed to the initial screening section. </p>', ],
+        pages: ['<h1>Survey Questions</h1><p>Now you will answer a few survey questions before beginning the experiment. Press Next to begin this section.</p>'],
         show_clickable_nav: true
     };
-    screeningTimeline.push(instructions_main);
+    screeningTimeline.push(instructions_screening);
 
     //initialize options for all screening questions
     var options_age = ['18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75 and older']; // TODO: dropdown list
@@ -24,9 +23,9 @@ var screeningPages = function() {
     var options_residence = ['Rural','Small town','Suburban','Small city','Large city'];
     var options_stressed = ['Very stressed','A little stressed','Neutral','A little relaxed','Very relaxed'];
     var options_school = ['Some high school', 'High school graduate', "Associate's Degree", 'Some college', 'College graduate', 'Some graduate training', "Master's degree", 'Doctorate','Other Graduate/Professional School']
-    var options_exercise_motiv = ['Physical Health', 'Mental Health/Wellness', 'Social Reasons', 'External Pressure (Friends, Family, Partner)', 'Feel like I should']
+    var options_exercise_motiv = ['Physical Health', 'Mental Health/Wellness', 'Social Reasons', 'External Pressure (Friends, Family, Partner)', 'Feel Like I Should']
     var options_fit_wear = ['Every Day','Most Days','Some Days','Rarely']
-    var options_fitbit_feats = ['Activity Recording/Logging','Sleep Tracking','Food Logs','Water Logs','Weight Logs','Challenges/Badges','Guidance Feature','Community/Social','Alarms/Reminders/Notifcations',]
+    var options_fitbit_feats = ['Activity Recording/Logging','Sleep Tracking','Food Logs','Water Logs','Weight Logs','Challenges/Badges','Guidance Feature','Community/Social','Alarms/Reminders/Notifications',]
 
 
     var block_screening_p1 = {
@@ -114,7 +113,7 @@ var screeningPages = function() {
                     {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},
                     {prompt: '<b>What motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
                     {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,},
-                    {prompt: '<b>Have you synced your fitness tracker data to your app today, or is your phone`s Bluetooth currently on?</b>', options: ['Yes','No'], required:true,},
+                    {prompt: '<b>Have you synced your fitness tracker data to your app today?</b>', options: ['Yes','No'], required:true,},
                   ]
     };
 

@@ -28,7 +28,7 @@ var movieTask = function() {
 
         var block_pre_movie_recall = {
             type: 'instructions',
-            pages: ["<p> You will now type sentences describing what you remember seeing in the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or a period mark. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the timer to complete and the page will automatically redirect. </p>"],
+            pages: ["<p> You will now type sentences describing what you remember from the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or the period key. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the timer to complete and the page to automatically redirect. </p>"],
             show_clickable_nav: true,
         }
 

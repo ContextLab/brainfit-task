@@ -44,7 +44,7 @@ var delayRecallTask = function() {
     var block_delayrecall = {
         type: 'survey-text-custom',
         recall_time: delayRecordTime, //seconds, converted to ms within the plugin
-        questions: [{prompt: '<b>Please type each word you recall from the most recent list, in any order. <p>Press Enter/Return, a space, a comma, a semicolon or period to submit each word.</p><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out):</p> </b>', value: '', recall_mode: 'word'}]
+        questions: [{prompt: '<b>Please type each word you recall from all earlier word lists, in any order. <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p></b><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'word'}]
     }
 
     delayRecallTimeline.push(block_delayrecall)

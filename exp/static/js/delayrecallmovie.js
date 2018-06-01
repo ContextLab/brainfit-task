@@ -2,7 +2,7 @@ var delayRecallMovieTask = function() {
     var delayRecallMovieTimeline = [];
     var instr_delayRecall_movie = {
         type: 'instructions',
-        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> You will now recall what you remember seeing in the short movie you viewed earlier.</p> <p> When you see the prompt on the next page, please type what you recall from this video. You will have " + delayMovieRecallSecs + " seconds to complete this recall. </p><p> Please remember to speak <strong>clearly</strong> about 1-2 feet from your computer.</p>"],
+        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> You will now recall what you remember seeing in the short movie you viewed earlier.</p> <p> When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + delayMovieRecallSecs + " seconds to complete this section. </p>"],
         show_clickable_nav: true,
     }
     delayRecallMovieTimeline.push(instr_delayRecall_movie)
@@ -24,7 +24,7 @@ var delayRecallMovieTask = function() {
      var delayRecall_movie = {
          type: 'survey-text-custom',
          recall_time: delayMovieRecallSecs, //seconds, converted to ms within the plugin
-         questions: [{prompt: '<b>Please type sentences of what you remember happening in the video you watched earlier. <p>Press Enter/Return or a period to submit each sentence.</p><p>(NOTE: the sentence will disappear once submitted and the screen will progress once time has run out)</p> </b>', value: '', recall_mode: 'narrative'}]
+         questions: [{prompt: '<b>Please type sentences of what you remember happening in the video you watched earlier. <p>Press Enter/Return or a period to submit each sentence.</p></b><p>(NOTE: the sentence will disappear once submitted and the screen will progress once time has run out)</p> ', value: '', recall_mode: 'narrative'}]
      }
 
      delayRecallMovieTimeline.push(delayRecall_movie);

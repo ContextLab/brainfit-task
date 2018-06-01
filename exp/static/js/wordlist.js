@@ -19,7 +19,7 @@ var wordListTask = function() {
     var instructions_beginwordlist = {
             type: 'instructions',
             // pages: ["<h1> Part I. Word List Recall </h1>" + "<p> You've passed the microphone checks! Now let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall the words from the most recent list in <b> any order</b>.</p><p>Please proceed when you are ready. </p>" ],
-            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> Let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the prompt, type in the words from the most recent list, one at a time, in <b> any order</b>.</p><p>Please proceed to the next screen when you are ready. </p>" ],
+            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> The first task involves remembering and recalling words presented on the screen. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the text box prompt, type in the words from the most recent list, one at a time, in <b> any order</b>. To submit each word, press the Enter/Return key, spacebar, or the comma key. </p><p>Please proceed to the next screen when you are ready to begin viewing the words from the first list. </p>" ],
             show_clickable_nav: true,
         }
         wordListTimeline.push(instructions_beginwordlist);
@@ -63,7 +63,7 @@ var wordListTask = function() {
 
         var block_pre_recall = {
             type: 'instructions',
-            pages: ["<p> <b>Remember:</b> When you see the text box prompt, type in as many words from the list you just viewed, in any order, separated by a space or comma. </p> <p> You will have " + recordTime + " seconds to recall as many words as you can before the screen progresses to the next section.</p>"],
+            pages: ["<p> <b>Remember:</b> When you see the text box prompt, type as many words from the list you just viewed in any order, separated by pressing the Enter/Return key, spacebar, or the comma key. </p> <p> You will have " + recordTime + " seconds to recall as many words as you can before the screen progresses.</p>"],
             show_clickable_nav: true,
         }
 
@@ -104,7 +104,7 @@ var wordListTask = function() {
         var block_recall = {
             type: 'survey-text-custom',
             recall_time: recordTime, //seconds, converted to ms within the plugin
-            questions: [{prompt: '<b>Please type each word you recall from the most recent list, in any order. <p>Press Enter/Return, a space, a comma, a semicolon or period to submit each word.</p></b><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out):</p>', value: '', recall_mode: 'word'}]
+            questions: [{prompt: '<b>Please type each word you recall from the most recent list, in any order. <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p></b><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'word'}]
         }
 
         wordListTimeline.push(block_recall)

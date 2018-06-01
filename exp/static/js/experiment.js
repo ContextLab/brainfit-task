@@ -5,7 +5,7 @@ var stimMovieArray = [];
 var stimSpatialArray = [];
 
 var fscreen = true; //toggle fullscreen, otherwise will resize to % of screen size
-var fitbitSuccess = false; //don't initially have fitbit data so will be false
+var fitbitSuccess = false; //don't initially have users' fitbit data so will be false
 
 var runExperiment = function (trials, options) {
     stimArray = trials[0];
@@ -13,7 +13,6 @@ var runExperiment = function (trials, options) {
     movieArray = trials[2];
     spatialArray = trials[3];
 
-    //console.log(currentStimArray)
 
 ////////////////////////////////////////////////////////////////////////////////
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
@@ -21,6 +20,8 @@ var runExperiment = function (trials, options) {
 
 var start_time = jsPsych.startTime(); //save this
 //innerWidth and innerHeight
+
+//in case exit fullscreen, have a default large screen size
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
 
 /*
@@ -33,12 +34,15 @@ if(mode == 'lab'){
     experimentTimeline.push(subjectID)
 }*/
 
-//switch taskName for debugging a section
-//var taskName = 'delay'; //choices: 'screen', 'practiceWord','word','movie','vocab','spatial','delay'
 
- //switch(taskName) {  //comment out switch/cases when done debugging
+var instructions_main = {
+    type: 'instructions',
+    pages: ['<h1> Thank you for participating in our study! </h1> <p> We are interested in how memories for different types of information are related, and how memory is affected by fitness and exercise. </p><p>First, you will be asked to provide authorization to your fitness tracker data (specifically, Fitbit).</p><p> Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering.</p><p> Next, you will be presented with several short memory tasks, with task-specific instructions provided at the start of each section. </p>',
+    '<h1>Task Overview </h1> <p> The first task involves learning and recalling visually-presented words from four lists. </p> <p> The second task requires viewing a short movie, reciting what you recall from the video, and answering questions on the video content. </p> <p> The third task involves remembering and matching foreign language vocabulary-image pairs. </p> <p> For the fourth task, you will use the mouse to drag and drop shapes on the screen to match the presented arrangement of these shapes. </p><p> The entire experiment should take approximately an hour. Please press Next > to proceed to the Fitbit authorization page. </p>', ],
+    show_clickable_nav: true
+};
+experimentTimeline.push(instructions_main);
 
-/*
 
 // create initial fitbit timeline as early exclusion (if dont authorize data)
 w = false;
@@ -64,103 +68,84 @@ var block_fitbit = {
 experimentTimeline.push(block_fitbit);
 
 //now can make fullscreen once fitbit data provided (otherwise popup will disrupt authorization process)
-
 if(fscreen) {
   //fullscreen mode
   experimentTimeline.push({
     type: 'fullscreen',
+    message: '<p>Press the following button to enter fullscreen mode and remain in fullscreen for the duration of the task.</p>',
+    button_label: 'Enter Fullscreen',
     fullscreen_mode: true
    });
   }
 
- // case 'screen':
-    var screeningTimeline = screeningPages();
-    screeningTimeline.forEach(function(screeningPage) {
-            experimentTimeline.push(screeningPage)
-            //console.log('skipped screening')
-        });
-    //break;
+////////////////////////////////////////////////////////////////////////////////
+// SURVEY Q'S //////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+var screeningTimeline = screeningPages();
+screeningTimeline.forEach(function(screeningPage) {
+        experimentTimeline.push(screeningPage)
+        //console.log('skipped screening')
+    });
 
 ////////////////////////////////////////////////////////////////////////////////
-// PART 0. WORD LIST FREE RECALL PRACTICE /////////////////////////////////////
+// WORD LIST FREE RECALL PRACTICE //////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 //NOTE: only include if recording audio (presently only in-lab tasks)
 /*
- // case 'practiceWord':
    var wordListPracticeTimeline = wordListPractice();
         wordListPracticeTimeline.forEach(function(wordListPracticePage) {
             experimentTimeline.push(wordListPracticePage)
         });
-   // break;
 //} // only run screening, fullscreen, and word list practice if in lab mode
 */
 
-
-/*
 ////////////////////////////////////////////////////////////////////////////////
-// PART I. WORD LIST FREE RECALL TASK /////////////////////////////////////////
+// PART I. WORD LIST FREE RECALL TASK //////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
- // case 'word':
-    var wordListTimeline = wordListTask();
-        wordListTimeline.forEach(function(wordListPage) {
-            experimentTimeline.push(wordListPage)
-        });
 
-   // break;
+  var wordListTimeline = wordListTask();
+      wordListTimeline.forEach(function(wordListPage) {
+          experimentTimeline.push(wordListPage)
+      });
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART II. MOVIE //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
- // case 'movie':
     var movieTimeline = movieTask();
       movieTimeline.forEach(function(moviePage) {
           experimentTimeline.push(moviePage)
       });
-   // break;
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART III. VOCABULARY-IMAGE PAIRS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-
- // case 'vocab':
       var vocabTimeline = vocabTask();
         vocabTimeline.forEach(function(vocabPage) {
             experimentTimeline.push(vocabPage)
         });
-   //break;
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART IV. SPATIAL TASK ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
- // case 'spatial':
     var spatialTimeline = spatialTask();
         spatialTimeline.forEach(function(spatialPage) {
             experimentTimeline.push(spatialPage)
         });
 
- // break;
-
 ////////////////////////////////////////////////////////////////////////////////
 // PART V. DELAYED WORD FREE RECALL ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
- // case 'delay':
     var delayRecallTimeline = delayRecallTask();
         delayRecallTimeline.forEach(function(delayRecallPage) {
             experimentTimeline.push(delayRecallPage)
         });
-  //  break;
-
-// } //switch end
-
-//added in following sections before debrief to extend duration of study (TODO: split into separate functions instead of in-line text)
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART VI. DELAYED MOVIE RECALL ///////////////////////////////////////////////
@@ -202,12 +187,12 @@ var delayVocabQuizTimeline = delayVocabQuizTask();
 //     };
 //experimentTimeline.push(stress_survey);
 
-*/
+
 ////////////////////////////////////////////////////////////////////////////////
 // POST-SURVEY /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//get feedback on task design (optional?)
+//get feedback on task design
 
 var postSurveyTimeline = postSurveyTask();
     postSurveyTimeline.forEach(function(postSurveyTaskPage) {
@@ -219,7 +204,7 @@ var postSurveyTimeline = postSurveyTask();
 // DEBRIEFING & WRAPUP /////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//need to save data when reaches this screen, or next ***
+//need to save data
 
 var block_debrief = {
     type: "instructions",
