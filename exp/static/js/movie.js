@@ -7,9 +7,9 @@ var movieTask = function() {
     var instructions_movie = {
       type: 'instructions',
       pages: ['<h1> Part II. Video </h1> <br/><p> You will now watch an illustrated StoryCorps narrative video. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p><b>NOTE: </b>Please make sure your volume is turned on for this section.</p><p>Press the button to begin playing the video.</p>'],
-        show_clickable_nav: true
+      show_clickable_nav: true
     };
-    movieTimeline.push(instructions_movie);
+    movieTimeline.push(instructions_movie); //debug
 
     for (var i = 0; i< movieNumber; i++){ //TODO: add randomization feature for movie stimuli
         var block_movie = {
@@ -24,7 +24,7 @@ var movieTask = function() {
             width: 880,
             //controls: true, //for debugging
         };
-        movieTimeline.push(block_movie);
+        movieTimeline.push(block_movie); //debug
 
         var block_pre_movie_recall = {
             type: 'instructions',
@@ -62,11 +62,19 @@ var movieTask = function() {
 
          var recall_movie = {
              type: 'survey-text-custom',
-             recall_time: recordTime, //seconds, converted to ms within the plugin
+             recall_time: movieRecallSecs, //seconds, converted to ms within the plugin
              questions: [{prompt: 'Please type sentences of what you remember happening in the video you just watched. <p>Press Enter/Return or a period to submit each sentence.</p><p>(<b>NOTE: </b> The sentence will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'narrative'}]
          }
 
          movieTimeline.push(recall_movie);
+
+         //page inbetween
+         var instructions_movie_q = {
+           type: 'instructions',
+           pages: ['Now you will answer questions on the movie you just viewed.<p>Press the Next button to continue.</p>'],
+           show_clickable_nav: true
+         }
+         movieTimeline.push(instructions_movie_q)
 
          //for(var q = 2; q < movieArray[0][i].length) { //assuming 3 qs for each movie
 
@@ -80,12 +88,11 @@ var movieTask = function() {
         }
 
 
-            var quiz_movie = {
-              type: 'survey-multi-choice',
-              preamble: '<b>Now answer the following questions on the movie you just viewed.</b>',
-              questions: qArray,
-            };
-            movieTimeline.push(quiz_movie);
+          var quiz_movie = {
+            type: 'survey-multi-choice',
+            questions: qArray,
+          };
+          movieTimeline.push(quiz_movie);
 
 //              questions: [
 //                   {prompt: 'Have you seen this movie before?', options: ['Yes','No'], required: true },

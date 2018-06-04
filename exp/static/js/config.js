@@ -93,7 +93,7 @@ var totalListNumber = 16; // total number of lists in the loaded csv file
 
 //movie
 var movieNumber = 1;  //number of movies to display from provided csv file
-var movieRecallSecs = 120; //number of seconds to give individuals to recall movie
+var movieRecallSecs = 180; //number of seconds to give individuals to recall movie
 var movieShuffle = false; // flag whether want to return shuffled movie array or not
 var delayMovieRecallSecs = 100; //for delayed recall
 

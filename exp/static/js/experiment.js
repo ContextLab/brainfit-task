@@ -18,13 +18,19 @@ var runExperiment = function (trials, options) {
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-var start_time = jsPsych.startTime(); //save this
+//record start date and time of experiment to associate with fitbit data 
+var getDateTime = {
+    type: 'datetime',
+};
+
+experimentTimeline.push(getDateTime)
+
 //innerWidth and innerHeight
 
 //in case exit fullscreen, have a default large screen size
 window.resizeTo(Math.round(window.screen.availWidth*0.8), Math.round(window.screen.availHeight*0.95));
 
-/*
+/* //uncomment if running in lab
 if(mode == 'lab'){
 
     var subjectID = {

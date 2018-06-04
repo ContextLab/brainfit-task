@@ -156,17 +156,18 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       for(var index=0; index<matches.length; index++){
         var id = "Q" + index;
         //var val = matches[index].querySelector('textarea, input').value;
-        var val = allwordsrecalled
+        allwordsrecalled.push(matches[index].querySelector('textarea, input').value)
+        allwordtimings.push(Date.now()) //add end time
+        var val = allwordsrecalled //also add in whatever was left in text entry area
         var obje = {};
         obje[id] = val;
-        Object.assign(question_data, obje); //TODO: update this to include unsubmitted values
+        Object.assign(question_data, obje);
       }
       // save data
       var trialdata = {
         "rt": response_time,
-        "responses": JSON.stringify(question_data)
-        //"words_recalled": [allwordsrecalled], //TODO: save as arrays?
-        //"text_recalled": [alltextrecalled]
+        "responses": JSON.stringify(question_data), //typed responses
+        "response_times": allwordtimings //array of response times
       };
 
       //NOTE: ADDED RESET or will just keep appending values in new trials

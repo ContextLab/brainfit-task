@@ -36,6 +36,7 @@
         <script src="/static/jspsych/custom_plugins/jspsych-free-sort-custom.js"></script>
         <script src="/static/jspsych/custom_plugins/jspsych-free-recall.js"></script>
         <script src="/static/jspsych/custom_plugins/jspsych-call-function-custom.js"></script>
+        <script src="/static/jspsych/custom_plugins/jspsych-datetime.js"></script>        
 
         <script src="/static/jspsych/plugins/jspsych-form.js"></script>
         <script src="/static/jspsych/plugins/jspsych-animation.js"></script>
@@ -56,7 +57,8 @@
         var mode = "{{ mode }}";
 
         //var alltextrecalled = []; //initialize out here so wont reset
-        var allwordsrecalled =[]; //keep track of last letter
+        var allwordsrecalled = []; //keep track of last letter
+        var allwordtimings = []; //keep track of timing
 
         //ADDED FUNCTIONS: function to write text to screen upon typing for recall text
         function writeWords(val){
@@ -65,13 +67,18 @@
 
           if (event.which == 13) { //if return, save text as is
             allwordsrecalled.push(textval) //if want to remove characters here, add this (but doesnt work for return key)//(textval.slice(0,textval.length-1)) //if enter, save what was put in the text box
-            //console.log(allwordsrecalled)
+            console.log(allwordsrecalled)
+            allwordtimings.push(Date.now()) //get times of word submissions
+            console.log(allwordtimings)
+
             //alltext = []; //clear array of strings
             //console.log('submit word')
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
           } else if (event.which == 188 || event.which == 186 || event.which == 32 || event.which == 9 || event.which == 190){ // if comma, semicolon, space, tab, period - remove symbol before appending
             allwordsrecalled.push((textval.slice(0,textval.length-1)))
-            //console.log(allwordsrecalled)
+            console.log(allwordsrecalled)
+            allwordtimings.push(Date.now())
+            console.log(allwordtimings)
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed
           }
             //return allwordsrecalled
@@ -81,7 +88,10 @@
           var textval = val.value
           if (event.which == 190 || event.which == 13) { //if ends in period or enter key, save sentence and clear from field
             allwordsrecalled.push(textval) //
-            //console.log(allwordsrecalled)
+            console.log(allwordsrecalled)
+            //also get timestamps
+            allwordtimings.push(Date.now())
+            console.log(allwordtimings)
             //alltext = []; //clear array of strings
             //console.log('submit word')
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
@@ -94,8 +104,6 @@
         <!-- basic psiturk functionality -->
         <script src="/static/js/utils.js" type="text/javascript"> </script>
         <script src="/static/js/psiturk.js" type="text/javascript"> </script>
-
-
 
         <!-- experiment code/pages -->
         <script src="/static/js/config.js" type="text/javascript"> </script>
