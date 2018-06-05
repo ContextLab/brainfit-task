@@ -119,59 +119,41 @@ function fitbit_data_auth(){
       var retrieve_date = year_ago_date
       //console.log(retrieve_date)
 
-        // need to retrieve user profile to determine whether year_ago_date prior to
+        // comment back in if need to retrieve user profile to determine whether year_ago_date prior to
 
         ////////// RETRIEVE USER'S START DATE FROM PROFILE ////////
-        fetch('https://api.fitbit.com/1/user/-/profile.json',
-              {
-                method: 'GET',
-                headers: new Headers({
-                  'Authorization': 'Bearer ' + access_token
-                }),
-                //mode:'cors',
-              }
-          ).then(function(response){
-            data_fetch = response.json()
-            //console.log(data_fetch)
-            return data_fetch
-          }).then(function(resp){
-            //console.log(resp) //look at data in console
-            console.log('Profile data loaded.')
-            //var fileType = 'fitbit';
-            //var fileName = newuniqueId + '-' + 'profile' + '.json';//'.json'; //probably dont want to save all this info
-            //var blob = new Blob([JSON.stringify(resp)], {type: "text/json"});
-            jsonResp =  resp //JSON.stringify(resp)
-            //console.log(jsonResp)
-            //console.log(jsonResp['user']['memberSince'])
-            prof_date = jsonResp['user']['memberSince']
-            if(new Date(prof_date) > new Date(retrieve_date)){
-              retrieve_date = prof_date // if the user joined more recently than the retrieval date, use the profile date instead
-              //console.log(prof_date)
-              //console.log(retrieve_date)
-              //return retrieve_date
-              }
-            }).then(function(respo){
-              //console.log(retrieve_date) //make sure output right value
-              console.log('Join date loaded.')
-            //}) //moved this to encompass following retrievals so have correct date before continuing
+        // fetch('https://api.fitbit.com/1/user/-/profile.json',
+        //       {
+        //         method: 'GET',
+        //         headers: new Headers({
+        //           'Authorization': 'Bearer ' + access_token
+        //         }),
+        //         //mode:'cors',
+        //       }
+        //   ).then(function(response){
+        //     data_fetch = response.json()
+        //     //console.log(data_fetch)
+        //     return data_fetch
+        //   }).then(function(resp){
+            // //console.log(resp) //look at data in console
+            // console.log('Profile data loaded.')
+            // //var fileType = 'fitbit';
+            // //var fileName = newuniqueId + '-' + 'profile' + '.json';//'.json'; //probably dont want to save all this info
+            // //var blob = new Blob([JSON.stringify(resp)], {type: "text/json"});
+            // jsonResp =  resp //JSON.stringify(resp)
+            // //console.log(jsonResp)
+            // //console.log(jsonResp['user']['memberSince'])
+            // prof_date = jsonResp['user']['memberSince']
+            // if(new Date(prof_date) > new Date(retrieve_date)){
+            //   retrieve_date = prof_date // if the user joined more recently than the retrieval date, use the profile date instead
+            //   //console.log(prof_date)
+            //   //console.log(retrieve_date)
+            //   //return retrieve_date
+            //   }
+            // }).then(function(respo){
+            //   //console.log(retrieve_date) //make sure output right value
+            //   console.log('Join date loaded.')
 
-            //return retrieve_date
-            //var formData = new FormData();
-            //formData.append(fileType + '-filename', fileName);
-            //formData.append(fileType + '-foldername', newuniqueId);
-            //formData.append(fileType + '-blob', blob);
-
-            //var request = new XMLHttpRequest();
-            //request.timeout = 30000; //60000; // time in milliseconds
-
-            //request.open("POST", "/save-fitbit");
-            //request.send(formData);
-
-            //request.onreadystatechange = function() {
-              //console.log(request) //debug
-            //}
-        //})
- //DEBUG START
       ////////// RETRIEVE TODAY'S HEART RATE DATA  ////////
       fetch('https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json',
             {
@@ -267,7 +249,6 @@ function fitbit_data_auth(){
           //}
       })
 
-//DEBUG START 2
       ////////// RETRIEVE SUMMARY STEP DATA  ///////////
       fetch('https://api.fitbit.com/1/user/-/activities/steps/date/'+ retrieve_date + '/today.json',
             {
@@ -890,10 +871,9 @@ function fitbit_data_auth(){
           //  }
         })
         //return resp
- //DEBUG END
 })
       //}
   }
-)} //maybe make into IEF
+//)} 
 
 fitbit_data_auth() //return success or failure flag
