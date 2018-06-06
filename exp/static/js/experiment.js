@@ -18,7 +18,7 @@ var runExperiment = function (trials, options) {
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//record start date and time of experiment to associate with fitbit data 
+//record start date and time of experiment to associate with fitbit data
 var getDateTime = {
     type: 'datetime',
 };

@@ -24,6 +24,12 @@ jsPsych.plugins['survey-text-custom'] = (function() {
         default: 60000, //60 seconds
         description: 'Time to enter recall responses before continuing on to next page (in seconds)'
       },
+      button_appear_time: {
+        type:  jsPsych.plugins.parameterType.INT, //number of seconds to wait before button appears if can no longer recall
+        pretty_name: 'Button Timer',
+        default: 30000, // 30 seconds
+        description: 'Time to wait before displaying button to continue on to the next page (in seconds, typically shorter than recall_time)'
+      },
       questions: {
         type: jsPsych.plugins.parameterType.COMPLEX,
         array: true,
@@ -138,8 +144,10 @@ jsPsych.plugins['survey-text-custom'] = (function() {
     }
 
 
-    // add submit button (removed since on timer)
+    // add submit button after nseconds
+
     //html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
+    setTimeout(function(){ html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';display_element.innerHTML = html }, trial.button_appear_time);
 
     display_element.innerHTML = html;
 
@@ -170,8 +178,9 @@ jsPsych.plugins['survey-text-custom'] = (function() {
         "response_times": allwordtimings //array of response times
       };
 
-      //NOTE: ADDED RESET or will just keep appending values in new trials
+      //NOTE: added reset to both vars or will just keep appending values in new trials
       allwordsrecalled = []
+      allwordtimings = []
       //alltextrecalled =[]
 
       display_element.innerHTML = '';

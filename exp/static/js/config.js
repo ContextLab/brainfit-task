@@ -93,9 +93,9 @@ var totalListNumber = 16; // total number of lists in the loaded csv file
 
 //movie
 var movieNumber = 1;  //number of movies to display from provided csv file
-var movieRecallSecs = 180; //number of seconds to give individuals to recall movie
+var movieRecallSecs = 240; //number of seconds to give individuals to recall movie
+var movieRecallButton = 120; //number of seconds before button appears
 var movieShuffle = false; // flag whether want to return shuffled movie array or not
-var delayMovieRecallSecs = 100; //for delayed recall
 
 //vocab pairs
 var vocabNumber = 10; // number of word-image pairs to use, depends on provided csv file

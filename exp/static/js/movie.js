@@ -62,21 +62,23 @@ var movieTask = function() {
 
          var recall_movie = {
              type: 'survey-text-custom',
-             recall_time: movieRecallSecs, //seconds, converted to ms within the plugin
-             questions: [{prompt: 'Please type sentences of what you remember happening in the video you just watched. <p>Press Enter/Return or a period to submit each sentence.</p><p>(<b>NOTE: </b> The sentence will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'narrative'}]
-         }
+             recall_time: movieRecallSecs, //in seconds, converted to ms within the plugin
+             button_appear_time: movieRecallButton, //in seconds, less than movieRecallSecs
+             questions: [{prompt: 'Please type what you remember happening in the video you just watched, in the form of sentences. \
+             <p>Press Enter/Return or a period to submit each sentence.</p><p> \
+             <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after' + movieRecallSecs + 'seconds, \
+             regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. </p>', value: '', recall_mode: 'narrative'}]
+          }
 
          movieTimeline.push(recall_movie);
 
          //page inbetween
          var instructions_movie_q = {
            type: 'instructions',
-           pages: ['Now you will answer questions on the movie you just viewed.<p>Press the Next button to continue.</p>'],
+           pages: ['Now you will answer some questions on the movie you just viewed.<p>Press the Next button to continue.</p>'],
            show_clickable_nav: true
          }
          movieTimeline.push(instructions_movie_q)
-
-         //for(var q = 2; q < movieArray[0][i].length) { //assuming 3 qs for each movie
 
         //create array of questions from length of csv file row
         var numBeginningVals = 4 //number corresponding to non-question columns before questions start
@@ -94,14 +96,6 @@ var movieTask = function() {
           };
           movieTimeline.push(quiz_movie);
 
-//              questions: [
-//                   {prompt: 'Have you seen this movie before?', options: ['Yes','No'], required: true },
-//                   {prompt: movieArray[0][i][4], options: movieArray[0][i][5].split(','), required:true},
-//                   {prompt: movieArray[0][i][6], options: movieArray[0][i][7].split(','), required: true},
-//                   {prompt: movieArray[0][i][8], options: movieArray[0][i][9].split(','), required: true},
-//               ],
-
-         //}
      }
   return movieTimeline ;
 }

@@ -48,7 +48,7 @@ var screeningPages = function() {
 
    var block_screening_p2 = {
        type: 'survey-multi-choice',
-       questions: [{prompt: '<b>Highest Degree Achieved:</b>', options: options_school, required:true,},{prompt: '<b>Ethnicity:</b>', options: options_ethnicity, required:true,},]
+       questions: [{prompt: '<b>Highest Degree Achieved:</b>', options: options_school, required:true,}, {prompt: '<b>Ethnicity:</b>', options: options_ethnicity, required:true,},]
    };
    screeningTimeline.push(block_screening_p2);
 
@@ -95,29 +95,38 @@ var screeningPages = function() {
         };
     screeningTimeline.push(block_screening_p8);
 
-
-    var block_screening_p9 = {
+    //only putting 2 questions per page since won't scroll to top of each page upon submission
+    var block_screening_p9a = {
         type: 'survey-multi-choice',
         questions: [{prompt: '<b>How many cups of coffee and/or caffeinated beverages (e.g. tea, soda) have you had today?</b>', options: options_caffeine, required:true,},
-                    {prompt: '<b>How many glasses of water do you consume on a typical day?</b>', options: options_water, required:true,},
-                    {prompt: '<b>Which type of setting do you live in?</b>', options:options_residence,required:true,},
+                    {prompt: '<b>How many glasses of water do you consume on a typical day?</b>', options: options_water, required:true,},]
+    };
+    screeningTimeline.push(block_screening_p9a);
+
+    var block_screening_p9b = {
+        type: 'survey-multi-choice',
+        questions: [{prompt: '<b>Which type of setting do you live in?</b>', options:options_residence,required:true,},
                     {prompt: '<b>How much activity does your job require?</b>', options:options_job,required:true,},]
     };
 
-    screeningTimeline.push(block_screening_p9);
+    screeningTimeline.push(block_screening_p9b);
 
     //TODO: might want to split up these questions along two pages
-    var block_screening_p10 = {
+    var block_screening_p10a = {
         type: 'survey-multi-choice',
         questions: [{prompt: '<b>Have you exercised today?</b>', options: ['Yes','No'], required:true,}, {prompt: '<b>Do you plan to exercise later?</b>', options: ['Yes','No'], required:true,},
-                    {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},
-                    {prompt: '<b>What motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
-                    {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,},
-                    {prompt: '<b>Have you synced your fitness tracker data to your app today?</b>', options: ['Yes','No'], required:true,},
-                  ]
+                    {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},]
     };
 
-    screeningTimeline.push(block_screening_p10);
+    screeningTimeline.push(block_screening_p10a);
+
+    var block_screening_p10b = {
+        type: 'survey-multi-choice',
+        questions: [{prompt: '<b>What motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
+                    {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,},
+                    {prompt: '<b>Have you synced your fitness tracker data to your app today?</b>', options: ['Yes','No'], required:true,},]
+    };
+    screeningTimeline.push(block_screening_p10b);
 
     var block_screening_p11 = {
         type: 'survey-multi-select-custom',
@@ -130,7 +139,6 @@ var screeningPages = function() {
       type: 'survey-text',
       questions: [{prompt: '<b>What motivates you to wear your fitness tracker?</b>', value: ' ', rows: 4, columns: 50},]
     };
-
     screeningTimeline.push(block_screening_p12);
 
 

@@ -29,14 +29,28 @@ var wordListTask = function() {
         //console.log(currentStimArray);
         wordData.listWords.push([]);
 
-
-        // reminder before starting each list
-        var instructions_wordlist = {
-            type: 'instructions',
-            pages: ["<p>You will now view words from a word list. </p> <p>Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
-            show_clickable_nav: true,
+        if (listNumber === 0){ //if the first list
+          var instructions_wordlist = {
+              type: 'instructions',
+              pages: ["<p>You will now view words from the first word list. </p> <p>Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
+              show_clickable_nav: true,
+          }
+          wordListTimeline.push(instructions_wordlist);
+        }else if (listNumber < (numberOfLists - 1)) { //if not the final list //NOTE: add in not first list too?
+          var instructions_wordlist = {
+              type: 'instructions',
+              pages: ["<p>You will now view words from another word list. </p> <p>Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
+              show_clickable_nav: true,
+          }
+          wordListTimeline.push(instructions_wordlist);
+        }else if (listNumber === (numberOfLists - 1)) { //if final list
+          var instructions_wordlist = {
+              type: 'instructions',
+              pages: ["<p>You will now view words from the final word list. </p> <p>Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
+              show_clickable_nav: true,
+          }
+          wordListTimeline.push(instructions_wordlist);
         }
-        wordListTimeline.push(instructions_wordlist);
 
         currentStimArray.forEach(function(eachWord){
             //console.log(eachWord)
@@ -104,7 +118,12 @@ var wordListTask = function() {
         var block_recall = {
             type: 'survey-text-custom',
             recall_time: recordTime, //seconds, converted to ms within the plugin
-            questions: [{prompt: '<b>Please type each word you recall from the most recent list, in any order. <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p></b><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'word'}]
+            button_appear_time: recordTime + 1, //make greater than time if don't want button to appear
+            questions: [{prompt: 'Please type each word you recall from the most recent list, in any order. \
+            <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p>\
+            <p><b>NOTE:</b> The word will disappear once submitted. This text entry screen will continue after ' + recordTime + ' seconds, \
+            regardless of how many words you recall. Please try hard to remember the words you saw throughout this interval, even if you think your memory has been exhausted. \
+            You should enter the words in the order they come to mind (you do not need to remember the words in the order you studied them)</p>', value: '', recall_mode: 'word'}]
         }
 
         wordListTimeline.push(block_recall)

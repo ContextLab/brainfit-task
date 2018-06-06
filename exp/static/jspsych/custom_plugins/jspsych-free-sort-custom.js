@@ -64,7 +64,7 @@ jsPsych.plugins['free-sort-custom'] = (function() {
       button_label: {
         type: jsPsych.plugins.parameterType.STRING,
         pretty_name: 'Button label',
-        default:  'Continue',
+        default:  'Done',
         description: 'The text that appears on the button to continue to the next trial.'
       }
     }

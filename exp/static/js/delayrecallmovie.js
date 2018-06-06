@@ -2,7 +2,7 @@ var delayRecallMovieTask = function() {
     var delayRecallMovieTimeline = [];
     var instr_delayRecall_movie = {
         type: 'instructions',
-        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> You will now recall what you remember seeing in the short movie you viewed earlier.</p> <p> When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + delayMovieRecallSecs + " seconds to complete this section. </p>"],
+        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> You will now recall what you remember seeing in the short movie you viewed earlier.</p> <p> When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs + " seconds to complete this section. </p>"],
         show_clickable_nav: true,
     }
     delayRecallMovieTimeline.push(instr_delayRecall_movie)
@@ -22,10 +22,14 @@ var delayRecallMovieTask = function() {
     //   }
 
      var delayRecall_movie = {
-         type: 'survey-text-custom',
-         recall_time: delayMovieRecallSecs, //seconds, converted to ms within the plugin
-         questions: [{prompt: '<b>Please type sentences of what you remember happening in the video you watched earlier. <p>Press Enter/Return or a period to submit each sentence.</p></b><p>(NOTE: the sentence will disappear once submitted and the screen will progress once time has run out)</p> ', value: '', recall_mode: 'narrative'}]
-     }
+           type: 'survey-text-custom',
+           recall_time: movieRecallSecs, //in seconds, converted to ms within the plugin
+           button_appear_time: movieRecallButton, //in seconds, less than movieRecallSecs
+           questions: [{prompt: 'Please type what you remember happening in the video you watched earlier, in the form of sentences. \
+           <p>Press Enter/Return or a period to submit each sentence.</p><p> \
+           <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after' + movieRecallSecs + 'seconds, \
+           regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. </p>', value: '', recall_mode: 'narrative'}]
+       }
 
      delayRecallMovieTimeline.push(delayRecall_movie);
 
