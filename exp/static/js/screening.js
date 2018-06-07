@@ -4,7 +4,7 @@ var screeningPages = function() {
 
     var instructions_screening = {
         type: 'instructions',
-        pages: ['<h1>Survey Questions</h1><p>Now you will answer a few survey questions before beginning the experiment. Press Next to begin this section.</p>'],
+        pages: ['<h1>Survey Questions</h1><p>Now you will answer a few survey questions before beginning the experiment. These questions are split up into four subsections: Demographics, Health, Lifestyle, and Exercise. Press Next to begin this section.</p>','<h1>Demographics</h1><p>The first set of questions is related to you and your demographics so we can better interpret the data we are collecting. Press Next to continue. </p>'],
         show_clickable_nav: true
     };
     screeningTimeline.push(instructions_screening);
@@ -15,6 +15,7 @@ var screeningPages = function() {
     var options_ethnicity = ['Hispanic or Latino','Not Hispanic or Latino','Prefer Not to Say']
     var options_race = ['American Indian or Alaska Native', 'Asian', 'Native Hawaiian or Other Pacific Islander','Black or African American','White','Other', 'Prefer Not to Say'];
     var options_languages = ['English','Spanish','French','German', 'Italian', 'Chinese','Japanese','Korean','Vietnamese','Portugese','Turkish', 'Persian', 'Swedish', 'Norwegian Bokmål', 'Danish', 'Welsh','Scottish', 'Czech', 'Greek', 'Arabic', 'Hindi', 'Bengali','Urdu','Russian','Polish','Romanian','Ukranian','Hebrew','Irish','Other','None']; //Gaelic','Swahili','Indonesian'
+    var options_sleep = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13 or more']
     var options_caffeine = ['0','1','2','3','4','5','6 or more'];
     var options_water = ['0','1','2','3','4','5','6 or more'];
     var options_exercise_freq = ['0 days per week','1 day per week','2 days per week','3 days per week','4 days per week','5 days per week','6 days per week','7 days per week','8-14 times per week','More than 14 times per week'];
@@ -25,7 +26,7 @@ var screeningPages = function() {
     var options_school = ['Some high school', 'High school graduate', "Associate's Degree", 'Some college', 'College graduate', 'Some graduate training', "Master's degree", 'Doctorate','Other Graduate/Professional School']
     var options_exercise_motiv = ['Physical Health', 'Mental Health/Wellness', 'Social Reasons', 'External Pressure (Friends, Family, Partner)', 'Feel Like I Should']
     var options_fit_wear = ['Every Day','Most Days','Some Days','Rarely']
-    var options_fitbit_feats = ['Activity Recording/Logging','Sleep Tracking','Food Logs','Water Logs','Weight Logs','Challenges/Badges','Guidance Feature','Community/Social','Alarms/Reminders/Notifications',]
+    var options_fitbit_feats = ['Step Counts','Activity Recording/Logging','Sleep Tracking','Food Logs','Water Logs','Weight Logs','Challenges/Badges','Guidance Feature','Community/Social','Alarms/Reminders/Notifications',]
 
 
     var block_screening_p1 = {
@@ -73,6 +74,12 @@ var screeningPages = function() {
     };
     screeningTimeline.push(block_screening_p5);
 
+    var health_screening = {
+        type: 'instructions',
+        pages: ['<h1>Health</h1><p>The next set of questions is related to medical conditions that might influence your performance on our experiment. Press Next to continue. </p>'],
+        show_clickable_nav: true
+    };
+    screeningTimeline.push(health_screening);
 
     var block_screening_p6 = {
         type: 'survey-multi-choice',
@@ -88,18 +95,26 @@ var screeningPages = function() {
 
    screeningTimeline.push(block_screening_p7);
 
+   var state_screening = {
+       type: 'instructions',
+       pages: ['<h1>Lifestyle</h1><p>We will now ask you some questions related to your lifestyle. Press Next to continue. </p>'],
+       show_clickable_nav: true
+   };
+   screeningTimeline.push(state_screening);
+
     var block_screening_p8 = {
         type: 'survey-multi-choice',
         questions: [{prompt: '<b>How alert are you feeling?</b>', options: options_alert, required:true,},
-                   {prompt: '<b>How stressed do you typically feel?</b>', options: options_stressed, required:true,},],
+                   {prompt: '<b>How stressed do you typically feel?</b>', options: options_stressed, required:true,}],
         };
     screeningTimeline.push(block_screening_p8);
 
     //only putting 2 questions per page since won't scroll to top of each page upon submission
     var block_screening_p9a = {
         type: 'survey-multi-choice',
-        questions: [{prompt: '<b>How many cups of coffee and/or caffeinated beverages (e.g. tea, soda) have you had today?</b>', options: options_caffeine, required:true,},
-                    {prompt: '<b>How many glasses of water do you consume on a typical day?</b>', options: options_water, required:true,},]
+        questions: [{prompt: '<b>How many hours of sleep did you get last night (round to the nearest hour)?<b>',options: options_sleep, required:true,},
+                    {prompt: '<b>How many cups of coffee and/or caffeinated beverages (e.g. tea, soda) have you had today?</b>', options: options_caffeine, required:true,},
+                    {prompt: '<b>How many cups of water (8 oz) have you had today?</b>', options: options_water, required:true,},]
     };
     screeningTimeline.push(block_screening_p9a);
 
@@ -111,7 +126,13 @@ var screeningPages = function() {
 
     screeningTimeline.push(block_screening_p9b);
 
-    //TODO: might want to split up these questions along two pages
+    var exercise_screening = {
+        type: 'instructions',
+        pages: ['<h1>Exercise and Fitness Tracker</h1><p>Lastly, we will ask a few questions on your exercise habits and reasons for wearing your fitness tracker. Press Next to continue. </p>'],
+        show_clickable_nav: true
+    };
+    screeningTimeline.push(exercise_screening);
+
     var block_screening_p10a = {
         type: 'survey-multi-choice',
         questions: [{prompt: '<b>Have you exercised today?</b>', options: ['Yes','No'], required:true,}, {prompt: '<b>Do you plan to exercise later?</b>', options: ['Yes','No'], required:true,},

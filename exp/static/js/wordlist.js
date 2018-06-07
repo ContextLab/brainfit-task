@@ -19,7 +19,7 @@ var wordListTask = function() {
     var instructions_beginwordlist = {
             type: 'instructions',
             // pages: ["<h1> Part I. Word List Recall </h1>" + "<p> You've passed the microphone checks! Now let's begin the word list task. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the red microphone icon <i style='color:red' class='fa fa-microphone'></i>, recall the words from the most recent list in <b> any order</b>.</p><p>Please proceed when you are ready. </p>" ],
-            pages: ["<h1> Part I. Word List Recall </h1>" + "<p> The first task involves remembering and recalling words presented on the screen. </p> <p>You will now proceed through " + numberOfLists + " lists of " + listLength + " words.</p><p>The words from each list will appear in the middle of the screen, one at a time. Then, when you see the text box prompt, type in the words from the most recent list, one at a time, in <b> any order</b>. To submit each word, press the Enter/Return key, spacebar, or the comma key. </p><p>Please proceed to the next screen when you are ready to begin viewing the words from the first list. </p>" ],
+            pages: ["<h1> Part I. Word List Recall </h1>" + "<p>Now we will begin with the first memory task to examine your recall accuracy and recall strategies for single items. In this task, we will present words to you one at a time in the center of the screen. You will then try your best to remember what these words were and type the words you remember seeing when prompted. </p> <p>You will see a total number of  " + numberOfLists + " lists of " + listLength + " words each. Following the prompt on the next page, the words from each list will appear in the middle of the screen, one at a time. Then, when you see the text box prompt on the following page, type all the words you remember from most recent list, one at a time, in <b> any order</b>. To submit each word, press the Enter/Return key, spacebar, or the comma key. </p><p>Please proceed when you understand these instructions and are ready to continue to the task. </p>" ],
             show_clickable_nav: true,
         }
         wordListTimeline.push(instructions_beginwordlist);
@@ -123,7 +123,7 @@ var wordListTask = function() {
             <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p>\
             <p><b>NOTE:</b> The word will disappear once submitted. This text entry screen will continue after ' + recordTime + ' seconds, \
             regardless of how many words you recall. Please try hard to remember the words you saw throughout this interval, even if you think your memory has been exhausted. \
-            You should enter the words in the order they come to mind (you do not need to remember the words in the order you studied them)</p>', value: '', recall_mode: 'word'}]
+            You should enter the words in the order they come to mind (you do not need to remember the words in the order you studied them).</p>', value: '', recall_mode: 'word'}]
         }
 
         wordListTimeline.push(block_recall)

@@ -18,6 +18,7 @@ var runExperiment = function (trials, options) {
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+
 //record start date and time of experiment to associate with fitbit data
 var getDateTime = {
     type: 'datetime',
@@ -40,11 +41,10 @@ if(mode == 'lab'){
     experimentTimeline.push(subjectID)
 }*/
 
-
 var instructions_main = {
     type: 'instructions',
-    pages: ['<h1> Thank you for participating in our study! </h1> <p> We are interested in how memories for different types of information are related, and how memory is affected by fitness and exercise. </p><p>First, you will be asked to provide authorization to your fitness tracker data (specifically, Fitbit).</p><p> Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering.</p><p> Next, you will be presented with several short memory tasks, with task-specific instructions provided at the start of each section. </p>',
-    '<h1>Task Overview </h1> <p> The first task involves learning and recalling visually-presented words from four lists. </p> <p> The second task requires viewing a short movie, reciting what you recall from the video, and answering questions on the video content. </p> <p> The third task involves remembering and matching foreign language vocabulary-image pairs. </p> <p> For the fourth task, you will use the mouse to drag and drop shapes on the screen to match the presented arrangement of these shapes. </p><p> The entire experiment should take approximately an hour. Please press Next > to proceed to the Fitbit authorization page. </p>', ],
+    pages: ["<h1> Thank you for participating in our study! </h1> <p> You are likely aware that exercise is good for your health - but did you also know that exercise is good for your brain? Us researchers at the Contextual Dynamics Lab at Dartmouth College are interested in studying how exercise can help our brains function better, and we need your help. To study this, we are asking for individuals to contribute their past Fitbit data and participate in a few memory tasks. </p><p> To achieve this, we will first ask you to provide authorization to your Fitbit tracker data so we can look at how your past activities might be predictive of your task performance. Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering. Next, you will be presented with several short memory tasks, with more specific instructions provided at the start of each section. </p>",
+    "<h1>Overview of Tasks </h1> <p> After you have successfully provided your Fitbit data to us and completed a brief survey, we will continue to the memory tasks. The first section requires that you learn lists of words presented on the middle of your screen and type what you remember from these lists. For the second task, you will view a short movie, type what you remember from the movie, and then answer questions on the video content. The third task involves learning pairs of foreign language vocabulary. For the fourth task, you will remember the locations of shapes presented on your screen, and then use the mouse to drag and drop shapes where they were presented. </p><p> The entire experiment should take approximately an hour. Please press Next > to proceed to the Fitbit data authorization page. </p>", ],
     show_clickable_nav: true
 };
 experimentTimeline.push(instructions_main);
@@ -83,6 +83,7 @@ if(fscreen) {
     fullscreen_mode: true
    });
   }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // SURVEY Q'S //////////////////////////////////////////////////////////////////
@@ -125,7 +126,6 @@ screeningTimeline.forEach(function(screeningPage) {
       movieTimeline.forEach(function(moviePage) {
           experimentTimeline.push(moviePage)
       });
-
 ////////////////////////////////////////////////////////////////////////////////
 // PART III. VOCABULARY-IMAGE PAIRS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -165,14 +165,13 @@ var delayRecallMovieTimeline = delayRecallMovieTask();
 ////////////////////////////////////////////////////////////////////////////////
 // PART VII. DELAYED VOCAB QUIZ ////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
 var delayVocabQuizTimeline = delayVocabQuizTask();
     delayVocabQuizTimeline.forEach(function(delayVocabQuizPage) {
         experimentTimeline.push(delayVocabQuizPage)
     });
 
 ////////////////////////////////////////////////////////////////////////////////
-// PART VIII. STRESS AND ANXIETY SURVEY ////////////////////////////////////////
+// STRESS AND ANXIETY SURVEY ///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 //if we want to have a stress-related component, here's a GAD survey (not included currently)
@@ -192,7 +191,6 @@ var delayVocabQuizTimeline = delayVocabQuizTask();
 //
 //     };
 //experimentTimeline.push(stress_survey);
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // POST-SURVEY /////////////////////////////////////////////////////////////////
@@ -214,7 +212,7 @@ var postSurveyTimeline = postSurveyTask();
 
 var block_debrief = {
     type: "instructions",
-    pages: ["<h1>Thank you for participating in this study!</h1> <p> Press Next to complete the task. </p>"],
+    pages: ["<h1>Thank you for participating in this study!</h1> <p> Press Next to complete the task and view the debriefing page. </p>"],
     show_clickable_nav: true,
 }
 experimentTimeline.push(block_debrief)

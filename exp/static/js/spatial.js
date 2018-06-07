@@ -14,7 +14,7 @@ var spatialTask = function() {
 
     var instructions_spatial = {
       type: 'instructions',
-      pages: ['<h1> Part IV. Spatial Task </h1> <br/> <p> In this task, you will view symbols arranged on the screen.</p> <p>Try to remember the locations of these symbols, and recreate their positions on the following screen when prompted. </p>'],
+      pages: ['<h1> Part IV. Spatial Task </h1> <br/><p>Now we would like to see how well you can remember the locations of symbols presented to you on the screen to assess your spatial memory. <p>You will first see symbols arranged on the screen for a brief period. Try to focus and remember the locations of these symbols. Then, recreate their positions on the following screen when prompted. This task will increase in difficulty by increasing the number of shapes as you progress. </p>'],
       show_clickable_nav: true
     };
     spatialTimeline.push(instructions_spatial);

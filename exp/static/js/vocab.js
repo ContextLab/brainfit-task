@@ -5,13 +5,16 @@ var vocabTask = function() {
     var vocabTimeline = [];
     var instructions_vocab = {
       type: 'instructions',
-      pages: ['<h1> Part III. Vocabulary-Image Pairs </h1> <br/><p> Now you will learn some Irish language vocabulary through image pairings.</p><p>You will be asked to match these vocabulary words to their respective images after the presentation. </p> <p> Please press Next > to continue. </p>'],
+      pages: ['<h1> Part III. Vocabulary-Image Pairs </h1> <br/><p> You will now be presented with pairs of Irish vocabulary words and images of their translations. After viewing these pairs, you will be asked to match these vocabulary words to their respective translation images. This will help us quantify your memory for paired associations. </p> <p> Please press Next > to continue and begin viewing these pairs. </p>'],
       show_clickable_nav: true
     };
     vocabTimeline.push(instructions_vocab)
 
 
     var imageDir = '/static/images/' //directory of images
+
+    //var imgSetNum = 0; //which set of images to use (initial presentation is 0, second is 1, third is 2)
+
     //presently Duolingo Irish lessons Basics 1 + 2
 
     //for (var r = 0; r < vocabReps; r++){
@@ -22,7 +25,7 @@ var vocabTask = function() {
         currentVocabArray.forEach(function(eachVocab){
             //console.log(eachVocab[0]) //image
             //console.log(eachVocab[1]) //word
-            var imageName = imageDir + eachVocab[0]; //change movie above to match this ***
+            var imageName = imageDir + eachVocab[0];
             var block_vocab = {
                 type: 'html-keyboard-response',
                 stimulus: "<img src=" + imageName + " height = 300></img>"+"<p> </p><p><div style='font-size:40px'>" + eachVocab[1].toUpperCase() + "</div></p>",
@@ -48,7 +51,7 @@ var vocabTask = function() {
 
     var instructions_vocabQuiz = {
       type: 'instructions',
-      pages: ['<p> Now you will match the presented images with Irish language vocabulary terms.</p><p> Please press Next > to continue. </p>'],
+      pages: ['<p>Now you will match the presented Irish language vocabulary terms and image translations.</p><p>Please press Next > to continue. </p>'],
       show_clickable_nav: true
      };
      vocabTimeline.push(instructions_vocabQuiz)
@@ -90,8 +93,10 @@ var vocabTask = function() {
         imageIdxLog.push(imageIdx); //push unique index to log of displayed images
         //console.log(imageIdxLog)
 
-        var imageOption = stimVocabArray[0][imageIdx][0]; // needs to match one of the random indexes; use to determine correct response
-        var corrResp = stimVocabArray[0][imageIdx][1]; //also record correct response
+
+        //order [0-required][row][column] //NOTE: ADDED NEW/SECOND SET OF IMAGES HERE
+        var imageOption = stimVocabArray[0][imageIdx][2]; // needs to match one of the random indexes; use to determine correct response
+        var corrResp = stimVocabArray[0][imageIdx][3]; //also record correct response
 
         var options_vocab = [];
         for (var op = 0; op<randomIdxs.length; op++){

@@ -6,7 +6,7 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ['<h1> Part II. Video </h1> <br/><p> You will now watch an illustrated StoryCorps narrative video. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p><b>NOTE: </b>Please make sure your volume is turned on for this section.</p><p>Press the button to begin playing the video.</p>'],
+      pages: ['<h1> Part II. Movie </h1> <br/><p> Now you will now watch an illustrated StoryCorps video so we can measure how well you recall a narrative. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p><b>NOTE: </b>Please make sure your volume is turned on for this section.</p><p>Press the button to begin playing the video.</p>'],
       show_clickable_nav: true
     };
     movieTimeline.push(instructions_movie); //debug
@@ -28,7 +28,7 @@ var movieTask = function() {
 
         var block_pre_movie_recall = {
             type: 'instructions',
-            pages: ["<p> You will now type sentences describing what you remember from the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or the period key. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the timer to complete and the page to automatically redirect. </p>"],
+            pages: ["<p> You will now type sentences describing what you remember from the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or the period key. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the continue button to appear at the bottom of the screen, or for the page to automatically redirect. </p>"],
             show_clickable_nav: true,
         }
 
@@ -67,7 +67,7 @@ var movieTask = function() {
              questions: [{prompt: 'Please type what you remember happening in the video you just watched, in the form of sentences. \
              <p>Press Enter/Return or a period to submit each sentence.</p><p> \
              <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after' + movieRecallSecs + 'seconds, \
-             regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. </p>', value: '', recall_mode: 'narrative'}]
+             regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + 'seconds for you to continue to the next section. </p>', value: '', recall_mode: 'narrative'}]
           }
 
          movieTimeline.push(recall_movie);

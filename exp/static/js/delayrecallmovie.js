@@ -2,7 +2,7 @@ var delayRecallMovieTask = function() {
     var delayRecallMovieTimeline = [];
     var instr_delayRecall_movie = {
         type: 'instructions',
-        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> You will now recall what you remember seeing in the short movie you viewed earlier.</p> <p> When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs + " seconds to complete this section. </p>"],
+        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> We now would like you to recall what you remember seeing in the short movie you watched earlier. This will help us understand how fitness and recent exercise may influence delayed memory for stories or narratives. </p> <p> When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs + " seconds to complete this section. </p>"],
         show_clickable_nav: true,
     }
     delayRecallMovieTimeline.push(instr_delayRecall_movie)
@@ -28,7 +28,7 @@ var delayRecallMovieTask = function() {
            questions: [{prompt: 'Please type what you remember happening in the video you watched earlier, in the form of sentences. \
            <p>Press Enter/Return or a period to submit each sentence.</p><p> \
            <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after' + movieRecallSecs + 'seconds, \
-           regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. </p>', value: '', recall_mode: 'narrative'}]
+           regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + 'seconds for you to continue to the next section.</p>', value: '', recall_mode: 'narrative'}]
        }
 
      delayRecallMovieTimeline.push(delayRecall_movie);

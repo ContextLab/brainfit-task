@@ -3,7 +3,7 @@ var delayVocabQuizTask = function() {
     var delayVocabQuizTimeline = [];
     var instructions_vocab = {
       type: 'instructions',
-      pages: ['<h1> Part VII. Delayed Vocabulary-Image Pair Questions </h1> <br/><p> Now you will be asked to recall the Irish language vocabulary pairs you learned earlier.</p><p> Please press Next > to continue. </p>'],
+      pages: ['<h1> Part VII. Delayed Vocabulary-Image Pair Questions </h1> <br/><p> We now would like you to recall the Irish language vocabulary pairs you learned earlier so we can examine whether fitness or recent exercise has influenced your ability to recall picture-word pairs.</p><p> Please press Next > to continue. </p>'],
       show_clickable_nav: true
     };
     delayVocabQuizTimeline.push(instructions_vocab)
@@ -39,9 +39,9 @@ var delayVocabQuizTask = function() {
           imageIdxLog.push(imageIdx); //push unique index to log of displayed images
           //console.log(imageIdxLog)
 
-
-          var imageOption = stimVocabArray[0][imageIdx][0]; // needs to match one of the random indexes; use to determine correct response
-          var corrResp = stimVocabArray[0][imageIdx][1]; //also record correct response
+          //NOTE: ADDED THIRD SET OF IMAGES HERE
+          var imageOption = stimVocabArray[0][imageIdx][4]; // needs to match one of the random indexes; use to determine correct response
+          var corrResp = stimVocabArray[0][imageIdx][5]; //also record correct response
 
           var options_vocab = [];
           for (var op = 0; op<randomIdxs.length; op++){

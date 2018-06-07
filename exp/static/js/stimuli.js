@@ -189,7 +189,6 @@ var prepareVocabTrials = function(vocabData) {
 
             // shuffle list order across subjects
             //var repeatedSet = jsPsych.randomization.repeat(stimVocabArray,nreps); //repeat each list r times
-            //**DEBUG HERE 02/16/18 ** figure out why not shuffling AND why only picking from 1st 2 word lists in other task
             //var shuffledVocabLists = jsPsych.randomization.shuffleNoRepeats(stimVocabArray)
             //var shuffledVocabLists = jsPsych.randomization.shuffleNoRepeats(list_vocab_array)
             //resolve(shuffledVocabLists)

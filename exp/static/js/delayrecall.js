@@ -4,7 +4,7 @@ var delayRecallTask = function() {
 
     var instructions_delayrecall = {
       type: 'instructions',
-      pages: ["<h1> Part V. Delayed Recall </h1> <br/><p> Now you will recall as many words as you can remember from the word list task.</p> <p> When you see the prompt on the next page, please type in words in any order you recall them. </p> <p> You will have " + delayRecordTime + " seconds to recall as many words as you can remember. </p>"],
+      pages: ["<h1> Part V. Delayed Recall </h1> <br/><p> We now want you to recall as many words as you can remember from all of the lists in the initial word list task to determine how much and which items you can recall following a delay. This will help us understand how fitness or recent exercise influences the ability to retain and retrieve information. </p> <p> When you see the prompt on the next page, please type in words in any order you recall them. </p> <p> You will have " + delayRecordTime + " seconds to recall as many words as you can remember from all previous lists. </p>"],
       show_clickable_nav: true
     };
     delayRecallTimeline.push(instructions_delayrecall);
@@ -44,7 +44,12 @@ var delayRecallTask = function() {
     var block_delayrecall = {
         type: 'survey-text-custom',
         recall_time: delayRecordTime, //seconds, converted to ms within the plugin
-        questions: [{prompt: '<b>Please type each word you recall from all earlier word lists, in any order. <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p></b><p>(NOTE: the word will disappear once submitted and the screen will progress once time has run out)</p>', value: '', recall_mode: 'word'}]
+        button_appear_time: delayRecordTime + 1, //make greater than time if don't want button to appear
+        questions: [{prompt: 'Please type each word you recall from all previous word lists, in any order. \
+        <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p>\
+        <p><b>NOTE:</b> The word will disappear once submitted. This text entry screen will continue after ' + delayRecordTime + ' seconds, \
+        regardless of how many words you recall. Please try hard to remember the words you saw throughout this interval, even if you think your memory has been exhausted. \
+        You should enter the words in the order they come to mind (you do not need to remember the words in the order you studied them).</p>', value: '', recall_mode: 'word'}]
     }
 
     delayRecallTimeline.push(block_delayrecall)
