@@ -147,7 +147,11 @@ jsPsych.plugins['survey-text-custom'] = (function() {
     // add submit button after nseconds
 
     //html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
-    setTimeout(function(){ html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';display_element.innerHTML = html }, trial.button_appear_time);
+    setTimeout(function(){
+      html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>'
+      display_element.innerHTML = html;
+      //also need event listener for button click to finish trial (only after button has appeared)
+      display_element.querySelector('#jspsych-survey-text-custom-next').addEventListener('click',recallTimer) }, trial.button_appear_time*1000); //needs to be in ms
 
     display_element.innerHTML = html;
 
@@ -193,6 +197,8 @@ jsPsych.plugins['survey-text-custom'] = (function() {
     jsPsych.pluginAPI.setTimeout(recallTimer,trial.recall_time*1000) //needs to be converted to ms
 
     var startTime = (new Date()).getTime();
+
+
   };
 
   return plugin;
