@@ -44,7 +44,7 @@ var vocabTask = function() {
                 //console.log('finished')
                 //}
             }
-                //vocabTimeline.push(block_vocab); //DEBUG
+                vocabTimeline.push(block_vocab); 
 
         })
     //}

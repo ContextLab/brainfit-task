@@ -27,6 +27,7 @@ import os
 import csv
 import sys
 import traceback
+import glob
 
 cwd = os.getcwd()
 
@@ -188,9 +189,75 @@ def compute_bonus():
         #now compute bonus based on this total
         bonus = bonus + immedVocabBonus
 
+        # DELAYED VOCAB QUIZ BONUS
+        delayedVocabTotal = 0 #initialize as zero
+
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['task_name'] == 'delayed_vocab_quiz'):
+                    qresponse = trial['responses']
+                    if str(trial['correct_resp']) in str(qresponse): #one question is saved at a time - should work for each q separately
+                       delayedVocabTotal += 1 #then tally correct
+            except:
+                pass
+
+        delayedVocabBonus = (delayedVocabTotal/10.)*0.5 #50 cents possible for delayed vocab recall; float convert
+
+        #now compute bonus based on this total
+        bonus = bonus + delayedVocabBonus
+
+        # IMMEDIATE MOVIE QUIZ BONUS
+        immediateMovieTotal = 0 #initialize as zero
+
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['task_name'] == 'immed_movie_quiz'):
+                    qresponse = trial['responses']
+                    if str('library') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('custodian') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('reading') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('professor') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('1940s') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('3am') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('waxed the tops of bookshelves') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('never') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('less than high school') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct
+                    if str('quiet') in str(qresponse): #one question is saved at a time - will make more elegant later on
+                       immediateMovieTotal += 1 #then tally correct (note: missing number of people live with since didnt want it to pick up on 2am)
+            except:
+                pass
+
+        immediateMovieBonus = (immediateMovieTotal/10.)*0.5 #50 cents possible for immediate movie quiz; float convert
+
+        #now compute bonus based on this total
+        bonus = bonus + immediateMovieBonus
+
+        #check for fitbit data, read in daily Fitbit HR of this userID
+
+        fcwd = os.getcwd()
+        fitbit_dir = fcwd + '/fitbit/' + uniqueId.replace(":","-") + '/' #directory of fitbit data for current user
+        fileCounter = len(glob.glob1(fitbit_dir,"*.json")) #count number of fitbit files in the directory
+
+        fitbitBonus = (fileCounter/19.)*0.5 #19 possible files, make sure all there - 50 cents if all there
+
+        bonus = bonus + fitbitBonus
+
+        #bonus_dir_dailyHR = bonus_dir + str(uniqueId) + '-todayHR.json' #TODO: double check whether just userID or both hitID + userID
 
 
-
+        #read in file
+        #if len > len of summary alone, then synced fitbit
 
         user.bonus = bonus
         db_session.add(user)

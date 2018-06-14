@@ -24,7 +24,7 @@ var movieTask = function() {
             width: 880,
             //controls: true, //for debugging
         };
-        movieTimeline.push(block_movie); //debug
+        //movieTimeline.push(block_movie); //DEBUG
 
         var block_pre_movie_recall = {
             type: 'instructions',
@@ -32,7 +32,7 @@ var movieTask = function() {
             show_clickable_nav: true,
         }
 
-        movieTimeline.push(block_pre_movie_recall)
+        //movieTimeline.push(block_pre_movie_recall) //DEBUG
 
         // AUDIO
         // var recall_movie = {
@@ -70,7 +70,7 @@ var movieTask = function() {
              regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section. </p>', value: '', recall_mode: 'narrative'}]
           }
 
-         movieTimeline.push(recall_movie);
+         //movieTimeline.push(recall_movie); //DEBUG
 
          //page inbetween
          var instructions_movie_q = {
@@ -93,6 +93,9 @@ var movieTask = function() {
           var quiz_movie = {
             type: 'survey-multi-choice',
             questions: qArray,
+            data: {
+                      task_name: 'immed_movie_quiz',
+                  },
           };
           movieTimeline.push(quiz_movie);
 
