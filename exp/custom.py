@@ -245,8 +245,34 @@ def compute_bonus():
 
         #IMMEDIATE WORD LIST BONUS
 
-        #DELAYED WORD LIST BONUS
+        allwordspres = [] #initialize
 
+        # first extract all words presented from db
+        for record in user_data['data']:
+            trial = record['trialdata']
+            try:
+                allwordspres.append(trial['word'])
+            except:
+                pass
+
+        #now compare this extracted list vs recalled words
+        immedWordTotal = 0
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['task_name'] == 'immed_word_recall'):
+                    qresponse = trial['responses']
+                    #now loop through presented word list and see whether in response array
+                    for wo in allwordspres: #match uppercase of presented words
+                        if str(wo) in str(qresponse.upper()): #one question is saved at a time - should work for each q separately
+                           immedWordTotal += 1 #then tally words recalled
+            except:
+                pass
+        #hardcoded num of words (16) and lists (4) for now, should use vars
+        immedWordBonus = (immedWordTotal/(16.*4))*0.5 #50 cents possible for delayed vocab recall; float convert
+        bonus = bonus + immedWordBonus
+
+        #DELAYED WORD LIST BONUS
 
 
         #IMMEDIATE MOVIE RECALL BONUS
@@ -286,7 +312,7 @@ def compute_bonus():
             except:
                 pass
 
-        #SPATIAL TASK BONUS (figure out how to do)
+        #SPATIAL TASK BONUS (figure out how to do - could just look at total number of moves?)
 
         # FITBIT FILE BONUS (TODO: double check if works when running on static address)
         #check for fitbit data, read in daily Fitbit HR of this userID

@@ -44,12 +44,15 @@ var delayRecallTask = function() {
     var block_delayrecall = {
         type: 'survey-text-custom',
         recall_time: delayRecordTime, //seconds, converted to ms within the plugin
-        button_appear_time: delayRecordTime + 1, //make greater than time if don't want button to appear
+        button_appear_time: 0, //make greater than time if don't want button to appear
         questions: [{prompt: 'Please type each word you recall from all previous word lists, in any order. \
         <p>Press the Enter/Return key, the spacebar, or a comma key to submit each word.</p>\
         <p><b>NOTE:</b> The word will disappear once submitted. This text entry screen will continue after ' + delayRecordTime + ' seconds, \
         regardless of how many words you recall. Please try hard to remember the words you saw throughout this interval, even if you think your memory has been exhausted. \
-        You should enter the words in the order they come to mind (you do not need to remember the words in the order you studied them).</p>', value: '', recall_mode: 'word'}]
+        You should enter the words in the order they come to mind (you do not need to remember the words in the order you studied them).</p>', value: '', recall_mode: 'word'}],
+        data: {
+                 task_name: 'delayed_word_recall',
+        }
     }
 
     delayRecallTimeline.push(block_delayrecall)
