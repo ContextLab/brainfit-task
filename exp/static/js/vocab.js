@@ -44,7 +44,7 @@ var vocabTask = function() {
                 //console.log('finished')
                 //}
             }
-                vocabTimeline.push(block_vocab);
+                //vocabTimeline.push(block_vocab); //DEBUG
 
         })
     //}
@@ -108,6 +108,7 @@ var vocabTask = function() {
           type: 'survey-multi-choice',
           questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab, required:true}],
           data: {
+                    task_name: 'immed_vocab_quiz',
                     vocab_options: options_vocab,
                     image_shown: imageOption,
                     correct_resp: corrResp,

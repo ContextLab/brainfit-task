@@ -13,7 +13,6 @@ var runExperiment = function (trials, options) {
     movieArray = trials[2];
     spatialArray = trials[3];
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +40,7 @@ if(mode == 'lab'){
     experimentTimeline.push(subjectID)
 }*/
 
+
 var instructions_main = {
     type: 'instructions',
     pages: ["<h1> Thank you for participating in our study! </h1> <p> You are likely aware that exercise is good for your health - but did you also know that exercise is good for your brain? Us researchers at the Contextual Dynamics Lab at Dartmouth College are interested in studying how exercise can help our brains function better, and we need your help. To study this, we are asking for individuals to contribute their past Fitbit data and participate in a few memory tasks. </p><p> To achieve this, we will first ask you to provide authorization to your Fitbit tracker data so we can look at how your past activities might be predictive of your task performance. Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering. Next, you will be presented with several short memory tasks, with more specific instructions provided at the start of each section. </p>",
@@ -49,6 +49,7 @@ var instructions_main = {
 };
 experimentTimeline.push(instructions_main);
 
+/* //DEBUG
 
 // create initial fitbit timeline as early exclusion (if dont authorize data)
 w = false;
@@ -94,6 +95,7 @@ screeningTimeline.forEach(function(screeningPage) {
         experimentTimeline.push(screeningPage)
         //console.log('skipped screening')
     });
+*/ //DEBUG
 
 ////////////////////////////////////////////////////////////////////////////////
 // WORD LIST FREE RECALL PRACTICE //////////////////////////////////////////////
@@ -107,10 +109,10 @@ screeningTimeline.forEach(function(screeningPage) {
         });
 //} // only run screening, fullscreen, and word list practice if in lab mode
 */
-
 ////////////////////////////////////////////////////////////////////////////////
 // PART I. WORD LIST FREE RECALL TASK //////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+/* //DEBUG
 
   var wordListTimeline = wordListTask();
       wordListTimeline.forEach(function(wordListPage) {
@@ -129,12 +131,12 @@ screeningTimeline.forEach(function(screeningPage) {
 ////////////////////////////////////////////////////////////////////////////////
 // PART III. VOCABULARY-IMAGE PAIRS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
+*/ //DEBUG
       var vocabTimeline = vocabTask();
         vocabTimeline.forEach(function(vocabPage) {
             experimentTimeline.push(vocabPage)
         });
-
+/* //DEBUG
 ////////////////////////////////////////////////////////////////////////////////
 // PART IV. SPATIAL TASK ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +158,6 @@ screeningTimeline.forEach(function(screeningPage) {
 ////////////////////////////////////////////////////////////////////////////////
 // PART VI. DELAYED MOVIE RECALL ///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
 var delayRecallMovieTimeline = delayRecallMovieTask();
     delayRecallMovieTimeline.forEach(function(delayRecallMoviePage) {
         experimentTimeline.push(delayRecallMoviePage)
@@ -216,6 +217,7 @@ var block_debrief = {
     show_clickable_nav: true,
 }
 experimentTimeline.push(block_debrief)
+*/ //DEBUG
 
 
 /*start experiment*/
@@ -228,10 +230,10 @@ jsPsych.init({
     //},
     show_progress_bar: false,
     on_data_update: function(data) {
-            if (mode == 'lab'){
-              psiTurk.recordTrialData(data) //jsPsych.data.getLastTrialData()); //data
+            //if (mode == 'lab' || mode == 'mturk'){
+          psiTurk.recordTrialData(data) //jsPsych.data.getLastTrialData()); //data
               //psiTurk.saveData();
-              }
+            //  }
             },
     on_finish: function() {
         //experimentTimeline.push(block_debrief)
@@ -239,14 +241,41 @@ jsPsych.init({
         //jsPsych.data.displayData(); //for debugging
         //jsPsych.data.get().localSave('csv',uniqueId+'_data.csv'); //save locally for now
         console.log('Saving data...')
-        if (mode === 'lab' || mode === 'mturk') {
+
+        //define functions to use below (from https://github.com/NYUCCL/psiTurk/blob/master/psiturk/example/static/js/task.js)
+        var error_message = "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
+
+        prompt_resubmit = function() {
+          document.body.innerHTML = error_message;
+          $("#resubmit").click(resubmit);
+        }
+
+        resubmit = function() {
+          document.body.innerHTML = "<h1>Trying to resubmit...</h1>";
+          reprompt = setTimeout(prompt_resubmit, 10000);
+          psiTurk.saveData({
+            success: function() {
+                clearInterval(reprompt);
+                      psiTurk.computeBonus('compute_bonus', function(){
+                        psiTurk.completeHIT(); // when finished saving, compute bonus, then quit
+                      });
+            },
+            error: prompt_resubmit //if error saving data, try again
+          });
+        };
+
+
+        //if (mode === 'lab' || mode === 'mturk' || mode == 'sandbox' || mode == 'live') {
           psiTurk.saveData({
               success: function() {
                   console.log('Data saved!')
-                  psiTurk.completeHIT();
-              }
-            })
-      } // TODO: also save when online
+                   psiTurk.computeBonus('compute_bonus', function(){ //accesses custom.py method to calculate bonus for users
+                     psiTurk.completeHIT();
+                     //jsPsych.data.get().localSave('csv',uniqueId+'_data.csv');
+                })
+              },
+              error: prompt_resubmit}) //if error saving data, try again
+      //}
     },
 });
 }

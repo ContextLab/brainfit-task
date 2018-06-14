@@ -14,7 +14,6 @@ from psiturk.db import db_session, init_db
 from psiturk.models import Participant
 from json import dumps, loads
 
-
 import sqlalchemy #will decide how to save later
 import json
 
@@ -105,3 +104,98 @@ def saveAndDecode():
     wav['audio-blob'].save("audio/" + foldername + "/" + filename)
     resp = {"audioSaved": "success"}
     return jsonify(**resp)
+
+
+#create auto-bonus function
+#modified from https://github.com/NYUCCL/psiTurk/blob/master/psiturk/example/custom.py.txt to
+
+#TODO: add compute_bonus to experiment.js or postsurveytask.js
+
+@custom_code.route('/compute_bonus', methods=['GET']) #originally post
+def compute_bonus():
+    #get uniqueId
+    if not request.args.has_key('uniqueId'):
+        raise ExperimentError('improper_inputs')
+    uniqueId = request.args['uniqueId']
+
+
+    # try:
+    #     # lookup user in database
+    #     # user = Participant.query.filter(Participant.uniqueid == uniqueId).one()
+    #     # user_data = loads(user.datastring) # load datastring from JSON
+    #     # bonus = 0
+    #     #
+    #     # for record in user_data['data']: # for line in data file
+    #     #     trial = record['trialdata'] #brainfitmemory?
+    #     #     if trial['phase']=='TEST':
+    #     #         if trial['hit']==True:
+    #     #             bonus += 0.02
+    #     #bonus = 0.1 #testing 123
+    #     #user.bonus = bonus
+    #     #db_session.add(user)
+    #     #db_session.commit()
+    #     resp = {"bonusComputed": "success"}
+    #     return jsonify(**resp)
+    #
+    #     #read in daily Fitbit HR of this userID
+    #     #bonus_dir = 'exp/fitbit/' + str(uniqueId) + '/' #get directory of fitbit data
+    #     #bonus_dir_dailyHR = bonus_dir + str(uniqueId) + '-todayHR.json' #TODO: double check whether just userID or both hitID + userID
+    #     #read in file
+    #     #if len > len of summary alone, then synced fitbit
+    # except:
+    #     pass
+    #     #error msg
+    #
+    #     #abort(404) #if using flask, throw error message
+
+    #original unmodified
+    try:
+        # lookup user in database
+        user = Participant.query.\
+               filter(Participant.uniqueid == uniqueId).\
+               one()
+        user_data = loads(user.datastring) # load datastring from JSON
+        bonus = 0 #this works at higher level
+
+        #for testing, input fake data
+        #user_data['data'] = [{"current_trial":0,"dateTime":1527605627409,"trialdata":{"rt":8465,"responses":"{\"Q0\":\"BFM-2.0-MMDDYY-SN\",\"Q1\":\" ML\"}","trial_type":"survey-text","trial_index":0,"time_elapsed":8469,"internal_node_id":"0.0-0.0"}}]
+
+        # IMMEDIATE VOCAB QUIZ BONUS
+        immedVocabTotal = 0 #initialize as zero
+
+        for record in user_data['data']: # for line in data file
+            #immedVocabTotal += 1 # works here
+            trial = record['trialdata']
+
+            #if (trial['internal_node_id'] == '0.0-0.0'):
+            #    immedVocabTotal += 1 #works here
+            try:
+                if (trial['task_name'] == 'immed_vocab_quiz'):
+                    qresponse = trial['responses']
+                    #immedVocabTotal += 1 #works here
+                    if str(trial['correct_resp']) in str(qresponse): #one question is saved at a time - should work for each q separately
+                       immedVocabTotal += 1 #then tally correct
+            except: #might throw error if field empty
+                pass
+            #qresponse = trial['responses']
+            #if trial['task_name']=='immed_vocab_quiz': #might have error because some missing field
+            #    immedVocabTotal += 1 #check here
+                #if trial['correct_resp'] == qresponse['Q0']: #one question is saved at a time - should work for each q separately
+                #    immedVocabTotal += 1 #then tally correct
+
+        immedVocabBonus = (immedVocabTotal/10.)*0.5 #50 cents possible for immediate vocab recall; float convert
+
+        #now compute bonus based on this total
+        bonus = bonus + immedVocabBonus
+
+
+
+
+
+        user.bonus = bonus
+        db_session.add(user)
+        db_session.commit()
+        resp = {"bonusComputed": "success"}
+        return jsonify(**resp)
+    except:
+        abort(404)  # again, bad to display HTML, but...
