@@ -28,7 +28,10 @@ var delayRecallMovieTask = function() {
            questions: [{prompt: 'Please type what you remember happening in the video you watched earlier, in the form of sentences. \
            <p>Press Enter/Return or a period to submit each sentence.</p><p> \
            <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after ' + movieRecallSecs + ' seconds, \
-           regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section.</p>', value: '', recall_mode: 'narrative'}]
+           regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section.</p>', value: '', recall_mode: 'narrative'}],
+           data: {
+                    task_name: 'delayed_movie_recall',
+           }
        }
 
      delayRecallMovieTimeline.push(delayRecall_movie);

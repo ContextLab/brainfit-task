@@ -40,7 +40,7 @@ if(mode == 'lab'){
     experimentTimeline.push(subjectID)
 }*/
 
-
+/* //DEBUG
 var instructions_main = {
     type: 'instructions',
     pages: ["<h1> Thank you for participating in our study! </h1> <p> You are likely aware that exercise is good for your health - but did you also know that exercise is good for your brain? Us researchers at the Contextual Dynamics Lab at Dartmouth College are interested in studying how exercise can help our brains function better, and we need your help. To study this, we are asking for individuals to contribute their past Fitbit data and participate in a few memory tasks. </p><p> To achieve this, we will first ask you to provide authorization to your Fitbit tracker data so we can look at how your past activities might be predictive of your task performance. Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering. Next, you will be presented with several short memory tasks, with more specific instructions provided at the start of each section. </p>",
@@ -73,7 +73,7 @@ var block_fitbit = {
 }
 experimentTimeline.push(block_fitbit);
 
-
+*/ //DEBUG
 /* //DEBUG
 
 
@@ -121,8 +121,7 @@ screeningTimeline.forEach(function(screeningPage) {
       wordListTimeline.forEach(function(wordListPage) {
           experimentTimeline.push(wordListPage)
       });
-
-
+*/
 ////////////////////////////////////////////////////////////////////////////////
 // PART II. MOVIE //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +130,7 @@ screeningTimeline.forEach(function(screeningPage) {
           experimentTimeline.push(moviePage)
       });
 
+      /*
 ////////////////////////////////////////////////////////////////////////////////
 // PART III. VOCABULARY-IMAGE PAIRS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -159,11 +159,11 @@ screeningTimeline.forEach(function(screeningPage) {
 ////////////////////////////////////////////////////////////////////////////////
 // PART VI. DELAYED MOVIE RECALL ///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
 var delayRecallMovieTimeline = delayRecallMovieTask();
     delayRecallMovieTimeline.forEach(function(delayRecallMoviePage) {
         experimentTimeline.push(delayRecallMoviePage)
     });
-
 ////////////////////////////////////////////////////////////////////////////////
 // PART VII. DELAYED VOCAB QUIZ ////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

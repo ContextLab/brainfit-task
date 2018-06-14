@@ -24,7 +24,7 @@ var movieTask = function() {
             width: 880,
             //controls: true, //for debugging
         };
-        //movieTimeline.push(block_movie); //DEBUG
+        movieTimeline.push(block_movie); 
 
         var block_pre_movie_recall = {
             type: 'instructions',
@@ -32,7 +32,7 @@ var movieTask = function() {
             show_clickable_nav: true,
         }
 
-        //movieTimeline.push(block_pre_movie_recall) //DEBUG
+        movieTimeline.push(block_pre_movie_recall)
 
         // AUDIO
         // var recall_movie = {
@@ -67,10 +67,13 @@ var movieTask = function() {
              questions: [{prompt: 'Please type what you remember happening in the video you just watched, in the form of sentences. \
              <p>Press Enter/Return or a period to submit each sentence.</p><p> \
              <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after ' + movieRecallSecs + ' seconds, \
-             regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section. </p>', value: '', recall_mode: 'narrative'}]
+             regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section. </p>', value: '', recall_mode: 'narrative'}],
+             data: {
+                      task_name: 'immed_movie_recall',
+             }
           }
 
-         //movieTimeline.push(recall_movie); //DEBUG
+         movieTimeline.push(recall_movie);
 
          //page inbetween
          var instructions_movie_q = {

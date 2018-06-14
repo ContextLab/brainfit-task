@@ -243,21 +243,74 @@ def compute_bonus():
         #now compute bonus based on this total
         bonus = bonus + immediateMovieBonus
 
+        #IMMEDIATE WORD LIST BONUS
+
+        #DELAYED WORD LIST BONUS
+
+
+
+        #IMMEDIATE MOVIE RECALL BONUS
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['task_name'] == 'immed_movie_recall'):
+                    response_length = len(trial['response_times']) #might need try/except here if no response... but shouild just be 0
+                    if response_length > 7: #if submitted more than 7 sentences
+                        immedMovieRecallBonus = 0.25 #then get full bonus
+                        bonus = bonus + immedMovieRecallBonus
+                    elif response_length >= 4: #if submitted 4-7 sentences
+                        immedMovieRecallBonus = 0.12 #partial bonus
+                        bonus = bonus + immedMovieRecallBonus
+                    else:
+                        immedMovieRecallBonus = 0.0 #no bonus
+                        bonus = bonus + immedMovieRecallBonus
+            except:
+                pass
+
+        #DELAYED MOVIE RECALL BONUS
+        #use response_times length since easier than string array and equal to number of sentences
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['task_name'] == 'delayed_movie_recall'):
+                    response_length = len(trial['response_times']) #might need try/except here if no response... but shouild just be 0
+                    if response_length > 7: #if submitted more than 7 sentences
+                        immedMovieRecallBonus = 0.25 #then get full bonus
+                        bonus = bonus + immedMovieRecallBonus
+                    elif response_length >= 4: #if submitted 4-7 sentences
+                        immedMovieRecallBonus = 0.12 #partial bonus
+                        bonus = bonus + immedMovieRecallBonus
+                    else:
+                        immedMovieRecallBonus = 0.0 #no bonus
+                        bonus = bonus + immedMovieRecallBonus
+            except:
+                pass
+
+        #SPATIAL TASK BONUS (figure out how to do)
+
+        # FITBIT FILE BONUS (TODO: double check if works when running on static address)
         #check for fitbit data, read in daily Fitbit HR of this userID
+        try:
+            fcwd = os.getcwd()
+            fitbit_dir = fcwd + '/fitbit/' + uniqueId.replace(":","-") + '/' #directory of fitbit data for current user
+            fileCounter = len(glob.glob1(fitbit_dir,"*.json")) #count number of fitbit files in the directory
 
-        fcwd = os.getcwd()
-        fitbit_dir = fcwd + '/fitbit/' + uniqueId.replace(":","-") + '/' #directory of fitbit data for current user
-        fileCounter = len(glob.glob1(fitbit_dir,"*.json")) #count number of fitbit files in the directory
+            fitbitBonus = (fileCounter/19.)*0.5 #19 possible files, make sure all there - 50 cents if all there
 
-        fitbitBonus = (fileCounter/19.)*0.5 #19 possible files, make sure all there - 50 cents if all there
+            bonus = bonus + fitbitBonus
 
-        bonus = bonus + fitbitBonus
+            # SECOND FITBIT BONUS
+            fitbit_dir_dailyHR = fitbit_dir +  uniqueId.replace(":","-") + '-todayHR.json' #TODO: double check whether just userID or both hitID + userID
 
-        #bonus_dir_dailyHR = bonus_dir + str(uniqueId) + '-todayHR.json' #TODO: double check whether just userID or both hitID + userID
+            #read in file
+            with open(fitbit_dir_dailyHR) as f:
+                todayHRdata = json.load(f)
+                if len(todayHRdata['activities-heart-intraday']['dataset']): #if there are values there then synced Bluetooth when prompted
+                    fitbitBonusHR = 0.5
+                    bonus = bonus + fitbitBonusHR
+        except:
+            pass #need try/except for debugging, when no fitbit data section
 
-
-        #read in file
-        #if len > len of summary alone, then synced fitbit
 
         user.bonus = bonus
         db_session.add(user)
