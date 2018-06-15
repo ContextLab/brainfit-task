@@ -128,6 +128,7 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     var maxz = 1;
 
     var moves = [];
+    //var lastmove = []; //define up here so in global scope
 
     var draggables = display_element.querySelectorAll('.jspsych-free-sort-custom-draggable');
 
@@ -151,6 +152,11 @@ jsPsych.plugins['free-sort-custom'] = (function() {
             "x": elem.offsetLeft,
             "y": elem.offsetTop
           });
+          //lastmove[i] = { //keep overwriting last move for each icon
+          //  "src": elem.dataset.src,
+          //  "x": elem.offsetLeft,
+          //  "y": elem.offsetTop
+          //};
           document.removeEventListener('mouseup', mouseupevent);
         }
         document.addEventListener('mouseup', mouseupevent);
@@ -158,6 +164,7 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     }
 
     display_element.querySelector('#jspsych-free-sort-custom-done-btn').addEventListener('click', function(){
+    var final_locations = []; //move up scope, see if fixes //DEBUG
 
     if (moves.length<(draggables.length-1)) { //have boolean flag to check whether users moved shapes
         //alert("Please click and drag each shape to the positions just displayed."); //alert will mess up fullscreen mode
@@ -170,18 +177,24 @@ jsPsych.plugins['free-sort-custom'] = (function() {
       var rt = end_time - start_time;
       // gather data
       // get final position of all objects
-      var final_locations = [];
       var matches = display_element.querySelectorAll('.jspsych-free-sort-custom-draggable');
+      //var matches = document.getElementsByClassName("jspsych-free-sort-custom-draggable"); //DEBUG
+      //var matches = display_element.querySelectorAll('.jspsych-free-sort-custom-draggable');
+      //var getBounds = document.body.getBoundingClientRect()
       for(var i=0; i<matches.length; i++){
         final_locations.push({
           "src": matches[i].dataset.src,
-          "x": matches[i].style.position.left, //** not outputting these vars? but saved in moves TODO
-          "y": matches[i].style.position.top,
+          "x": matches[i].offsetLeft, //style.position.left,
+          "y": matches[i].offsetTop //style.position.top
+          //"bounds": getBounds,
+          //"lastmove": lastmove
         });
           //console.log(matches[i])
+          //** not outputting these vars? but saved in moves TODO
       }
 
       var trial_data = {
+        "task_name": 'spatial_shapes',
         "init_locations": JSON.stringify(init_locations),
         "moves": JSON.stringify(moves),
         "final_locations": JSON.stringify(final_locations),
