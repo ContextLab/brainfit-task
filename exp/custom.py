@@ -28,6 +28,9 @@ import csv
 import sys
 import traceback
 import glob
+import numpy as np
+import math
+import ast
 
 cwd = os.getcwd()
 
@@ -328,6 +331,69 @@ def compute_bonus():
                 pass
 
         #SPATIAL TASK BONUS (figure out how to do - could just look at total number of moves?)
+
+        #get array of presented icon locations
+        true_x_locs = []
+        true_y_locs = []
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['trial_type'] == 'free-sort-static'):
+                    init_locs = trial['icon_locations'] #need to account for array
+                    #print(type(ast.literal_eval(init_locs)))
+                    init_locs = ast.literal_eval(init_locs)
+                    for i in range(len(init_locs)):
+                        init_locs_x = init_locs[i]['x']
+                        init_locs_y = init_locs[i]['y']
+                        #print(init_locs_x)
+                        #both are in same order so should be able to append and compare
+                        true_x_locs.append(int(init_locs_x))
+                        true_y_locs.append(int(init_locs_y))
+            except:
+                pass
+
+        # get array of final moves from each
+        select_x_locs = []
+        select_y_locs = []
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['trial_type'] == 'free-sort-custom'):
+                    fin_locs = trial['final_locations'] #need to account for array
+                    fin_locs = ast.literal_eval(fin_locs)
+                    for i in range(len(fin_locs)):
+                        fin_locs_x = fin_locs[i]['x']
+                        fin_locs_y = fin_locs[i]['y']
+                        #both are in same order so should be able to append and compare
+                        select_x_locs.append(int(fin_locs_x))
+                        select_y_locs.append(int(fin_locs_y))
+            except:
+                pass
+
+        # compute distance and award bonuses accordingly
+        def calculateDistance(p0,p1):
+            return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
+
+        alldists = []
+
+        for p in range(len(select_x_locs)):
+            dist = calculateDistance([true_x_locs[p],true_y_locs[p]],[select_x_locs[p],select_y_locs[p]])
+            alldists.append(dist)
+
+        spatialBonus = 0
+        meandist = np.mean(alldists)
+        if meandist < 100:
+            spatialBonus = 1.00
+            bonus = bonus + spatialBonus
+        elif meandist < 300:
+            spatialBonus = 0.75
+            bonus = bonus + spatialBonus
+        elif meandist < 500:
+            spatialBonus = 0.50
+            bonus = bonus + spatialBonus
+        else:
+            spatialBonus = 0.25
+            bonus = bonus + spatialBonus
 
         # FITBIT FILE BONUS (TODO: double check if works when running on static address)
         #check for fitbit data, read in daily Fitbit HR of this userID
