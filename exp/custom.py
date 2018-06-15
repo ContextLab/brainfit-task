@@ -272,8 +272,23 @@ def compute_bonus():
         immedWordBonus = (immedWordTotal/(16.*4))*0.5 #50 cents possible for delayed vocab recall; float convert
         bonus = bonus + immedWordBonus
 
+        #allwordpres should be the same as immed so can reuse code
         #DELAYED WORD LIST BONUS
-
+        delayedWordTotal = 0
+        for record in user_data['data']: # for line in data file
+            trial = record['trialdata']
+            try:
+                if (trial['task_name'] == 'delayed_word_recall'):
+                    qresponse = trial['responses']
+                    #now loop through presented word list and see whether in response array
+                    for wo in allwordspres: #match uppercase of presented words
+                        if str(wo) in str(qresponse.upper()): #one question is saved at a time - should work for each q separately
+                           delayedWordTotal += 1 #then tally words recalled
+            except:
+                pass
+        #hardcoded num of words (16) and lists (4) for now, should use vars
+        delayedWordBonus = (delayedWordTotal/(16.*4))*0.5 #50 cents possible for delayed vocab recall; float convert
+        bonus = bonus + delayedWordBonus
 
         #IMMEDIATE MOVIE RECALL BONUS
         for record in user_data['data']: # for line in data file
