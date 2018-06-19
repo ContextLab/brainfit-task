@@ -49,7 +49,6 @@ var instructions_main = {
 };
 experimentTimeline.push(instructions_main);
 
-
 // create initial fitbit timeline as early exclusion (if dont authorize data)
 w = false;
 w.fitbitSuccess = false; //initialize as false since wont have data immediately
@@ -80,23 +79,20 @@ if(fscreen) {
   //fullscreen mode
   experimentTimeline.push({
     type: 'fullscreen',
-    message: '<p>We’d like you to really focus on this HIT so that we can collect clean data. Please turn off any music, close any additional open tabs in your browser (or any other open programs), remove any distractions around you (e.g. phone), and make yourself comfortable. When you are ready, please press the following button to switch your browser to fullscreen mode. (Your browser will remain in fullscreen for the duration of the HIT.  If you need to exit the HIT early, you may press ESCAPE (esc) to exit fullscreen mode and return your browser back to normal.</p>',
+    message: '<p>We’d like you to really focus on this HIT so that we can collect clean data. Please turn off any music (but keep your volume turned on), close any additional open tabs in your browser (or any other open programs), remove any distractions around you (e.g. phone), and make yourself comfortable. When you are ready, please press the following button to switch your browser to fullscreen mode. (Your browser will remain in fullscreen for the duration of the HIT.  If you need to exit the HIT early, you may press ESCAPE (esc) to exit fullscreen mode and return your browser back to normal.</p>',
     button_label: 'Enter fullscreen mode',
     fullscreen_mode: true
    });
   }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // SURVEY Q'S //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
 var screeningTimeline = screeningPages();
 screeningTimeline.forEach(function(screeningPage) {
         experimentTimeline.push(screeningPage)
         //console.log('skipped screening')
     });
-
 ////////////////////////////////////////////////////////////////////////////////
 // WORD LIST FREE RECALL PRACTICE //////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

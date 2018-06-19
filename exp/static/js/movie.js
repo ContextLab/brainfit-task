@@ -6,10 +6,29 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ['<h1> Part II. Movie </h1> <br/><p> Now you will now watch an illustrated StoryCorps video so we can measure how well you recall a narrative. After the video you will be prompted to recall everything you remember from the video through typing sentences, and then answer some questions on what you watched. </p><p><b>NOTE: </b>Please make sure your volume is turned on for this section.</p><p>Press the button to begin playing the video.</p>'],
+      pages: ["<h1> Part II. Story memory </h1><p>In this next game, you'll be like Sherlock Holmes, trying to remember as much detail as possible from an animated story narration. We’ll first show you the video, and your job is just to pay attention and try to absorb as much information as you can. When the video ends, we’ll test your memory in two ways. First we’ll have you write down (in sentence form) as much as you can remember from the movie in " + (movieRecallSecs/60) + "minutes.  Then we’ll ask you some multiple choice questions about the story. Before we start, let’s check to make sure your speakers are on and are adjusted to a comfortable volume. </p>"],
       show_clickable_nav: true
     };
-    movieTimeline.push(instructions_movie); //debug
+    movieTimeline.push(instructions_movie);
+
+    var soundcheck_movie = {
+      type: "instructions",
+      pages: ["<h2>Speaker adjustment</h2><p>Click the button to play the following sound clip:</p>" +
+      "<audio id='soundTest' src='static/files/furelise.mp3' preload='auto'></audio>" +
+      "<button style='background-color:white; outline:none' class='btn btn-large' onclick='document.getElementById(" + '"soundTest"' + ").play();'><i class='fa fa-play-circle-o fa-5x'></i></button>" +
+      "<p>Take this time to adjust your speaker or headphone volume to a comfortable level. Continue to the next screen once you are ready.</p>"],
+      show_clickable_nav: true,
+      button_label_next: 'Sounds good!'
+    }
+    movieTimeline.push(soundcheck_movie);
+
+    var postsoundcheck_movie = {
+      type: 'instructions',
+      pages: ["<p>Great! Thanks for adjusting those speakers for us. Ready to start the story?</p>"],
+      show_clickable_nav: true,
+      button_label_next: 'Tell me a story!'
+    }
+    movieTimeline.push(postsoundcheck_movie);
 
     for (var i = 0; i< movieNumber; i++){ //TODO: add randomization feature for movie stimuli
         var block_movie = {
@@ -24,15 +43,15 @@ var movieTask = function() {
             width: 880,
             //controls: true, //for debugging
         };
-        movieTimeline.push(block_movie); 
+        movieTimeline.push(block_movie);
 
-        var block_pre_movie_recall = {
+        /*var block_pre_movie_recall = {
             type: 'instructions',
-            pages: ["<p> You will now type sentences describing what you remember from the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or the period key. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the continue button to appear at the bottom of the screen, or for the page to automatically redirect. </p>"],
+            pages: ["<p> You will now describe what you remember from the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or the period key. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the continue button to appear at the bottom of the screen, or for the page to automatically redirect. </p>"],
             show_clickable_nav: true,
-        }
+        }*/
 
-        movieTimeline.push(block_pre_movie_recall)
+        //movieTimeline.push(block_pre_movie_recall)
 
         // AUDIO
         // var recall_movie = {
@@ -64,10 +83,8 @@ var movieTask = function() {
              type: 'survey-text-custom',
              recall_time: movieRecallSecs, //in seconds, converted to ms within the plugin
              button_appear_time: movieRecallButton, //in seconds, less than movieRecallSecs
-             questions: [{prompt: 'Please type what you remember happening in the video you just watched, in the form of sentences. \
-             <p>Press Enter/Return or a period to submit each sentence.</p><p> \
-             <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after ' + movieRecallSecs + ' seconds, \
-             regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section. </p>', value: '', recall_mode: 'narrative'}],
+             questions: [{prompt: "<p>Ok Sherlock-- please tell us anything you remember about what happened in the video you just watched! Each time you type out a full sentence, it will be submitted to our server and you won’t be able to edit it further. It may help to take a few moments to think about how you want to frame your narrative before you start typing. You’ll have " + movieRecallSecs/60 +
+             " minutes to type out your responses before the screen continues. Good luck! (And like with the word list game, you should continue to try hard throughout the " + (movieRecallSecs/60) + " minutes, even if it feels like you can’t remember anything else.)</p><br/><p><b>Type enter/return or '.' to submit each sentence.</b></p>", value: '', recall_mode: 'narrative'}],
              data: {
                       task_name: 'immed_movie_recall',
              }
@@ -78,7 +95,7 @@ var movieTask = function() {
          //page inbetween
          var instructions_movie_q = {
            type: 'instructions',
-           pages: ['Now you will answer some questions on the movie you just viewed.<p>Press the Next button to continue.</p>'],
+           pages: ['Now let’s see more of your detective abilities! Please answer a few questions on the story you just heard.'],
            show_clickable_nav: true
          }
          movieTimeline.push(instructions_movie_q)

@@ -11,7 +11,7 @@ var screeningPages = function() {
 
     //initialize options for all screening questions
     //var options_age = ['18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75 and older']; // TODO: dropdown list
-    var options_birthyear = ['2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990', '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980', '1979', '1978', '1977', '1976', '1975', '1974', '1973', '1972', '1971', '1970', '1969', '1968', '1967', '1966', '1965', '1964', '1963', '1962', '1961', '1960', '1959', '1958', '1957', '1956', '1955', '1954', '1953', '1952', '1951', '1950', '1949', '1948', '1947', '1946', '1945', '1944', '1943 or earlier']
+    var options_birthyear = ['2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990', '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980', '1979', '1978', '1977', '1976', '1975', '1974', '1973', '1972', '1971', '1970', '1969', '1968', '1967', '1966', '1965', '1964', '1963', '1962', '1961', '1960', '1959', '1958', '1957', '1956', '1955', '1954', '1953', '1952', '1951', '1950', '1949', '1948', '1947', '1946', '1945', '1944', '1943','1942','before 1942']
     var options_gender = ['Male','Female','Other','Prefer Not to Say'];
     //var options_ethnicity = ['Hispanic or Latino','Not Hispanic or Latino','Prefer Not to Say']
     var options_race = ['American Indian or Alaska Native', 'Asian', 'Native Hawaiian or Other Pacific Islander','Black or African American','White','Other', 'Prefer Not to Say'];
@@ -30,11 +30,23 @@ var screeningPages = function() {
     var options_fitbit_feats = ['Step Counts', 'Activity Recording/Logging', 'Sleep Tracking', 'Food Logs', 'Water Logs', 'Weight Logs', 'Challenges/Badges', 'Guidance Feature', 'Community/Social', 'Alarms/Reminders/Notifications']
 
 
-    var block_screening_p1 = {
-        type: 'survey-multi-choice',
-        questions: [ {prompt: '<b> What is your age? </b>', options: options_age, required: true}, {prompt: '<b>Gender</b>', options: options_gender, required:true,},]
-    };
-   screeningTimeline.push(block_screening_p1);
+   //  var block_screening_p1 = {
+   //      type: 'survey-multi-choice',
+   //      questions: [ {prompt: '<b> What is your age? </b>', options: options_age, required: true}, {prompt: '<b>Gender</b>', options: options_gender, required:true,},]
+   //  };
+   // screeningTimeline.push(block_screening_p1);
+
+   var block_screening_p0 = {
+       type: 'survey-multi-choice',
+       questions: [{prompt: '<b>What year were you born?</b>', options: options_birthyear, required:true,}]
+   };
+  screeningTimeline.push(block_screening_p0);
+
+   var block_screening_p1 = {
+       type: 'survey-multi-choice',
+       questions: [{prompt: '<b>Gender</b>', options: options_gender, required:true}]
+   };
+  screeningTimeline.push(block_screening_p1);
 
    // incorporate dropdown instead?
    // var age_schema = {
@@ -125,15 +137,14 @@ var screeningPages = function() {
         questions: [{prompt: '<b>Which type of setting do you live in?</b>', options:options_residence,required:true,},
                     {prompt: '<b>How much activity does your job typically require?</b>', options:options_job,required:true,},]
     };
-
     screeningTimeline.push(block_screening_p9b);
 
-    var exercise_screening = {
+    /*var exercise_screening = {
         type: 'instructions',
         pages: ['<h1>Exercise and Fitness Tracker</h1><p>Lastly, we will ask a few questions on your exercise habits and reasons for wearing your fitness tracker. Press Next to continue. </p>'],
         show_clickable_nav: true
     };
-    screeningTimeline.push(exercise_screening);
+    screeningTimeline.push(exercise_screening);*/
 
     var block_screening_p10a = {
         type: 'survey-multi-choice',
@@ -168,7 +179,7 @@ var screeningPages = function() {
       type: 'instructions',
       pages: ["<p>Thanks for providing that information for us! We enjoyed learning a bit more about you and your health and exercise habits. Next we’d like to learn about your memory specifically. We’ll ask you to perform a series of short memory 'games', and we’ll use your performance in those games (along with the information you just provided us about yourself) to try to understand how different aspects of your memory might relate to different aspects of your health and exercise habits. Ready to continue?</p>"],
       show_clickable_nav: true,
-      button_label: 'Continue'
+      button_label_next: 'Continue'
     };
     screeningTimeline.push(block_screening_end);
 
