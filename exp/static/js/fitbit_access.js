@@ -71,7 +71,7 @@ function fitbit_data_auth(){
     successHTML.innerHTML   = ' \
       <div id="success-text"> \
       <center> \
-      <h1>Thank you for providing access to your Fitbit data!</h1> \
+      <h1>Thank you for sharing your Fitbit data with us!</h1> \
       <br /> \
       <br /> \
       <button type="button" onclick="window.close();console.log(fitbitSuccess)">Close window and return to the experiment</button> \
@@ -874,6 +874,6 @@ function fitbit_data_auth(){
 })
       //}
   }
-//)} 
+//)}
 
 fitbit_data_auth() //return success or failure flag

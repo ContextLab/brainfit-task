@@ -11,12 +11,11 @@
         <div id="container-fitbit">
             <div id="fitbit">
             <h1> Fitbit Data Access </h1>
-            <p> We now need you to provide read-only access to your Fitbit data. This data will be <strong> anonymized </strong> and will only be used to interpret your memory task data. </p>
-            <p> <b> NOTE: Please sync your Fitbit data now by turning on your Bluetooth on your mobile device and opening your Fitbit app.</b><p>
-            <p> Next, click on the following button, log in to your Fitbit account and check the box <strong>'Select all'</strong> to proceed.</p>
+            <p>Before continuing, please sync your Fitbit data now via the Fitbit app on your mobile device. You may need to turn Bluetooth on in order to sync your data. This will provide us with the most up-to-date snapshot of your fitness profile!</p>
+            <p>Once you have synced your device, please click the button below to provide us with temporary read-only access to your Fitbit data. You will need to sign in using your Fitbit username and password and click the “select all” box in order to proceed. For more information about what information we will collect from you and how we will use it, please view our <a href="http://www.context-lab.com/privacypolicy"  onclick="window.open(this.href, 'newwindow', 'width=300, height=400'); return false;">Privacy Policy</a>. (If you do not wish to provide access to your Fitbit data, you must discontinue your participation in this HIT.) We agree not to collect personally identifiable information from your Fitbit account, and your data will be used only for research purposes (e.g. to understand how your health and fitness history relates to your memory performance on various tasks and games).</p>
             <p><button type="button" onclick = "w = window.open(serverporturl  + 'fitbit_auth.html','','width=600,height=600'); w.uniqueId = uniqueId; w.client_id = client_id;w.client_secret=client_secret; w.scope = scope; w.redirect_uri = redirect_uri;  w.expires_in = expires_in; w.prompt_flag = prompt_flag;" >Authorize Fitbit Data</button></p>
             <p><input type="checkbox" id="fitbit_checkbox" />
-                    I have provided my Fitbit data for this study. </p>
+                    I have provided access to my Fitbit data for this study. </p>
             <button type="button" id="start">Start Experiment</button>
 
             </div>

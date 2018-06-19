@@ -40,11 +40,11 @@ if(mode == 'lab'){
     experimentTimeline.push(subjectID)
 }*/
 
-/* //DEBUG
 var instructions_main = {
     type: 'instructions',
-    pages: ["<h1> Thank you for participating in our study! </h1> <p> You are likely aware that exercise is good for your health - but did you also know that exercise is good for your brain? Us researchers at the Contextual Dynamics Lab at Dartmouth College are interested in studying how exercise can help our brains function better, and we need your help. To study this, we are asking for individuals to contribute their past Fitbit data and participate in a few memory tasks. </p><p> To achieve this, we will first ask you to provide authorization to your Fitbit tracker data so we can look at how your past activities might be predictive of your task performance. Then, you will answer a few questions about you and your daily habits so we can better understand the data we are gathering. Next, you will be presented with several short memory tasks, with more specific instructions provided at the start of each section. </p>",
-    "<h1>Overview of Tasks </h1> <p> After you have successfully provided your Fitbit data to us and completed a brief survey, we will continue to the memory tasks. The first section requires that you learn lists of words presented on the middle of your screen and type what you remember from these lists. For the second task, you will view a short movie, type what you remember from the movie, and then answer questions on the video content. The third task involves learning pairs of foreign language vocabulary. For the fourth task, you will remember the locations of shapes presented on your screen, and then use the mouse to drag and drop shapes where they were presented. </p><p> The entire experiment should take approximately an hour. Please press Next > to proceed to the Fitbit data authorization page. </p>", ],
+    pages: ["<h1> Thank you for joining our study! </h1>"+
+    "<p>You may already know that exercise is good for your health-- but did you also know that exercise is good for your brain? Us researchers at the Contextual Dynamics Lab at Dartmouth College are interested in studying how exercise can help our brains function better, and we need your help!</p><p>On the next screens, we'll ask you to provide access to your Fitbit data from the past year.  The information you provide us will be anonymous (not associated with your name, precise location, or other information that could be used to personally identify you) and kept private.  Then we will ask you some survey questions to learn a bit more about you.  Finally, we'll ask you to play some short memory games to help get a sense of how you learn and remember different types of information.  Ultimately we want to know whether people who do particular types of exercise are better (or worse) at different types of memory tasks.</p>"+
+    "<p>The entire HIT should take you approximately 45 minutes.  If you're ready to proceed, please press 'Next >' to continue to the Fitbit data authorization page.</p>", ],
     show_clickable_nav: true
 };
 experimentTimeline.push(instructions_main);
@@ -73,8 +73,6 @@ var block_fitbit = {
 }
 experimentTimeline.push(block_fitbit);
 
-*/ //DEBUG
-/* //DEBUG
 
 
 //now can make fullscreen once fitbit data provided (otherwise popup will disrupt authorization process)
@@ -98,7 +96,6 @@ screeningTimeline.forEach(function(screeningPage) {
         experimentTimeline.push(screeningPage)
         //console.log('skipped screening')
     });
-*/ //DEBUG
 
 ////////////////////////////////////////////////////////////////////////////////
 // WORD LIST FREE RECALL PRACTICE //////////////////////////////////////////////
@@ -121,7 +118,6 @@ screeningTimeline.forEach(function(screeningPage) {
           experimentTimeline.push(wordListPage)
       });
 
-/* //DEBUG
 
 ////////////////////////////////////////////////////////////////////////////////
 // PART II. MOVIE //////////////////////////////////////////////////////////////
@@ -142,21 +138,17 @@ screeningTimeline.forEach(function(screeningPage) {
 ////////////////////////////////////////////////////////////////////////////////
 // PART IV. SPATIAL TASK ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
     var spatialTimeline = spatialTask();
         spatialTimeline.forEach(function(spatialPage) {
             experimentTimeline.push(spatialPage)
         });
-
 ////////////////////////////////////////////////////////////////////////////////
 // PART V. DELAYED WORD FREE RECALL ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-*/ //DEBUG
     var delayRecallTimeline = delayRecallTask();
         delayRecallTimeline.forEach(function(delayRecallPage) {
             experimentTimeline.push(delayRecallPage)
         });
-/* //DEBUG
 ////////////////////////////////////////////////////////////////////////////////
 // PART VI. DELAYED MOVIE RECALL ///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -218,7 +210,6 @@ var block_debrief = {
     show_clickable_nav: true,
 }
 experimentTimeline.push(block_debrief)
-*/ //DEBUG
 
 
 /*start experiment*/

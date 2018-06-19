@@ -13,10 +13,13 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 //var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
 //var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
 
-//testing here - replace with static IP for online use!
-//var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+//replace with static IP for online use!
 
-var serverporturl = 'http://129.170.30.179/'
+//local debugging
+var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+
+//online use
+//var serverporturl = 'http://129.170.30.179/'
 
 // path to wordpool file
 var wordStimPath = 'static/files/wordpool.csv'
@@ -79,7 +82,6 @@ var recPracticeWords = []; // initialize array to hold recorded practice words -
 var practiceRecordTime = 10; // amount of time given to recite practice words, in seconds
 //var instructionsTimeline = []; //initialize
 
-
 //word list
 //var font = 'Arial' // font
 //var fontSize = '5vw' // font size
@@ -113,5 +115,4 @@ var maxSpatialNumber = 7; //**NOTE: need to make stimuli smaller if want more th
 var spatialReps = 3; //number of times to repeat spatial task segments
 
 //delayed word list recall
-
 var delayRecordTime = 120; //seconds, currently 2 minutes to account for all the words they can recall
