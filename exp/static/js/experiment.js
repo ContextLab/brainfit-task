@@ -80,8 +80,8 @@ if(fscreen) {
   //fullscreen mode
   experimentTimeline.push({
     type: 'fullscreen',
-    message: '<p>Press the following button to enter fullscreen mode and remain in fullscreen for the duration of the task.</p>',
-    button_label: 'Enter Fullscreen',
+    message: '<p>We’d like you to really focus on this HIT so that we can collect clean data. Please turn off any music, close any additional open tabs in your browser (or any other open programs), remove any distractions around you (e.g. phone), and make yourself comfortable. When you are ready, please press the following button to switch your browser to fullscreen mode. (Your browser will remain in fullscreen for the duration of the HIT.  If you need to exit the HIT early, you may press ESCAPE (esc) to exit fullscreen mode and return your browser back to normal.</p>',
+    button_label: 'Enter fullscreen mode',
     fullscreen_mode: true
    });
   }
