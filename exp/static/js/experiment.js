@@ -17,7 +17,6 @@ var runExperiment = function (trials, options) {
 // INSTRUCTIONS AND SCREENING QUESTIONS ////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-
 //record start date and time of experiment to associate with fitbit data
 var getDateTime = {
     type: 'datetime',
@@ -39,6 +38,8 @@ if(mode == 'lab'){
     };
     experimentTimeline.push(subjectID)
 }*/
+
+
 
 var instructions_main = {
     type: 'instructions',
@@ -84,6 +85,7 @@ if(fscreen) {
     fullscreen_mode: true
    });
   }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // SURVEY Q'S //////////////////////////////////////////////////////////////////
@@ -192,7 +194,6 @@ var postSurveyTimeline = postSurveyTask();
     postSurveyTimeline.forEach(function(postSurveyTaskPage) {
         experimentTimeline.push(postSurveyTaskPage)
     });
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // DEBRIEFING & WRAPUP /////////////////////////////////////////////////////////

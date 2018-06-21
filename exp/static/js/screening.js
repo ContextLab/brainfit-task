@@ -36,11 +36,20 @@ var screeningPages = function() {
    //  };
    // screeningTimeline.push(block_screening_p1);
 
+/* //Alternative display: multiple choice version
    var block_screening_p0 = {
        type: 'survey-multi-choice',
        questions: [{prompt: '<b>What year were you born?</b>', options: options_birthyear, required:true,}]
    };
   screeningTimeline.push(block_screening_p0);
+*/
+
+  //dropdown version
+  var block_screening_p0 = {
+      type: 'survey-dropdown',
+      questions: [{prompt: '<b>What year were you born?</b>', options: options_birthyear, default_text: 'Select year'}],
+  };
+ screeningTimeline.push(block_screening_p0);
 
    var block_screening_p1 = {
        type: 'survey-multi-choice',
@@ -48,21 +57,19 @@ var screeningPages = function() {
    };
   screeningTimeline.push(block_screening_p1);
 
-   // incorporate dropdown instead?
-   // var age_schema = {
-   // form: {form_title: 'Age Q'},
-   //    "What is your age?": {type: "dropdown"}
-   // };
-   //
-   // var block_screening_p1 = {
-   // type: 'form',
-   // schema: age_schema
-   // };
-   // screeningTimeline.push(block_screening_p1);
 
+   /* //Alternative multi choice version
    var block_screening_p2 = {
        type: 'survey-multi-choice',
        questions: [{prompt: '<b>Highest Degree Achieved:</b>', options: options_school, required:true,}] //       {prompt: '<b>Ethnicity:</b>', options: options_ethnicity, required:true,},]
+   };
+   screeningTimeline.push(block_screening_p2);
+   */
+
+   //dropdown version
+   var block_screening_p2 = {
+       type: 'survey-dropdown',
+       questions: [{prompt: '<b>Highest Degree Achieved:</b>', options: options_school, default_text: 'Select degree'}] //{prompt: '<b>Ethnicity:</b>', options: options_ethnicity, required:true,},]
    };
    screeningTimeline.push(block_screening_p2);
 
@@ -115,18 +122,24 @@ var screeningPages = function() {
    };
    screeningTimeline.push(state_screening);*/
 
-    var block_screening_p8 = {
+    var block_screening_p8a = {
         type: 'survey-multi-choice',
         questions: [{prompt: '<b>How alert are you feeling?</b>', options: options_alert, required:true,},
                    {prompt: '<b>How stressed do you typically feel?</b>', options: options_stressed, required:true,},
                    {prompt: '<b>How stressed do you feel now?</b>', options: options_stressed, required:true,}],
         };
-    screeningTimeline.push(block_screening_p8);
+    screeningTimeline.push(block_screening_p8a);
+
+    var block_screening_p8b = {
+        type: 'survey-dropdown',
+        questions: [{prompt: '<b>How many hours of sleep did you get last night (round to the nearest hour)?<b>',options: options_sleep, default_text:'Hours'},] //dropdown option
+    };
+    screeningTimeline.push(block_screening_p8b);
 
     //only putting 2 questions per page since won't scroll to top of each page upon submission
     var block_screening_p9a = {
         type: 'survey-multi-choice',
-        questions: [{prompt: '<b>How many hours of sleep did you get last night (round to the nearest hour)?<b>',options: options_sleep, required:true,},
+        questions: [//{prompt: '<b>How many hours of sleep did you get last night (round to the nearest hour)?<b>',options: options_sleep, required:true,}, //alternative multiple choice option
                     {prompt: '<b>How many cups of coffee and/or caffeinated beverages (e.g. tea, soda) have you had today?</b>', options: options_caffeine, required:true,},
                     {prompt: '<b>How many cups of water (8 oz) have you had today?</b>', options: options_water, required:true,},]
     };
@@ -148,11 +161,16 @@ var screeningPages = function() {
 
     var block_screening_p10a = {
         type: 'survey-multi-choice',
-        questions: [{prompt: '<b>Have you exercised today?</b>', options: ['Yes','No'], required:true,}, {prompt: '<b>Do you plan to exercise later?</b>', options: ['Yes','No'], required:true,},
-                    {prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, required:true,},]
+        questions: [{prompt: '<b>Have you exercised today?</b>', options: ['Yes','No'], required:true,}, {prompt: '<b>Do you plan to exercise later?</b>', options: ['Yes','No'], required:true,},] //{prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq,required:true}
     };
-
     screeningTimeline.push(block_screening_p10a);
+
+    var block_screening_p10aa = {
+        type: 'survey-dropdown',
+        questions: [{prompt: '<b>How many days a week do you typically exercise?</b>', options: options_exercise_freq, default_text: 'Number of Days',}] //dropdown option
+    };
+    screeningTimeline.push(block_screening_p10aa);
+
 
     var block_screening_p10b = {
         type: 'survey-multi-choice',

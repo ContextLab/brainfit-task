@@ -6,7 +6,7 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ["<h1> Part II. Story memory </h1><p>In this next game, you'll be like Sherlock Holmes, trying to remember as much detail as possible from an animated story narration. We’ll first show you the video, and your job is just to pay attention and try to absorb as much information as you can. When the video ends, we’ll test your memory in two ways. First we’ll have you write down (in sentence form) as much as you can remember from the movie in " + (movieRecallSecs/60) + "minutes.  Then we’ll ask you some multiple choice questions about the story. Before we start, let’s check to make sure your speakers are on and are adjusted to a comfortable volume. </p>"],
+      pages: ["<h1> Part II. Story memory </h1><p>In this next game, you'll be like Sherlock Holmes, trying to remember as much detail as possible from an animated story narration. We’ll first show you the video, and your job is just to pay attention and try to absorb as much information as you can. When the video ends, we’ll test your memory in two ways. First we’ll have you write down (in sentence form) as much as you can remember from the movie in " + (movieRecallSecs/60) + " minutes.  Then we’ll ask you some multiple choice questions about the story. Before we start, let’s check to make sure your speakers are on and are adjusted to a comfortable volume. </p>"],
       show_clickable_nav: true
     };
     movieTimeline.push(instructions_movie);
