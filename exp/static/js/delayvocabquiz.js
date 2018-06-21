@@ -3,7 +3,7 @@ var delayVocabQuizTask = function() {
     var delayVocabQuizTimeline = [];
     var instructions_vocab = {
       type: 'instructions',
-      pages: ['<h1> Part VII. Delayed Vocabulary-Image Pair Questions </h1> <br/><p> We now would like you to recall the Irish language vocabulary pairs you learned earlier so we can examine whether fitness or recent exercise has influenced your ability to recall picture-word pairs.</p><p> Please press Next > to continue. </p>'],
+      pages: ['<h1> Part VII. Delayed travel flashcards </h1> <br/><p>Let’s recall some of the vocabulary we learned earlier on our trip to Ireland. As before, select the vocabulary word that matches with the presented image meaning. Please press Next > to continue.</p>'],
       show_clickable_nav: true
     };
     delayVocabQuizTimeline.push(instructions_vocab)
@@ -51,7 +51,7 @@ var delayVocabQuizTask = function() {
           var imageDir = '/static/images/' //directory of images
           var quiz_vocab = {
             type: 'survey-multi-choice',
-            questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab, required:true}],
+            questions: [{prompt: "<center>Match the following image to its word:<br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab, required:true}],
             data: {
                       task_name: 'delayed_vocab_quiz',
                       vocab_options: options_vocab,

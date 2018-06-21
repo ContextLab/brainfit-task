@@ -20,7 +20,7 @@ var postSurveyTask = function() {
     // postSurveyTimeline.push(ratings_q)
     var instr_postsurvey = {
       type: 'instructions',
-      pages: ['<h1>Post-Survey</h1><p>Thank you for your time! Please answer a few questions on this study so that we can improve our task for future users. We will first ask you about how clear our instructions were, and then we will ask you to rate how difficult each of the task sections were. </p>'],
+      pages: ['<h1>Post-Survey</h1><p>Thank you for your time and your contributions to science! Please answer a few questions on this study so that we can improve our task for future participants. We will first ask you about how clear our instructions were, and then we will ask you to rate how difficult each of the task sections were. </p>'],
       show_clickable_nav: true
     }
     postSurveyTimeline.push(instr_postsurvey)
@@ -101,7 +101,7 @@ var postSurveyTask = function() {
 
     var feedback_q = {
         type: 'survey-text',
-        questions: [{prompt: '<b>Feel free to provide any additional comments or feedback:</b>', value: ' ', rows: 4, columns: 50},]
+        questions: [{prompt: '<b>Feel free to provide any additional comments or feedback below:</b>', value: ' ', rows: 4, columns: 50},]
     }
     postSurveyTimeline.push(feedback_q)
 

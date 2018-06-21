@@ -5,11 +5,10 @@ var vocabTask = function() {
     var vocabTimeline = [];
     var instructions_vocab = {
       type: 'instructions',
-      pages: ['<h1> Part III. Vocabulary-Image Pairs </h1> <br/><p> You will now be presented with pairs of Irish vocabulary words and images of their translations. After viewing these pairs, you will be asked to match these vocabulary words to their respective translation images. This will help us quantify your memory for paired associations. </p> <p> Please press Next > to continue and begin viewing these pairs. </p>'],
+      pages: ["<h1> Part III. Travel flashcards </h1> <br/><p> Have you ever wanted to travel to another country? Today you'll be taking a virtual flight to Ireland to learn some Irish foreign language vocabulary! You will first be presented with pairs of words and images of their meanings. After viewing these pairs, you will be asked to match these words to their respective translation images. Please press Next > to travel to Ireland! </p>"],
       show_clickable_nav: true
     };
     vocabTimeline.push(instructions_vocab)
-
 
     var imageDir = '/static/images/' //directory of images
 
@@ -44,14 +43,14 @@ var vocabTask = function() {
                 //console.log('finished')
                 //}
             }
-                vocabTimeline.push(block_vocab); 
+                vocabTimeline.push(block_vocab);
 
         })
     //}
 
     var instructions_vocabQuiz = {
       type: 'instructions',
-      pages: ['<p>Now you will match the presented Irish language vocabulary terms and image translations.</p><p>Please press Next > to continue. </p>'],
+      pages: ['<p>Ready to recall the words you learned on your travels? Please press Next > to show off your new language skills!</p>'],
       show_clickable_nav: true
      };
      vocabTimeline.push(instructions_vocabQuiz)
@@ -106,7 +105,7 @@ var vocabTask = function() {
 
         var quiz_vocab = {
           type: 'survey-multi-choice',
-          questions: [{prompt: "<center> What is the word associated with: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab, required:true}],
+          questions: [{prompt: "<center> Match the following image to its word: <br /> <img src=" + imageDir + imageOption + " height = 200></img></center>", options: options_vocab, required:true}],
           data: {
                     task_name: 'immed_vocab_quiz',
                     vocab_options: options_vocab,

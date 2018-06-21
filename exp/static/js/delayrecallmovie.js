@@ -2,7 +2,7 @@ var delayRecallMovieTask = function() {
     var delayRecallMovieTimeline = [];
     var instr_delayRecall_movie = {
         type: 'instructions',
-        pages: ["<h1> Part VI. Delayed Movie Recall </h1> <p> We now would like you to recall what you remember seeing in the short movie you watched earlier. This will help us understand how fitness and recent exercise may influence delayed memory for stories or narratives. </p> <p> When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs + " seconds to complete this section. </p>"],
+        pages: ["<h1> Part VI. Delayed story memory </h1> <p>Remember the animated story you watched earlier? We now would like you to show off your Sherlock skills again and recall what you remember happening in this story. When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs + " seconds to complete this section.</p>"],
         show_clickable_nav: true,
     }
     delayRecallMovieTimeline.push(instr_delayRecall_movie)
@@ -25,10 +25,8 @@ var delayRecallMovieTask = function() {
            type: 'survey-text-custom',
            recall_time: movieRecallSecs, //in seconds, converted to ms within the plugin
            button_appear_time: movieRecallButton, //in seconds, less than movieRecallSecs
-           questions: [{prompt: 'Please type what you remember happening in the video you watched earlier, in the form of sentences. \
-           <p>Press Enter/Return or a period to submit each sentence.</p><p> \
-           <p><b>NOTE:</b> The sentences will disappear once submitted. This text entry screen will continue after ' + movieRecallSecs + ' seconds, \
-           regardless of how many sentences you recall. Please try hard to remember the movie, even if you think your memory has been exhausted. If you cannot remember anything else from the video, a button will appear after '+ movieRecallButton + ' seconds for you to continue to the next section.</p>', value: '', recall_mode: 'narrative'}],
+           questions: [{prompt: "Please tell us anything you remember about what happened in the video you watched earlier! Each time you type out a full sentence, it will be submitted to our server and you won’t be able to edit it further. It may help to take a few moments to think about how you want to frame your narrative before you start typing. You’ll have " + movieRecallSecs/60 +
+           " minutes to type out your responses before the screen continues. Good luck! (And like with the word list game, you should continue to try hard throughout the " + (movieRecallSecs/60) + " minutes, even if it feels like you can’t remember anything else.)</p><br/><p><b>Type enter/return or '.' to submit each sentence.</b></p>", value: '', recall_mode: 'narrative'}],
            data: {
                     task_name: 'delayed_movie_recall',
            }
