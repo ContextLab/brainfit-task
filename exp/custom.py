@@ -159,7 +159,7 @@ def compute_bonus():
                filter(Participant.uniqueid == uniqueId).\
                one()
         user_data = loads(user.datastring) # load datastring from JSON
-        bonus = 0 #this works at higher level
+        bonus = 0 #initialize
 
         #for testing, input fake data
         #user_data['data'] = [{"current_trial":0,"dateTime":1527605627409,"trialdata":{"rt":8465,"responses":"{\"Q0\":\"BFM-2.0-MMDDYY-SN\",\"Q1\":\" ML\"}","trial_type":"survey-text","trial_index":0,"time_elapsed":8469,"internal_node_id":"0.0-0.0"}}]
@@ -419,7 +419,7 @@ def compute_bonus():
             pass #need try/except for debugging, when no fitbit data section
 
 
-        user.bonus = bonus
+        user.bonus = round(bonus,2) #not sure if should be string or value
         db_session.add(user)
         db_session.commit()
         resp = {"bonusComputed": "success"}

@@ -72,10 +72,10 @@ var postSurveyTask = function() {
     var instr_difficulty_qs1 = {
         type: 'survey-multi-choice',
         preamble: '<b>Now we would like to know how difficult you found each task section to be. </b>',
-        questions: [{prompt: "<b>Word List Recall</b>", options: options_instr_difficulty, horizontal: false, required: true},
-                    {prompt: "<b>Movie Recall and Quiz</b>", options: options_instr_difficulty, horizontal: false, required: true},
-                    {prompt: "<b>Vocabulary Pairs Quiz</b>", options: options_instr_difficulty, horizontal: false, required: true},
-                    {prompt: "<b>Spatial Shapes Task</b>", options: options_instr_difficulty, horizontal: false, required: true},
+        questions: [{prompt: "<b>Random word lists (word list recall)</b>", options: options_instr_difficulty, horizontal: false, required: true},
+                    {prompt: "<b>Story memory (movie recall and quiz)</b>", options: options_instr_difficulty, horizontal: false, required: true},
+                    {prompt: "<b>Travel flashcards (vocabulary pairs)</b>", options: options_instr_difficulty, horizontal: false, required: true},
+                    {prompt: "<b>Locating objects (shapes task)</b>", options: options_instr_difficulty, horizontal: false, required: true},
                   ],
          required: true,
     };
@@ -84,9 +84,9 @@ var postSurveyTask = function() {
     var instr_difficulty_qs2 = {
         type: 'survey-multi-choice',
         preamble: '<b>Now we would like to know how difficult you found each task section to be. </b>',
-        questions: [{prompt: "<b>Delayed Word List Recall</b>", options: options_instr_difficulty, horizontal: false, required: true},
-                    {prompt: "<b>Delayed Movie Recall</b>", options: options_instr_difficulty, horizontal: false, required: true},
-                    {prompt: "<b>Delayed Vocabulary Pairs Quiz</b>", options: options_instr_difficulty, horizontal: false, required: true},
+        questions: [{prompt: "<b>Second (delayed) word list recall</b>", options: options_instr_difficulty, horizontal: false, required: true},
+                    {prompt: "<b>Second (delayed) movie recall</b>", options: options_instr_difficulty, horizontal: false, required: true},
+                    {prompt: "<b>Second (delayed) vocabulary quiz</b>", options: options_instr_difficulty, horizontal: false, required: true},
                   ],
          required: true,
     };
