@@ -6,7 +6,7 @@ var movieTask = function() {
 
     var instructions_movie = {
       type: 'instructions',
-      pages: ["<h1> Part II. Story memory </h1><p>In this next game, you'll be like Sherlock Holmes, trying to remember as much detail as possible from an animated story narration. We’ll first show you the video, and your job is just to pay attention and try to absorb as much information as you can. When the video ends, we’ll test your memory in two ways. First we’ll have you write down (in sentence form) as much as you can remember from the movie in " + (movieRecallSecs/60) + " minutes.  Then we’ll ask you some multiple choice questions about the story. Before we start, let’s check to make sure your speakers are on and are adjusted to a comfortable volume. </p>"],
+      pages: ["<h1> Part II. Story memory </h1><p>In this next game, you'll be like Sherlock Holmes, trying to remember as much detail as possible from an animated story narration. We’ll first show you the video, and your job is just to pay attention and try to absorb as much information as you can. When the video ends, we’ll test your memory in two ways. First we’ll have you write down (in sentence form) as much as you can remember from the movie in " + (movieRecallSecs/60) + " minutes.  Then we’ll ask you some multiple choice questions about the story. Before we start, let’s check to make sure your speakers are on (or headphones are plugged in) and are adjusted to a comfortable volume. </p>"],
       show_clickable_nav: true
     };
     movieTimeline.push(instructions_movie);
@@ -20,7 +20,7 @@ var movieTask = function() {
       show_clickable_nav: true,
       button_label_next: 'Sounds good!'
     }
-    movieTimeline.push(soundcheck_movie);
+  movieTimeline.push(soundcheck_movie);
 
     var postsoundcheck_movie = {
       type: 'instructions',
@@ -95,7 +95,7 @@ var movieTask = function() {
          //page inbetween
          var instructions_movie_q = {
            type: 'instructions',
-           pages: ['Now let’s see more of your detective abilities! Please answer a few questions on the story you just heard.'],
+           pages: ['Awesome job! Now let’s see more of your detective abilities. Please answer a few questions on the story you just heard.'],
            show_clickable_nav: true
          }
          movieTimeline.push(instructions_movie_q)

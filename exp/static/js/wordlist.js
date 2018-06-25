@@ -138,7 +138,7 @@ var wordListTask = function() {
         var block_recall = {
             type: 'survey-text-custom',
             recall_time: recordTime, //seconds, converted to ms within the plugin
-            button_appear_time: 0, //make greater than time if don't want button to appear
+            button_appear_time: 0, //don't want button to appear
             questions: [{prompt: "<p>Memory test time! You'll have " + recordTime + " seconds to remember as many words as you can. Please type each word you remember into the prompt, and then press enter/return, the spacebar, or the comma key to submit each word. You should try hard throughout the entire interval, even if you think you’ve written everything you remember, in case something comes to mind. You can write the words in any order they come to mind-- just try to get as many as you can!</p>", value: '', recall_mode: 'word'}],
             data: {
                      task_name: 'immed_word_recall',
@@ -150,7 +150,7 @@ var wordListTask = function() {
         if (listNumber === (numberOfLists - 1)) { //final list, concluding notes
           var concluding_wordlist = {
               type: 'instructions',
-              pages: ["<h2>Random word list wrap-up</h2><p>That game you just played is called “free recall.” It tests your ability to memorize words, regardless of the order you learned them in. Next we’ll move on to testing a different aspect of your memory.</p>"],
+              pages: ["<p>That game you just played is called “free recall.” It tests your ability to memorize words, regardless of the order you learned them in. Next we’ll move on to testing a different aspect of your memory.</p>"],
               show_clickable_nav: true,
           }
           wordListTimeline.push(concluding_wordlist);

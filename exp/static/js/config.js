@@ -16,10 +16,10 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 //replace with static IP for online use!
 
 //local debugging
-var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
+//var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
 
 //online use
-//var serverporturl = 'http://129.170.30.179/'
+var serverporturl = 'http://129.170.30.179/'
 
 // path to wordpool file
 var wordStimPath = 'static/files/wordpool.csv'
@@ -95,8 +95,8 @@ var totalListNumber = 16; // total number of lists in the loaded csv file
 
 //movie
 var movieNumber = 1;  //number of movies to display from provided csv file
-var movieRecallSecs = 240; //number of seconds to give individuals to recall movie
-var movieRecallButton = 120; //number of seconds before button appears
+var movieRecallSecs = 270; //number of seconds to give individuals to recall movie
+var movieRecallButton = 120; //number of seconds before button clickable
 var movieShuffle = false; // flag whether want to return shuffled movie array or not
 
 //vocab pairs

@@ -2,7 +2,7 @@ var delayRecallMovieTask = function() {
     var delayRecallMovieTimeline = [];
     var instr_delayRecall_movie = {
         type: 'instructions',
-        pages: ["<h1> Part VI. Delayed story memory </h1> <p>Remember the animated story you watched earlier? We now would like you to show off your Sherlock skills again and recall what you remember happening in this story. When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs + " seconds to complete this section.</p>"],
+        pages: ["<h1> Part VI. Delayed story memory </h1> <p>Remember the animated story you watched earlier? We now would like you to show off your Sherlock skills again and recall what you remember happening in this story. When you see the prompt on the next page, please type sentences of what you recall from this video. You will have " + movieRecallSecs/60 + " minutes to complete this section.</p>"],
         show_clickable_nav: true,
     }
     delayRecallMovieTimeline.push(instr_delayRecall_movie)

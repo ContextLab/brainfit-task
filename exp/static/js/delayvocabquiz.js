@@ -3,7 +3,7 @@ var delayVocabQuizTask = function() {
     var delayVocabQuizTimeline = [];
     var instructions_vocab = {
       type: 'instructions',
-      pages: ['<h1> Part VII. Delayed travel flashcards </h1> <br/><p>Let’s recall some of the vocabulary we learned earlier on our trip to Ireland. As before, select the vocabulary word that matches with the presented image meaning. Please press Next > to continue.</p>'],
+      pages: ['<h1> Part VII. Delayed travel flashcards quiz </h1> <br/><p>Let’s recall some of the vocabulary we learned earlier on our trip to Ireland! As before, select the vocabulary word that matches with the presented image meaning. Please press Next > to continue.</p>'],
       show_clickable_nav: true
     };
     delayVocabQuizTimeline.push(instructions_vocab)

@@ -27,7 +27,7 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       button_appear_time: {
         type:  jsPsych.plugins.parameterType.INT, //number of seconds to wait before button appears if can no longer recall
         pretty_name: 'Button Timer',
-        default: 30000, // 30 seconds
+        default: 0, // won't appear if set == 0
         description: 'Time to wait before displaying button to continue on to the next page (in seconds, typically shorter than recall_time)'
       },
       questions: {
@@ -143,14 +143,16 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       html += '</div>';
     }
 
+    //put button on page but disable until timer up
+    html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom" disabled>'+trial.button_label+'</button>'
+    display_element.innerHTML = html;
 
     // add submit button after nseconds
 
     //html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
-    if(trial.button_appear_time!==0){ //don't display at all if set to 0
+    if(trial.button_appear_time!==0){ //don't make clickable at all if set to 0
       setTimeout(function(){
-        html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>'
-        display_element.innerHTML = html;
+        document.getElementById("jspsych-survey-text-custom-next").disabled = false; //enable after timer
         //also need event listener for button click to finish trial (only after button has appeared)
         display_element.querySelector('#jspsych-survey-text-custom-next').addEventListener('click',recallTimer) }, trial.button_appear_time*1000)}; //needs to be in ms
 
