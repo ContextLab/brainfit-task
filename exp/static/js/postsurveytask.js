@@ -51,7 +51,7 @@ var postSurveyTask = function() {
     };
     postSurveyTimeline.push(instr_clarity_qs2)
 
-    var options_multi_task = ['Overall instructions', 'Survey questions', 'Random word lists (word list recall)','Story memory (movie recall and quiz)', 'Travel flashcards (vocabulary pairs)','Locating objects (shapes task)','Second (delayed) word list recall','Second (delayed) movie recall','Second (delayed) vocabulary quiz']
+    var options_multi_task = ['Overall instructions', 'Fitbit data authorization', 'Survey questions', 'Random word lists (word list recall)','Story memory (movie recall and quiz)', 'Travel flashcards (vocabulary pairs)','Locating objects (shapes task)','Second (delayed) word list recall','Second (delayed) movie recall','Second (delayed) vocabulary quiz']
 
     var task_q_array = []
     for (var q = 0; q < options_multi_task.length; q++ ){
