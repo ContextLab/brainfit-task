@@ -55,7 +55,7 @@ var delayRecallTask = function() {
 
     var block_delayrecall_timeup = {
       type: 'instructions',
-      pages: ["<h3>Time's up!<h3><p>Thanks for recalling all of that! Click the button to continue to the next section.</p>"],
+      pages: ["<h3>Time's up!</h3><p>Thanks for recalling all of that! Click the button to continue to the next section.</p>"],
       show_clickable_nav: true,
     }
     delayRecallTimeline.push(block_delayrecall_timeup)

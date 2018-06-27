@@ -86,11 +86,11 @@
           }
             //return allwordsrecalled
         }
-        
+
         //updated for ! and ?, also added to check last typed response
         function writeNarrative(val){
           var textval = val.value
-          if ((event.which == 190  && (textval[textval.length-1] === '.')) || ((event.which == 16 && event.which == 191)  && (textval[textval.length-1] === '?')) || ((event.which == 16 && event.which == 49) && (textval[textval.length-1] === '!')) || event.which == 13) { //if ends in period (if also last in box), question mark, exclamation point, or enter key, save sentence and clear from field
+          if ((event.which == 190  && (textval[textval.length-1] === '.')) || (textval[textval.length-1] === '?') || (textval[textval.length-1] === '!') || event.which == 13) { //if ends in period (if also last in box), question mark, exclamation point, or enter key, save sentence and clear from field
             allwordsrecalled.push(textval) //
             console.log(allwordsrecalled)
             //also get timestamps
