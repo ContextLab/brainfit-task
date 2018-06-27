@@ -174,7 +174,7 @@ var screeningPages = function() {
 
     var block_screening_p10b = {
         type: 'survey-multi-choice',
-        questions: [{prompt: '<b>What motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
+        questions: [{prompt: '<b>What most motivates you to exercise? </b>', options: options_exercise_motiv, required: true, },
                     {prompt: '<b>How often do you remember to wear your fitness tracker?</b>', options: options_fit_wear, required:true,},
                     {prompt: '<b>Have you synced your fitness tracker data to your app today?</b>', options: ['Yes','No'], required:true,},]
     };

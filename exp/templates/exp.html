@@ -62,11 +62,12 @@
         var allwordtimings = []; //keep track of timing
 
         //ADDED FUNCTIONS: function to write text to screen upon typing for recall text
+        //Updated so that punctuation needs to be last in phrase yo submit
         function writeWords(val){
         	var textval = val.value
           //var lasttextval = textval.slice(-1)[0]
 
-          if (event.which == 13) { //if return, save text as is
+          if (event.which == 13) { //if return pressed, save text as is - doesnt matter where in line pressed
             allwordsrecalled.push(textval) //if want to remove characters here, add this (but doesnt work for return key)//(textval.slice(0,textval.length-1)) //if enter, save what was put in the text box
             console.log(allwordsrecalled)
             allwordtimings.push(Date.now()) //get times of word submissions
@@ -75,7 +76,8 @@
             //alltext = []; //clear array of strings
             //console.log('submit word')
             document.getElementById('recall-box').value = ""; //clear if one of these keys are pressed to allow for new entry
-          } else if (event.which == 188 || event.which == 186 || event.which == 32 || event.which == 9 || event.which == 190){ // if comma, semicolon, space, tab, period - remove symbol before appending
+            //updated: must have been pressed AND must have been last in the array (NOTE: might need to have check for length of textval if error)
+          } else if ((event.which == 188 && (textval[textval.length-1] === ',')) || (event.which == 186 && (textval[textval.length-1] === ';')) || (event.which == 32 && (textval[textval.length-1] === ' ')) || (event.which == 190 && (textval[textval.length-1] === '.')) ){ // if comma, semicolon, space, period - remove symbol before appending
             allwordsrecalled.push((textval.slice(0,textval.length-1)))
             console.log(allwordsrecalled)
             allwordtimings.push(Date.now())
@@ -84,10 +86,11 @@
           }
             //return allwordsrecalled
         }
-
+        
+        //updated for ! and ?, also added to check last typed response
         function writeNarrative(val){
           var textval = val.value
-          if (event.which == 190 || event.which == 13) { //if ends in period or enter key, save sentence and clear from field
+          if ((event.which == 190  && (textval[textval.length-1] === '.')) || ((event.which == 16 && event.which == 191)  && (textval[textval.length-1] === '?')) || ((event.which == 16 && event.which == 49) && (textval[textval.length-1] === '!')) || event.which == 13) { //if ends in period (if also last in box), question mark, exclamation point, or enter key, save sentence and clear from field
             allwordsrecalled.push(textval) //
             console.log(allwordsrecalled)
             //also get timestamps

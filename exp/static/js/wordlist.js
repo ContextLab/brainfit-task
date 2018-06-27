@@ -21,12 +21,12 @@ var wordListTask = function() {
             pages: ["<h1> Part I. Memorizing random word lists </h1>" +
             "<p>In this first game, we'll be giving you a series of 'shopping lists' of "
             + listLength +
-            " random words to remember, sort of like you’re at the grocery store trying to remember what you’re supposed to buy. (Only, some of the words you see in this game might seem strange or out of place at a typical store.) We'll flash a list of words on the screen, one at a time, and your job is to remember the full list. After you've seen the words, we'll ask you to type any words that you remember into a prompt. It doesn't matter what order you remember the words in (just like it wouldn't matter what order you picked up your groceries in); the key is that you try your best not to forget any! You’ll have "
+            " random words to remember, sort of like you’re at the grocery store trying to remember what you’re supposed to buy. (Only, some of the words you see in this game might seem strange or out of place at a typical store.) We'll flash a list of words on the screen, one at a time, and your job is to remember the full list.</p><p>After you've seen the words, we'll ask you to type any words that you remember into a prompt. It doesn't matter what order you remember the words in (just like it wouldn't matter what order you picked up your groceries in); the key is that you try your best not to forget any! You’ll have "
             + recordTime +
-            " seconds to write as many words as you can remember. Even if you think you can't remember any more, it's important that you try hard throughout the entire "
+            " seconds during the prompt to write as many words as you can remember. Even if you think you can't remember any more, it's important that you try hard throughout the entire "
             + recordTime +
             " seconds in case something comes to mind. This whole procedure will repeat several times, so that you commit a total of "
-            + numberOfLists + " 'shopping lists' of random words to memory. </p> <p>Ready to memorize the first list?</p>" ],
+            + numberOfLists + " 'shopping lists' of random words to memory.</p><p>Ready to memorize the first list?</p>" ],
             show_clickable_nav: true,
             button_label_next: 'Give me the list!'
         }
@@ -49,7 +49,7 @@ var wordListTask = function() {
         }else if (listNumber === 1 ) { //second list
           var instructions_wordlist = {
               type: 'instructions',
-              pages: ["<p>Nicely done! We’ll do this a few more times to get a stable estimate of this aspect of your memory.  Remember: during the memory test, even if you think you can’t remember any more words, it’s important that you try hard throughout the entire " + recordTime + " seconds in case something comes to mind.  Press the button when you’re ready to memorize list " + (listNumber+1) + " of " + numberOfLists + ".</p>"],
+              pages: ["<p>Nicely done! We’ll do this a few more times to get a stable estimate of this aspect of your memory.  Remember: during the memory test section, it’s important that you try hard throughout the entire " + recordTime + " seconds, even if you think you can’t remember any more words, in case something comes to mind.  Press the button when you’re ready to memorize list " + (listNumber+1) + " of " + numberOfLists + ".</p>"],
               show_clickable_nav: true,
               button_label_next: 'Give me the next list!'
           }
@@ -139,7 +139,7 @@ var wordListTask = function() {
             type: 'survey-text-custom',
             recall_time: recordTime, //seconds, converted to ms within the plugin
             button_appear_time: 0, //don't want button to appear
-            questions: [{prompt: "<p>Memory test time! You'll have " + recordTime + " seconds to remember as many words as you can. Please type each word you remember into the prompt, and then press enter/return, the spacebar, or the comma key to submit each word. You should try hard throughout the entire interval, even if you think you’ve written everything you remember, in case something comes to mind. You can write the words in any order they come to mind-- just try to get as many as you can!</p>", value: '', recall_mode: 'word'}],
+            questions: [{prompt: "<p>Timer started! Recall words below for the next " + recordTime + " seconds.</p><p>Press enter/return, the spacebar, or the comma key to submit each word you remember.</p>", value: '', recall_mode: 'word'}],
             data: {
                      task_name: 'immed_word_recall',
             }
@@ -150,7 +150,7 @@ var wordListTask = function() {
         if (listNumber === (numberOfLists - 1)) { //final list, concluding notes
           var concluding_wordlist = {
               type: 'instructions',
-              pages: ["<p>That game you just played is called “free recall.” It tests your ability to memorize words, regardless of the order you learned them in. Next we’ll move on to testing a different aspect of your memory.</p>"],
+              pages: ["<h3>Time's up!</h3><p>That game you just played is called 'free recall'. It tests your ability to memorize words, regardless of the order you learned them in. Next we’ll move on to testing a different aspect of your memory.</p>"],
               show_clickable_nav: true,
           }
           wordListTimeline.push(concluding_wordlist);
