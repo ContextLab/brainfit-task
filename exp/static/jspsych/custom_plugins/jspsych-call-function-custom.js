@@ -1,7 +1,7 @@
 /**
- * jspsych-call-function
+ * jspsych-call-function-custom
  * plugin for calling an arbitrary function during a jspsych experiment
- * Josh de Leeuw
+ * modified by G Notaro from Josh de Leeuw to include timer on functiomn
  *
  * documentation: docs.jspsych.org
  *
@@ -31,7 +31,6 @@ jsPsych.plugins['call-function-custom'] = (function() {
   }
 
   plugin.trial = function(display_element, trial) {
-    //trial.post_trial_gap = 10000; //edited here
     var return_val = trial.func();
 
     var trial_data = {

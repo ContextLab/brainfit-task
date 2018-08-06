@@ -3,7 +3,7 @@
  * a jspsych plugin for multiple choice survey questions
  *
  * documentation: docs.jspsych.org
- *
+ * edited by G Notaro to fix a few issues with the original plugin
  */
 
 
@@ -66,7 +66,7 @@ jsPsych.plugins['survey-multi-select-custom'] = (function() {
       var arr = Array.prototype.slice.call(arguments, _join.length);
       return arr.join(separator = '-');
     }
-    
+
     //ADDED: was not included in default plugin so would just print 'undefined'
     trial.required_msg = 'Please select an option for each question to continue.';
 

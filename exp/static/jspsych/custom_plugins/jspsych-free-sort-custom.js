@@ -1,8 +1,8 @@
 /**
  * jspsych-free-sort
  * plugin for drag-and-drop sorting of a collection of images
- * Josh de Leeuw
- *
+ * modified by G Notaro from free-sort by Josh de Leeuw
+
  * documentation: docs.jspsych.org
  */
 
@@ -97,17 +97,8 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     var init_locations = [];
 
     for (var i = 0; i < trial.stimuli.length; i++) {
-      //var coords = initial_coordinate(trial.stim_width/2+(3*trial.stim_width/2)*i, trial.sort_area_height/2-trial.stim_height/2);
-        //trial.stim_width/2)+
-        //**TODO: debug here ** only works for 7 or fewer stimuli
-        //if(i < 6) {
-          var coords = initial_coordinate(Math.floor(((i+1)/(trial.stimuli.length+1))*trial.sort_area_width-(trial.stim_width/2)),Math.floor((trial.sort_area_height/2)-(trial.stim_height/2))) // remove function later
-        //}else{
-          //var coords = initial_coordinate(Math.floor(((i-5)/(trial.stimuli.length+1))*trial.sort_area_width-(trial.stim_width/2)),Math.floor((2*trial.sort_area_height/3)-(trial.stim_height/2))) // remove function later
-        //}
-      //console.log(coords)
-      //console.log(trial.sort_area_width)
-      //console.log(((i+1)/trial.stimuli.length)*trial.sort_area_height)
+        //**TODO: debug here ** only works for fewer then 10 stimuli
+          var coords = initial_coordinate(Math.floor(((i+1)/(trial.stimuli.length+1))*trial.sort_area_width-(trial.stim_width/2)),Math.floor((trial.sort_area_height/2)-(trial.stim_height/2)))
       display_element.querySelector("#jspsych-free-sort-custom-arena").innerHTML += '<img '+
         'src="'+trial.stimuli[i]+'" '+
         'data-src="'+trial.stimuli[i]+'" '+
@@ -128,7 +119,6 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     var maxz = 1;
 
     var moves = [];
-    //var lastmove = []; //define up here so in global scope
 
     var draggables = display_element.querySelectorAll('.jspsych-free-sort-custom-draggable');
 
@@ -152,11 +142,6 @@ jsPsych.plugins['free-sort-custom'] = (function() {
             "x": elem.offsetLeft,
             "y": elem.offsetTop
           });
-          //lastmove[i] = { //keep overwriting last move for each icon
-          //  "src": elem.dataset.src,
-          //  "x": elem.offsetLeft,
-          //  "y": elem.offsetTop
-          //};
           document.removeEventListener('mouseup', mouseupevent);
         }
         document.addEventListener('mouseup', mouseupevent);
@@ -166,31 +151,21 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     display_element.querySelector('#jspsych-free-sort-custom-done-btn').addEventListener('click', function(){
     var final_locations = []; //move up scope, see if fixes //DEBUG
 
-    if (moves.length<(draggables.length-1)) { //have boolean flag to check whether users moved shapes
-        //alert("Please click and drag each shape to the positions just displayed."); //alert will mess up fullscreen mode
-        //display_element.innerHTML += "<p style='color:red'><b>Please click and drag each shape to the positions displayed before continuing.</p></b>"
+    if (moves.length<(draggables.length-1)) { //have boolean flag to check whether users moved shapes (n-1 shapes)
         document.getElementById("instrpro").innerHTML = "<p style='color:red'> <b>ALERT:</b> Please click and drag each shape to the positions displayed before continuing.</p>";
 
     }
     else {
       var end_time = (new Date()).getTime();
       var rt = end_time - start_time;
-      // gather data
       // get final position of all objects
       var matches = display_element.querySelectorAll('.jspsych-free-sort-custom-draggable');
-      //var matches = document.getElementsByClassName("jspsych-free-sort-custom-draggable"); //DEBUG
-      //var matches = display_element.querySelectorAll('.jspsych-free-sort-custom-draggable');
-      //var getBounds = document.body.getBoundingClientRect()
       for(var i=0; i<matches.length; i++){
         final_locations.push({
           "src": matches[i].dataset.src,
           "x": matches[i].offsetLeft, //style.position.left,
           "y": matches[i].offsetTop //style.position.top
-          //"bounds": getBounds,
-          //"lastmove": lastmove
         });
-          //console.log(matches[i])
-          //** not outputting these vars? but saved in moves TODO
       }
 
       var trial_data = {
@@ -208,12 +183,8 @@ jsPsych.plugins['free-sort-custom'] = (function() {
     });
   };
 
-  // helper functions
 
-  function initial_coordinate(xi, yi) {
-    //var rnd_x = Math.floor(Math.random() * (max_width - 1));
-    //var rnd_y = Math.floor(Math.random() * (max_height - 1));
-
+  function initial_coordinate(xi, yi) { //TODO: remove this later
     return {
       x: xi,
       y: yi,

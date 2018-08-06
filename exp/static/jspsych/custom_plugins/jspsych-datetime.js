@@ -1,3 +1,7 @@
+/**
+ * plugin for accessing experiment start date and time
+ * G Notaro
+ **/
 jsPsych.plugins['datetime'] = (function(){
 
   var plugin = {};
@@ -9,7 +13,6 @@ jsPsych.plugins['datetime'] = (function(){
   }
 
   plugin.trial = function(display_element, trial){
-
 
     // save data
     var trialdata = {

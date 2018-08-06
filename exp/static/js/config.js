@@ -2,46 +2,35 @@
 // INITIALIZE EXPERIMENT ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// collects custom ID and experimenter name if run in the lab
-//mode = 'debug';
+// collects custom ID and experimenter name if run in the lab - internal use, not PsiTurk use
 //mode = 'lab';
 mode = 'mturk'
+
 // initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
-//local testing and running *****
-//var serverport = '22364'; // should match psiturk config.txt file // TODO: retrieve this from local text file instead of manually add
-//var serverporturl = 'http://localhost:'+serverport+'/'; //TODO: update this when hosted on the lab website
+//local debugging - replace with static IP for online use!
+var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
 
-//replace with static IP for online use!
-
-//local debugging
-//var serverporturl = 'http://127.0.0.1/' //used in fitbit.html to open window
-
-//online use
-var serverporturl = 'http://129.170.30.179/'
-
-// path to wordpool file
+// path to task stimuli files
 var wordStimPath = 'static/files/wordpool.csv'
 var vocabStimPath = 'static/files/vocabpool.csv'
 var movieStimPath = 'static/files/moviepool.csv'
 var spatialStimPath = 'static/files/spatialpool.csv'
-var returnSpeech = false;
 
 var newuniqueId = uniqueId.replace(':','-') // save folder with dash instead of slash to avoid issues with name during analysis
 
-// create empty folders for audio and fitbit files named with subject's ID
+// create empty folders for fitbit files named with subject's ID
 
 $.post('/create-folders', {
     'data': newuniqueId
 })
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // SET FITBIT PARAMETERS ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//load Fitbit credentials file (need to keep client secret out of public code!)
+//load Fitbit credentials file (keep client secret out of public code!)
 
 var fit_creds_loc = '/static/credentials/credentials_fitbit.json'
 // initialize at higher scope so accessible
@@ -50,25 +39,22 @@ var client_secret
 var scope
 var redirect_uri
 var prompt_flag //= "login" //none is default_value
-var expires_in //= 86400 for 1 day, 604800 for 1 week, 2592000 for 30 days, 31536000 for 1 year
-
+var expires_in // = 86400 for 1 day, 604800 for 1 week, 2592000 for 30 days, 31536000 for 1 year
 
 fit_json = $.getJSON(fit_creds_loc, function (data) {
   console.log('Loading Fitbit credentials ...') //data
-}).done(function(fit_creds){ //then when done, assign vals
-  //console.log(fit_creds)
+}).done(function(fit_creds){ //then when done, assign to variables
   console.log('Fitbit credentials loaded.')
   client_id= fit_creds['client_id']
   client_secret = fit_creds['client_secret']
   scope = fit_creds['scope']
   redirect_uri = fit_creds['redirect_uri']
-  prompt_flag = fit_creds['prompt_flag'] //currently login
-  expires_in = fit_creds['expires_in'] //currently 1 day
-  return fit_creds //if need to re-ref
+  prompt_flag = fit_creds['prompt_flag']
+  expires_in = fit_creds['expires_in']
+  return fit_creds
 }).fail(function(){
   console.log('JSON credentials file failed to load.')
 });
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // SET EXPERIMENTAL PARAMETERS /////////////////////////////////////////////////
@@ -76,27 +62,18 @@ fit_json = $.getJSON(fit_creds_loc, function (data) {
 
 // set stimulus parameters for each task
 
-//word list practice
-var practiceWords = ["OPTIMAL", "MEMORY", "ABSOLUTE"]; // words for practice block
-var recPracticeWords = []; // initialize array to hold recorded practice words - needed? defined below
-var practiceRecordTime = 10; // amount of time given to recite practice words, in seconds
-//var instructionsTimeline = []; //initialize
-
 //word list
-//var font = 'Arial' // font
-//var fontSize = '5vw' // font size
 var listLength = 16; // how long you want each list to be (e.g. 16 words in each of 16 lists)
 var numberOfLists = 4; // number of lists/test blocks
-var recordTime = 60; //record time NOTE: 60 secs is the max google speech can handle per request
+var recordTime = 90; // recall time
 var wordPresTime = 2; // presentation duration
 var wordIntertrialTime = 2; // ITI
 var totalListNumber = 16; // total number of lists in the loaded csv file
-//var listReps = 1; //number of repeats of each word list
 
 //movie
 var movieNumber = 1;  //number of movies to display from provided csv file
-var movieRecallSecs = 240; //number of seconds to give individuals to recall movie
-var movieRecallButton = 120; //number of seconds before button clickable
+var movieRecallSecs = 600; //number of seconds to give individuals to recall movie
+var movieRecallButton = 240; //number of seconds before button clickable
 var movieShuffle = false; // flag whether want to return shuffled movie array or not
 
 //vocab pairs
@@ -115,4 +92,4 @@ var maxSpatialNumber = 7; //**NOTE: need to make stimuli smaller if want more th
 var spatialReps = 3; //number of times to repeat spatial task segments
 
 //delayed word list recall
-var delayRecordTime = 120; //seconds, currently 2 minutes to account for all the words they can recall
+var delayRecordTime = 180; //seconds, currently 2 minutes to account for all the words they can recall

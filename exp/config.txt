@@ -1,30 +1,45 @@
 [HIT Configuration]
-title = Memory/Fitness Experiment
-description = Take several memory tasks and share Fitbit data
-amt_keywords = Memory, Psychology, Fitbit, experiment
+title = Fitness & Cognition Experiment
+description = Share Fitbit data and take several cognitive tasks
+amt_keywords = Fitness, Fitbit, Psychology, Cognition, Experiment
 lifetime = 24
-us_only = false
+us_only = true
 approve_requirement = 95
-contact_email_on_error = contextualdynamics@gmail.com
-ad_group = jspsych memory fitness experiment
-psiturk_keywords = memory
-organization_name = Dartmouth College
+contact_email_on_error = YOURLABEMAIL@someemailsite.com
+ad_group = fitness cognition experiment
+psiturk_keywords = Fitbit fitness cognition
+organization_name = YOUR UNIVERSITY
 browser_exclude_rule = MSIE, mobile, tablet
 
+# set true for testing, otherwise should be false
+allow_repeats = false
+
 [Database Parameters]
-database_url = sqlite:///participants_exp_laptop.db
-table_name = brainfitmemory
+database_url = mysql://psiturk:psiturk@db:3306/participants
+table_name = yourdatabasename
 
 [Server Parameters]
 host = 0.0.0.0
 port = 22364
-cutoff_time = 120
+cutoff_time = 30
 logfile = server.log
-loglevel = 1
+loglevel = 2
 debug = true
-login_username = examplename
-login_pw = examplepassword
 threads = auto
+
+# Change adserver_revproxy_host to www.location.of.your.revproxy.sans.protocol.com, currently local host
+adserver_revproxy_host = 127.0.0.1
+adserver_revproxy_port = 80
+
+[AWS Access]
+aws_access_key_id = AWSACCESSKEYIDHERE
+aws_secret_access_key = AWSSECRETACCESSKEYHERE
+aws_region = us-east-1
+
+[psiTurk Access]
+psiturk_access_key_id = PSITURKACCESSKEYIDHERE
+psiturk_secret_access_id = PSITURKSECRETACCESSIDHERE
+
 
 [Task Parameters]
 experiment_code_version = 1.0
@@ -33,3 +48,5 @@ num_counters = 1
 
 [Shell Parameters]
 launch_in_sandbox_mode = true
+use_psiturk_ad_server = true
+ad_location = false

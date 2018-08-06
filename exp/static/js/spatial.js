@@ -9,8 +9,6 @@ var spatialTask = function() {
     for (var i = 0; i< maxSpatialNumber+1; i++){ //number of images to display
         spatialImages.push(imageDir+stimSpatialArray[0][i])
     };
-        //console.log(spatialImages)
-
 
     var instructions_spatial = {
       type: 'instructions',
@@ -32,8 +30,8 @@ var spatialTask = function() {
         var block_spatial = {
             type: 'free-sort-static',
             stimuli: spatialImages.slice(0,i+1),
-            sort_area_height: 800, //window.innerHeight-200,
-            sort_area_width: 800, //window.innerHeight-100,
+            sort_area_height: 800,
+            sort_area_width: 800,
             stim_height: 80,
             stim_width: 80,
             stim_duration: spatialPresTime*1000, //convert seconds to ms
@@ -43,8 +41,8 @@ var spatialTask = function() {
         var quiz_spatial = {
             type: 'free-sort-custom',
             stimuli: spatialImages.slice(0,i+1),
-            sort_area_height: 800, //window.innerHeight-200,
-            sort_area_width: 800, //window.innerHeight-100,
+            sort_area_height: 800,
+            sort_area_width: 800,
             stim_height: 80,
             stim_width: 80,
             prompt: 'Click on each icon and drag it to the location where it was displayed.',

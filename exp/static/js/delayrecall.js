@@ -8,43 +8,11 @@ var delayRecallTask = function() {
       show_clickable_nav: true
     };
     delayRecallTimeline.push(instructions_delayrecall);
-    //AUDIO
-    // var block_delayrecall = {
-    //     type: 'free-recall',
-    //     stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
-    //     //list_number: currentListNumber,
-    //     identifier: 'delayedRecall_allLists',
-    //     stim_duration: delayRecordTime * 1000,
-    //     trial_duration: delayRecordTime * 1000, // +  2000,
-    //     record_audio: true,
-    //     //speech_recognizer: 'google', //later functionality
-    //     data: {
-    //         totalListNumber: numberOfLists,
-    //         allListWords: stimArray,
-    //     },
-    //     /*on_finish: function() {
-    //         console.log('Saving data...')
-    //         if (mode === 'lab') {
-    //             psiTurk.saveData({
-    //                 success: function() {
-    //                     console.log('Data saved!')
-    //                 }
-    //             })
-    //         }
-    //
-    //         currentList = []; // reset currentList array
-    //         currentTrialNumber = 0; // reset trial number counter
-    //         currentListNumber++ // add to list counter
-    //     }*/
-    //
-    //
-    // };
-    // delayRecallTimeline.push(block_delayrecall)
 
     var block_delayrecall = {
         type: 'survey-text-custom',
         recall_time: delayRecordTime, //seconds, converted to ms within the plugin
-        button_appear_time: 0, //make greater than time if don't want button to appear
+        button_appear_time: 0, //make greater than section time if don't want button to appear
         questions: [{prompt: "<p>Timer started! Recall as many words as you can within the next " + delayRecordTime + " seconds.</p><br /><p>Please type each word you remember into the prompt, and then press enter/return, the spacebar, or the comma key to “submit” each word. </p>", value: '', recall_mode: 'word'}],
         data: {
                  task_name: 'delayed_word_recall',

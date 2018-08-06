@@ -1,9 +1,8 @@
-# this file imports custom routes into the experiment server
+# this file imports custom routes into the experiment server - need to clean up unused packages **
 
 from flask import Blueprint, render_template, request, jsonify, Response, abort, current_app
 from jinja2 import TemplateNotFound
 from functools import wraps
-from sqlalchemy import or_
 
 from psiturk.psiturk_config import PsiturkConfig
 from psiturk.experiment_errors import ExperimentError
@@ -12,16 +11,11 @@ from psiturk.user_utils import PsiTurkAuthorization, nocache
 # # Database setup
 from psiturk.db import db_session, init_db
 from psiturk.models import Participant
-from json import dumps, loads
-
-import sqlalchemy #will decide how to save later
 import json
+from json import dumps, loads
+import sqlalchemy #will decide how to save later
+from sqlalchemy import or_
 
-from base64 import b64encode
-from fitbit.api import Fitbit
-from oauthlib.oauth2.rfc6749.errors import MismatchingStateError, MissingTokenError
-
-# # to call script on finish
 from subprocess import call
 import os
 import csv
@@ -31,6 +25,8 @@ import glob
 import numpy as np
 import math
 import ast
+import base64
+from base64 import b64encode
 
 cwd = os.getcwd()
 
@@ -42,48 +38,14 @@ myauth = PsiTurkAuthorization(config)  # if you want to add a password protect r
 # explore the Blueprint
 custom_code = Blueprint('custom_code', __name__, template_folder='templates', static_folder='static')
 
-# Google speech
-import base64
-import json
-#from google.cloud import speech
-#client = speech.Client()
-
-# load in speech context
-#with open('static/files/speech-context.csv', 'rb') as csvfile:
-#    reader = csv.reader(csvfile, delimiter='\n')
-#    speech_context = [row[0] for row in reader]
-
-# audio processing package
-#from pydub import AudioSegment
-
-# import pickle to save google speech results
-import pickle
-
-# import quail for speech decoding
-import quail
-
-
 
 @custom_code.route('/create-folders',methods=['POST'])
 def create_folder():
     print('creating data folders...')
-    call('mkdir -p audio/' + request.form['data'],shell=True)
     call('mkdir -p fitbit/' + request.form['data'],shell=True)
     resp = {"foldersCreated": "success"}
     return jsonify(**resp)
 
-@custom_code.route('/save-audio',methods=['POST'])
-def save_audio():
-    filename = request.form['audio-filename']
-    foldername = request.form['audio-foldername']
-    wav = request.files
-    try:
-        wav['audio-blob'].save("audio/" + foldername + "/" + filename)
-        resp = {"audioSaved" : "success"}
-    except:
-        print('Error with saving audio.')
-        resp = {"audioSaved" : "failed"}
-    return jsonify(**resp)
 
 @custom_code.route('/save-fitbit',methods=['POST'])
 def save_fitbit():
@@ -99,21 +61,7 @@ def save_fitbit():
     return jsonify(**resp)
 
 
-#function from #EL code
-@custom_code.route('/speechtotext',methods=['POST'])
-def saveAndDecode():
-    filename = request.form['audio-filename']
-    foldername = request.form['audio-foldername']
-    wav = request.files
-    wav['audio-blob'].save("audio/" + foldername + "/" + filename)
-    resp = {"audioSaved": "success"}
-    return jsonify(**resp)
-
-
-#create auto-bonus function
-#modified from https://github.com/NYUCCL/psiTurk/blob/master/psiturk/example/custom.py.txt to
-
-#TODO: add compute_bonus to experiment.js or postsurveytask.js
+# experiment-specific bonus function for running on PsiTurk, modified from https://github.com/NYUCCL/psiTurk/blob/master/psiturk/example/custom.py.txt
 
 @custom_code.route('/compute_bonus', methods=['GET']) #originally post
 def compute_bonus():
@@ -122,74 +70,32 @@ def compute_bonus():
         raise ExperimentError('improper_inputs')
     uniqueId = request.args['uniqueId']
 
-
-    # try:
-    #     # lookup user in database
-    #     # user = Participant.query.filter(Participant.uniqueid == uniqueId).one()
-    #     # user_data = loads(user.datastring) # load datastring from JSON
-    #     # bonus = 0
-    #     #
-    #     # for record in user_data['data']: # for line in data file
-    #     #     trial = record['trialdata'] #brainfitmemory?
-    #     #     if trial['phase']=='TEST':
-    #     #         if trial['hit']==True:
-    #     #             bonus += 0.02
-    #     #bonus = 0.1 #testing 123
-    #     #user.bonus = bonus
-    #     #db_session.add(user)
-    #     #db_session.commit()
-    #     resp = {"bonusComputed": "success"}
-    #     return jsonify(**resp)
-    #
-    #     #read in daily Fitbit HR of this userID
-    #     #bonus_dir = 'exp/fitbit/' + str(uniqueId) + '/' #get directory of fitbit data
-    #     #bonus_dir_dailyHR = bonus_dir + str(uniqueId) + '-todayHR.json' #TODO: double check whether just userID or both hitID + userID
-    #     #read in file
-    #     #if len > len of summary alone, then synced fitbit
-    # except:
-    #     pass
-    #     #error msg
-    #
-    #     #abort(404) #if using flask, throw error message
-
-    #original unmodified
     try:
         # lookup user in database
         user = Participant.query.\
                filter(Participant.uniqueid == uniqueId).\
                one()
         user_data = loads(user.datastring) # load datastring from JSON
-        bonus = 0 #initialize
-
-        #for testing, input fake data
-        #user_data['data'] = [{"current_trial":0,"dateTime":1527605627409,"trialdata":{"rt":8465,"responses":"{\"Q0\":\"BFM-2.0-MMDDYY-SN\",\"Q1\":\" ML\"}","trial_type":"survey-text","trial_index":0,"time_elapsed":8469,"internal_node_id":"0.0-0.0"}}]
+        bonus = 0 # initialize
 
         # IMMEDIATE VOCAB QUIZ BONUS
         immedVocabTotal = 0 #initialize as zero
 
         for record in user_data['data']: # for line in data file
-            #immedVocabTotal += 1 # works here
             trial = record['trialdata']
 
-            #if (trial['internal_node_id'] == '0.0-0.0'):
-            #    immedVocabTotal += 1 #works here
             try:
                 if (trial['task_name'] == 'immed_vocab_quiz'):
                     qresponse = trial['responses']
                     #immedVocabTotal += 1 #works here
                     if str(trial['correct_resp']) in str(qresponse): #one question is saved at a time - should work for each q separately
-                       immedVocabTotal += 1 #then tally correct
-            except: #might throw error if field empty
+                       immedVocabTotal += 1 # tally correct
+            except:
                 pass
-            #qresponse = trial['responses']
-            #if trial['task_name']=='immed_vocab_quiz': #might have error because some missing field
-            #    immedVocabTotal += 1 #check here
-                #if trial['correct_resp'] == qresponse['Q0']: #one question is saved at a time - should work for each q separately
-                #    immedVocabTotal += 1 #then tally correct
 
-        immedVocabBonus = (immedVocabTotal/10.)*0.5 #50 cents possible for immediate vocab recall; float convert
+        immedVocabBonus = (immedVocabTotal/10.)*0.5 # 50 cents possible for immediate vocab recall
 
-        #now compute bonus based on this total
+        #now compute new bonus based on this total
         bonus = bonus + immedVocabBonus
 
         # DELAYED VOCAB QUIZ BONUS
@@ -220,24 +126,24 @@ def compute_bonus():
                     qresponse = trial['responses']
                     if str('library') in str(qresponse): #one question is saved at a time - will make more elegant later on
                        immediateMovieTotal += 1 #then tally correct
-                    if str('custodian') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('reading') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('professor') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('1940s') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('3am') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('waxed the tops of bookshelves') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('never') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('less than high school') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct
-                    if str('quiet') in str(qresponse): #one question is saved at a time - will make more elegant later on
-                       immediateMovieTotal += 1 #then tally correct (note: missing number of people live with since didnt want it to pick up on 2am)
+                    if str('custodian') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('reading') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('professor') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('1940s') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('3am') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('waxed the tops of bookshelves') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('never') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('less than high school') in str(qresponse):
+                       immediateMovieTotal += 1
+                    if str('quiet') in str(qresponse):
+                       immediateMovieTotal += 1
             except:
                 pass
 
@@ -271,11 +177,11 @@ def compute_bonus():
                            immedWordTotal += 1 #then tally words recalled
             except:
                 pass
-        #hardcoded num of words (16) and lists (4) for now, should use vars
-        immedWordBonus = (immedWordTotal/(16.*4))*0.5 #50 cents possible for delayed vocab recall; float convert
+
+        #hardcoded num of words (16) and lists (4) for now, should use vars **
+        immedWordBonus = (immedWordTotal/(16.*4))*0.5 # 50 cents possible for delayed vocab recall
         bonus = bonus + immedWordBonus
 
-        #allwordpres should be the same as immed so can reuse code
         #DELAYED WORD LIST BONUS
         delayedWordTotal = 0
         for record in user_data['data']: # for line in data file
@@ -285,12 +191,12 @@ def compute_bonus():
                     qresponse = trial['responses']
                     #now loop through presented word list and see whether in response array
                     for wo in allwordspres: #match uppercase of presented words
-                        if str(wo) in str(qresponse.upper()): #one question is saved at a time - should work for each q separately
+                        if str(wo) in str(qresponse.upper()): #one question is saved at a time
                            delayedWordTotal += 1 #then tally words recalled
             except:
                 pass
         #hardcoded num of words (16) and lists (4) for now, should use vars
-        delayedWordBonus = (delayedWordTotal/(16.*4))*0.5 #50 cents possible for delayed vocab recall; float convert
+        delayedWordBonus = (delayedWordTotal/(16.*4))*0.5 # 50 cents possible for delayed vocab recall
         bonus = bonus + delayedWordBonus
 
         #IMMEDIATE MOVIE RECALL BONUS
@@ -298,7 +204,7 @@ def compute_bonus():
             trial = record['trialdata']
             try:
                 if (trial['task_name'] == 'immed_movie_recall'):
-                    response_length = len(trial['response_times']) #might need try/except here if no response... but shouild just be 0
+                    response_length = len(trial['response_times'])
                     if response_length > 7: #if submitted more than 7 sentences
                         immedMovieRecallBonus = 0.25 #then get full bonus
                         bonus = bonus + immedMovieRecallBonus
@@ -312,12 +218,11 @@ def compute_bonus():
                 pass
 
         #DELAYED MOVIE RECALL BONUS
-        #use response_times length since easier than string array and equal to number of sentences
         for record in user_data['data']: # for line in data file
             trial = record['trialdata']
             try:
                 if (trial['task_name'] == 'delayed_movie_recall'):
-                    response_length = len(trial['response_times']) #might need try/except here if no response... but shouild just be 0
+                    response_length = len(trial['response_times'])
                     if response_length > 7: #if submitted more than 7 sentences
                         immedMovieRecallBonus = 0.25 #then get full bonus
                         bonus = bonus + immedMovieRecallBonus
@@ -330,22 +235,20 @@ def compute_bonus():
             except:
                 pass
 
-        #SPATIAL TASK BONUS (figure out how to do - could just look at total number of moves?)
+        #SPATIAL TASK BONUS
 
         #get array of presented icon locations
         true_x_locs = []
         true_y_locs = []
-        for record in user_data['data']: # for line in data file
+        for record in user_data['data']:
             trial = record['trialdata']
             try:
                 if (trial['trial_type'] == 'free-sort-static'):
                     init_locs = trial['icon_locations'] #need to account for array
-                    #print(type(ast.literal_eval(init_locs)))
                     init_locs = ast.literal_eval(init_locs)
                     for i in range(len(init_locs)):
                         init_locs_x = init_locs[i]['x']
                         init_locs_y = init_locs[i]['y']
-                        #print(init_locs_x)
                         #both are in same order so should be able to append and compare
                         true_x_locs.append(int(init_locs_x))
                         true_y_locs.append(int(init_locs_y))
@@ -355,7 +258,7 @@ def compute_bonus():
         # get array of final moves from each
         select_x_locs = []
         select_y_locs = []
-        for record in user_data['data']: # for line in data file
+        for record in user_data['data']:
             trial = record['trialdata']
             try:
                 if (trial['trial_type'] == 'free-sort-custom'):
@@ -395,8 +298,8 @@ def compute_bonus():
             spatialBonus = 0.25
             bonus = bonus + spatialBonus
 
-        # FITBIT FILE BONUS (TODO: double check if works when running on static address)
-        #check for fitbit data, read in daily Fitbit HR of this userID
+        # FITBIT FILE BONUS
+        #check for fitbit data, read in daily Fitbit HR of this userID to see if synced when should have
         try:
             fcwd = os.getcwd()
             fitbit_dir = fcwd + '/fitbit/' + uniqueId.replace(":","-") + '/' #directory of fitbit data for current user
@@ -412,17 +315,16 @@ def compute_bonus():
             #read in file
             with open(fitbit_dir_dailyHR) as f:
                 todayHRdata = json.load(f)
-                if len(todayHRdata['activities-heart-intraday']['dataset']): #if there are values there then synced Bluetooth when prompted
+                if len(todayHRdata['activities-heart-intraday']['dataset']): #if there are values there then synced with Fitbit app when prompted
                     fitbitBonusHR = 0.5
                     bonus = bonus + fitbitBonusHR
         except:
-            pass #need try/except for debugging, when no fitbit data section
+            pass #need try/except for debugging, when no fitbit data section **
 
-
-        user.bonus = round(bonus,2) #not sure if should be string or value
+        user.bonus = round(bonus,2)
         db_session.add(user)
         db_session.commit()
         resp = {"bonusComputed": "success"}
         return jsonify(**resp)
     except:
-        abort(404)  # again, bad to display HTML, but...
+        abort(404)  # quick solution, update **

@@ -1,10 +1,6 @@
 /**
- * code based on jspsych-survey-text
- * a jspsych plugin for free response survey questions
- *
- * Josh de Leeuw
- *
- * documentation: docs.jspsych.org
+ * code based on jspsych-survey-text - modified by G. Notaro
+ * the modified jspsych free-response survey plugin for entering free-response text and disappearing when certain keys pressed
  *
  */
 
@@ -55,20 +51,6 @@ jsPsych.plugins['survey-text-custom'] = (function() {
             default: 'word',
             description: 'This will switch between word recall mode and narrative recall mode.'
           },
-          // rows: {
-          //   type: jsPsych.plugins.parameterType.INT,
-          //   pretty_name: 'Rows',
-          //   array: true,
-          //   default: 1,
-          //   description: 'The number of rows for the response text box.'
-          // },
-          // columns: {
-          //   type: jsPsych.plugins.parameterType.INT,
-          //   pretty_name: 'Columns',
-          //   array: true,
-          //   default: 40,
-          //   description: 'The number of columns for the response text box.'
-          // }
         }
       },
       preamble: {
@@ -88,18 +70,6 @@ jsPsych.plugins['survey-text-custom'] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    // if (typeof trial.questions[0].rows == 'undefined') {
-    //   trial.questions[0].rows = [];
-    //   for (var i = 0; i < trial.questions.length; i++) {
-    //     trial.questions[i].rows.push(1);
-    //   }
-    // }
-    // if (typeof trial.questions[0].columns == 'undefined') {
-    //   trial.questions[0].columns = [];
-    //   for (var i = 0; i < trial.questions.length; i++) {
-    //     trial.questions[i].columns.push(40);
-    //   }
-    // }
     if (typeof trial.questions[0].value == 'undefined') {
       trial.questions[0].value = [];
       for (var i = 0; i < trial.questions.length; i++) {
@@ -113,20 +83,6 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       html += '<div id="jspsych-survey-text-custom-preamble" class="jspsych-survey-text-custom-preamble">'+trial.preamble+'</div>';
     }
 
-    // see exp.html file for writeText function
-
-    // add questions and text entry fields
-    // for (var i = 0; i < trial.questions.length; i++) {
-    //   html += '<div id="jspsych-survey-text-custom-"'+i+'" class="jspsych-survey-text-custom-question" style="margin: 2em 0em;">';
-    //   html += '<p class="jspsych-survey-text-custom">' + trial.questions[i].prompt + '</p>';
-    //   if(trial.questions[i].rows == 1){ //check this case too
-    //     html += '<input type="text" id = "recall-text" name="#jspsych-survey-text-custom-response-' + i + '" size="'+trial.questions[i].columns+'" value="'+trial.questions[i].value+'" required></input>';
-    //   } else {
-    //     html += '<textarea id = "recall-text" onkeyup=writeText(this) name="#jspsych-survey-text-custom-response-' + i + '" cols="' + trial.questions[i].columns + '" rows="' + trial.questions[i].rows + '" required>'+trial.questions[i].value+'</textarea>';
-    //   }
-    //   html += '</div>';
-    // }
-
     // NEW VERSION
     for (var i = 0; i < trial.questions.length; i++) { //TODO: change this to number of responses
       html += '<div id="jspsych-survey-text-custom-"'+i+'" class="jspsych-survey-text-custom-question" style="margin: 2em 0em;">';
@@ -134,9 +90,6 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       //if(trial.questions[i].rows == 1){ //check this case too
       if (trial.questions[i].recall_mode == 'word'){
       html += '<input type="text" id = "recall-box" onkeyup=writeWords(this) style="text-transform:uppercase" name="#jspsych-survey-text-custom-response-' + i + '" size="'+50+'" value="'+trial.questions[i].value+'" required></input><br />';
-      //} else {
-      //  html += '<textarea id = "recall-text" onkeyup=writeText(this) name="#jspsych-survey-text-custom-response-' + i + '" cols="' + trial.questions[i].columns + '" rows="' + trial.questions[i].rows + '" required>'+trial.questions[i].value+'</textarea>';
-      //}
     } else if (trial.questions[i].recall_mode == 'narrative') { //movie/story recall
           html += '<input type="text" id = "recall-box" onkeyup=writeNarrative(this) name="#jspsych-survey-text-custom-response-' + i + '" size="'+150+'" value="'+trial.questions[i].value+'" required></input><br />';
       }
@@ -150,8 +103,7 @@ jsPsych.plugins['survey-text-custom'] = (function() {
     // add submit button after nseconds
     var stopTimer = false // need this
 
-    //html += '<button id="jspsych-survey-text-custom-next" class="jspsych-btn jspsych-survey-text-custom">'+trial.button_label+'</button>';
-    if(trial.button_appear_time!==0){ //don't make clickable at all if set to 0
+    if(trial.button_appear_time!==0){ //don't make clickable at all if set to 0, can change to be anything else **
       setTimeout(function(){
         document.getElementById("jspsych-survey-text-custom-next").disabled = false; //enable after timer
         //also need event listener for button click to finish trial (only after button has appeared)
@@ -160,24 +112,19 @@ jsPsych.plugins['survey-text-custom'] = (function() {
 
       display_element.innerHTML = html
 
-
-    //display_element.querySelector('#jspsych-survey-text-custom-next').addEventListener('click', function() {
     var recallTimer = function() {
       if(stopTimer === false){ //only run if recall timer has not yet been run (i.e. via a button click)
         // measure response time
         var endTime = (new Date()).getTime();
         var response_time = endTime - startTime;
 
-        //if this has run once from button click, need way to test that
         stopTimer = true
-
 
         // create object to hold responses
         var question_data = {};
         var matches = display_element.querySelectorAll('div.jspsych-survey-text-custom-question');
         for(var index=0; index<matches.length; index++){
           var id = "Q" + index;
-          //var val = matches[index].querySelector('textarea, input').value;
           allwordsrecalled.push(matches[index].querySelector('textarea, input').value)
           allwordtimings.push(Date.now()) //add end time
           var val = allwordsrecalled //also add in whatever was left in text entry area
@@ -192,10 +139,8 @@ jsPsych.plugins['survey-text-custom'] = (function() {
           "response_times": allwordtimings //array of response times
         };
 
-        //NOTE: added reset to both vars or will just keep appending values in new trials
         allwordsrecalled = []
         allwordtimings = []
-        //alltextrecalled =[]
 
         display_element.innerHTML = '';
 
@@ -204,14 +149,9 @@ jsPsych.plugins['survey-text-custom'] = (function() {
       }
     };
 
-    // ** need to check whether recallTimer has been run yet or not
-    // move on to next trial after timer finished (set recall time in config file)
-    //if(stopTimer === false){
-    jsPsych.pluginAPI.setTimeout(recallTimer,trial.recall_time*1000) //needs to be converted to ms
-    //}
+    jsPsych.pluginAPI.setTimeout(recallTimer,trial.recall_time*1000) // converted to ms
 
     var startTime = (new Date()).getTime();
-
 
   };
 

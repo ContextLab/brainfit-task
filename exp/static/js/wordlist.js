@@ -38,14 +38,7 @@ var wordListTask = function() {
         wordData.listWords.push([]);
 
         if (listNumber === 0){ //if the first list
-          //empty
-
-          // var instructions_wordlist = {
-          //     type: 'instructions',
-          //     pages: ["<p>You will now view words from the first word list. </p> <p>Try to focus and remember as many as you can. </p>" + "Press the button to continue to list " + (listNumber + 1) + " of " + numberOfLists + ".</p>"],
-          //     show_clickable_nav: true,
-          // }
-          // wordListTimeline.push(instructions_wordlist);
+          //pass
         }else if (listNumber === 1 ) { //second list
           var instructions_wordlist = {
               type: 'instructions',
@@ -73,7 +66,6 @@ var wordListTask = function() {
         }
 
         currentStimArray.forEach(function(eachWord){
-            //console.log(eachWord)
             var block_words = {
                 type: 'html-keyboard-response',
                 stimulus: "<div style='font-size:70px'>" + eachWord + "</div>",
@@ -83,62 +75,19 @@ var wordListTask = function() {
                 data: {
                     listNumber: listNumber,
                     word: eachWord,
-                    //trialNumber: ,
                 },
                 on_finish: function() {
                 currentListWords.push(currentStimArray[0].text) //check this ***
-                //currentTrialNumber++ // update trial number after each trial
-
                 }
             }
                wordListTimeline.push(block_words);
 
         })
 
-        /*var block_pre_recall = {
-            type: 'instructions',
-            pages: ["<p> <b>Remember:</b> When you see the text box prompt, type as many words from the list you just viewed in any order, separated by pressing the Enter/Return key, spacebar, or the comma key. </p> <p> You will have " + recordTime + " seconds to recall as many words as you can before the screen progresses.</p>"],
-            show_clickable_nav: true,
-        }
-
-        wordListTimeline.push(block_pre_recall)*/
-
-        //AUDIO
-        // var block_recall = {
-        //     type: 'free-recall',
-        //     stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
-        //     //list_number: currentListNumber,
-        //     identifier: 'wordlist-' + (listNumber+1), //save file with task and list number, shift initial 0 idx to 1
-        //     stim_duration: recordTime * 1000,
-        //     trial_duration: recordTime * 1000, // +  2000,
-        //     record_audio: true,
-        //     //speech_recognizer: 'google',
-        //     data: {
-        //         listNumber: listNumber,
-        //         list_words: currentStimArray,
-        //     },
-        //     //on_finish: function() {
-        //         //console.log('Saving data...')
-        //         /*if (mode === 'lab') {
-        //             psiTurk.saveData({
-        //                 success: function() {
-        //                     console.log('Data saved!')
-        //                 }
-        //             }) */ // not sure if need until later
-        //        // }
-        //         //*** is the following necessary?
-        //         //currentList = []; // reset currentList array
-        //         //currentTrialNumber = 0; // reset trial number counter
-        //         //currentListNumber++ // add to list counter
-        //     //}
-        //
-        //
-        // };
-
         var block_recall = {
             type: 'survey-text-custom',
             recall_time: recordTime, //seconds, converted to ms within the plugin
-            button_appear_time: 0, //don't want button to appear
+            button_appear_time: 0, //don't want button to appear so set to 0
             questions: [{prompt: "<p>Timer started! Recall words below for the next " + recordTime + " seconds.</p><p>Press enter/return, the spacebar, or the comma key to submit each word you remember.</p>", value: '', recall_mode: 'word'}],
             data: {
                      task_name: 'immed_word_recall',

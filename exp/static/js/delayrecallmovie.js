@@ -8,20 +8,6 @@ var delayRecallMovieTask = function() {
     }
     delayRecallMovieTimeline.push(instr_delayRecall_movie)
 
-    //AUDIO
-    // var delayRecall_movie = {
-    //     type: 'free-recall',
-    //     stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
-    //     stim_duration: delayMovieRecallSecs * 1000,
-    //     trial_duration: delayMovieRecallSecs * 1000, // +  2000,
-    //     record_audio: true,
-    //     identifier: 'delaymovie-' + 1,//movieNumber, //save file with task and number
-    //     //data: {
-    //     //    movieFile: movieArray[0][0][0], //assuming only one movie
-    //     //    movieContent: movieArray[0][0][1], //save description
-    //     //},
-    //   }
-
      var delayRecall_movie = {
            type: 'survey-text-custom',
            recall_time: movieRecallSecs, //in seconds, converted to ms within the plugin

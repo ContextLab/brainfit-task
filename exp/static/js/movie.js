@@ -31,54 +31,14 @@ var movieTask = function() {
     }
     movieTimeline.push(postsoundcheck_movie);
 
-    for (var i = 0; i< movieNumber; i++){ //TODO: add randomization feature for movie stimuli
+    for (var i = 0; i< movieNumber; i++){ // select movies in order
         var block_movie = {
            type: 'video',
-           //sources: ['/static/video/Nature-Sunset.mp4'],
            sources: ['/static/video/' + movieArray[0][i][0]],
-           //width: Math.round(window.innerWidth*0.8),
-           //height: Math.round(window.innerHeight*0.8), //approximately X% of window
-            //start: movieArray[0][i][2], // time to start video
-            //stop: movieArray[0][i][3], //seconds
             height: 500,
             width: 880,
-            //controls: true, //for debugging
         };
         movieTimeline.push(block_movie);
-
-        /*var block_pre_movie_recall = {
-            type: 'instructions',
-            pages: ["<p> You will now describe what you remember from the video. A prompt will appear on the next page to record your responses, and you will submit each sentence with either the Enter/Return key or the period key. You will have " + movieRecallSecs + " seconds to complete this recall. If you finish the recall prior to this time, please wait for the continue button to appear at the bottom of the screen, or for the page to automatically redirect. </p>"],
-            show_clickable_nav: true,
-        }*/
-
-        //movieTimeline.push(block_pre_movie_recall)
-
-        // AUDIO
-        // var recall_movie = {
-        //     type: 'free-recall',
-        //     stimulus: "<p class='mic' style='position:absolute;top:35%;left:47%;font-size:10vw;color:red'><i class='fa fa-microphone blink_me' style='color:red'></i></p>",
-        //     //list_number: movieNumber,
-        //     stim_duration: movieRecallSecs * 1000,
-        //     trial_duration: movieRecallSecs * 1000, // +  2000,
-        //     record_audio: true,
-        //     identifier: 'movie-' + movieNumber, //save file with task and number
-        //     //speech_recognizer: 'google', //later functionality
-        //     data: {
-        //         movieFile: movieArray[0][i][0],
-        //         movieContent: movieArray[0][i][1], //save description
-        //     },
-        //     //on_finish: function() {
-        //         //console.log('Saving data...')
-        //         /*if (mode === 'lab') {
-        //             psiTurk.saveData({
-        //                 success: function() {
-        //                     console.log('Data saved!')
-        //                 }
-        //             })
-        //         }*/
-        //     //}
-        // }
 
          var recall_movie = {
              type: 'survey-text-custom',
@@ -93,7 +53,7 @@ var movieTask = function() {
 
          movieTimeline.push(recall_movie);
 
-         //page inbetween
+         //page in between
          var instructions_movie_q = {
            type: 'instructions',
            pages: ["<h3>Time's up!</h3><p>Awesome job! Now let’s see more of your detective abilities. Please answer a few questions on the story you just heard."],
@@ -104,12 +64,12 @@ var movieTask = function() {
         //create array of questions from length of csv file row
         var numBeginningVals = 4 //number corresponding to non-question columns before questions start
         qArray = [{prompt: 'Have you seen this movie before?', options: ['Yes','No'], required: true }] //initial question
+
         //create array of prompts for survey-multi-choice with loop
         for (var q = numBeginningVals; q < (movieArray[0][i].length) ; q += 2 ){ //exclude first 4 since descriptors, increment evey other since ordered question, response, question, response
           nextQ = {prompt: movieArray[0][i][q], options: movieArray[0][i][q+1].split(','), required:true}
           qArray.push(nextQ) //add this new question value to the array
         }
-
 
           var quiz_movie = {
             type: 'survey-multi-choice',

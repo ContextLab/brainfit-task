@@ -19,27 +19,24 @@ var delayVocabQuizTask = function() {
               randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length)))
               randomIdxs = _.uniq(randomIdxs); //want a unique set of options
               };
-          //console.log(randomIdxs)
+
           // if all the indexes in the array have already been displayed as images
           while(_.difference(randomIdxs, imageIdxLog).length === 0) {
               var randomIdxs =[];
-              while(randomIdxs.length < numVocabOptions) { //then generate a new array until this is not the case (at least one new item)
+              while(randomIdxs.length < numVocabOptions) { // then generate a new array until this is not the case (at least one new item)
                   randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length)))
-                  randomIdxs = _.uniq(randomIdxs); //want a unique set of options
+                  randomIdxs = _.uniq(randomIdxs); // want a unique set of options
                   };
-                  //console.log('innerloop')
           }
 
-          //now shouldnt get stuck in this loop because at least one index will be novel
-          var imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))] //try generating index once
+          //need at least one index to be novel
+          var imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
 
           while(_.contains(imageIdxLog,imageIdx)){ //but if image was already shown, generate unique idx
               imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
           }
           imageIdxLog.push(imageIdx); //push unique index to log of displayed images
-          //console.log(imageIdxLog)
 
-          //NOTE: ADDED THIRD SET OF IMAGES HERE
           var imageOption = stimVocabArray[0][imageIdx][4]; // needs to match one of the random indexes; use to determine correct response
           var corrResp = stimVocabArray[0][imageIdx][5]; //also record correct response
 
@@ -61,7 +58,6 @@ var delayVocabQuizTask = function() {
           };
 
           delayVocabQuizTimeline.push(quiz_vocab)
-          //console.log(quiz_vocab.responses)
       }
 
       return delayVocabQuizTimeline

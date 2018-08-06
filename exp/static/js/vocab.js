@@ -1,5 +1,4 @@
-var stimVocabArray = []; //create an array for vocab
-//var currentListVocab = [];
+var stimVocabArray = []; // create an array for vocab
 var vocabTask = function() {
 
     var vocabTimeline = [];
@@ -12,41 +11,26 @@ var vocabTask = function() {
 
     var imageDir = '/static/images/' //directory of images
 
-    //var imgSetNum = 0; //which set of images to use (initial presentation is 0, second is 1, third is 2)
-
     //presently Duolingo Irish lessons Basics 1 + 2
 
-    //for (var r = 0; r < vocabReps; r++){
-        currentVocabArray = jsPsych.randomization.shuffleNoRepeats(stimVocabArray[0]) //issue with file output**
-        //console.log(currentVocabArray);
-        //vocabData.listWords.push([]);
+    currentVocabArray = jsPsych.randomization.shuffleNoRepeats(stimVocabArray[0]) // first image set
 
-        currentVocabArray.forEach(function(eachVocab){
-            //console.log(eachVocab[0]) //image
-            //console.log(eachVocab[1]) //word
-            var imageName = imageDir + eachVocab[0];
-            var block_vocab = {
-                type: 'html-keyboard-response',
-                stimulus: "<img src=" + imageName + " height = 300></img>"+"<p> </p><p><div style='font-size:40px'>" + eachVocab[1].toUpperCase() + "</div></p>",
-                //prompt: "<div style='font-size:36px'>" + eachVocab[1] + "</div>",
-                choices: jsPsych.NO_KEYS,
-                stimulus_duration: vocabPresTime*1000,//ms,1000,
-                trial_duration: (vocabIntertrialTime+vocabPresTime)*1000,//ms, 1500, //stim dur + isi dur
-                data: {
-                    //listNumber: listNumber,
-                    vocab: eachVocab[1],
-                    image: eachVocab[0],
-                    //trialNumber: ,
-                },
-                //on_finish: function() {
-                //currentListVocab.push(currentVocabArray[0][currentTrialNumber][0].text) //fix
-                //console.log('finished')
-                //}
-            }
-                vocabTimeline.push(block_vocab);
+    currentVocabArray.forEach(function(eachVocab){
+        var imageName = imageDir + eachVocab[0];
+        var block_vocab = {
+            type: 'html-keyboard-response',
+            stimulus: "<img src=" + imageName + " height = 300></img>"+"<p> </p><p><div style='font-size:40px'>" + eachVocab[1].toUpperCase() + "</div></p>",
+            choices: jsPsych.NO_KEYS,
+            stimulus_duration: vocabPresTime*1000,//ms,1000,
+            trial_duration: (vocabIntertrialTime+vocabPresTime)*1000,
+            data: {
+                vocab: eachVocab[1],
+                image: eachVocab[0],
+            },
+        }
+            vocabTimeline.push(block_vocab);
 
-        })
-    //}
+    })
 
     var instructions_vocabQuiz = {
       type: 'instructions',
@@ -55,24 +39,17 @@ var vocabTask = function() {
      };
      vocabTimeline.push(instructions_vocabQuiz)
 
-        //now prep quiz
-    //var randomVocabArray = stimVocabArray; //take random set of stimulus array for quiz
-    //var numQuizQs // number of quiz questions to give users - currently equal to number vocab words
+
     var imageIdxLog = []; //keep track of images that have been displayed
-    //var imageIdx = [];
     var imageRepCheck = false;
 
     for (var q = 0; q<numQuizQs; q++ ) {
-
-        // choose a random index out of all possible choices
-        //use underscore library to generate random indexes for selecting vocab options
 
         var randomIdxs =[];
         while(randomIdxs.length < numVocabOptions) {
             randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length)))
             randomIdxs = _.uniq(randomIdxs); //want a unique set of options
             };
-        //console.log(randomIdxs)
         // if all the indexes in the array have already been displayed as images
         while(_.difference(randomIdxs, imageIdxLog).length === 0) {
             var randomIdxs =[];
@@ -80,20 +57,17 @@ var vocabTask = function() {
                 randomIdxs.push(Math.floor(Math.random()*(stimVocabArray[0].length)))
                 randomIdxs = _.uniq(randomIdxs); //want a unique set of options
                 };
-                //console.log('innerloop')
         }
 
-        //now shouldnt get stuck in this loop because at least one index will be novel
+        // at least one novel index
         var imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))] //try generating index once
 
         while(_.contains(imageIdxLog,imageIdx)){ //but if image was already shown, generate unique idx
             imageIdx = randomIdxs[Math.floor(Math.random()*(randomIdxs.length))]
         }
         imageIdxLog.push(imageIdx); //push unique index to log of displayed images
-        //console.log(imageIdxLog)
 
-
-        //order [0-required][row][column] //NOTE: ADDED NEW/SECOND SET OF IMAGES HERE
+        //second image set
         var imageOption = stimVocabArray[0][imageIdx][2]; // needs to match one of the random indexes; use to determine correct response
         var corrResp = stimVocabArray[0][imageIdx][3]; //also record correct response
 
@@ -101,7 +75,6 @@ var vocabTask = function() {
         for (var op = 0; op<randomIdxs.length; op++){
             options_vocab.push(stimVocabArray[0][randomIdxs[op]][1])
         }
-
 
         var quiz_vocab = {
           type: 'survey-multi-choice',
@@ -115,7 +88,6 @@ var vocabTask = function() {
         };
 
         vocabTimeline.push(quiz_vocab)
-        //console.log(quiz_vocab.responses)
     }
 
 

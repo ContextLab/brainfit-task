@@ -1,6 +1,6 @@
 # Dockerfile for BrainFit container
 FROM debian:stretch
-MAINTAINER Contextual Dynamics Lab <cdlbrainfit@gmail.com>
+MAINTAINER your lab <yourlabemail@someemailsite.com>
 
 # install debian-related stuff
 RUN apt-get update
@@ -16,35 +16,20 @@ RUN eatmydata apt-get install -y \
     python-tk
 RUN rm -rf /var/lib/apt/lists/*
 
-
 # install python packages
 RUN pip install --upgrade pip
 RUN pip install --upgrade \
 setuptools \
 requests \
 mysql-python \
-google-cloud-speech \
 psiturk \
-quail \
-fitbit \
 pandas \
 datetime \
 python-dateutil \
 requests-oauthlib
 
-# install ffmpeg
-RUN git clone https://github.com/FFmpeg/FFmpeg
-RUN cd FFmpeg && ./configure --enable-gpl && \
-make && make install && ldconfig
-
-# need google-cloud-speech version 0.30 instead of 0.32
-RUN pip install google-cloud
-
 # add experiment folder
 # ADD exp /psiturk/exp
-
-#add environment variable for Google credentials (?)
-#ENV GOOGLE_APPLICATION_CREDENTIALS=/psiturk/exp/google-credentials/credentials.json
 
 # setup working directory
 WORKDIR /psiturk
