@@ -100,18 +100,18 @@ Once you've cloned the repo and successfully built the docker container, you can
 
 To test locally or run experiments in-lab, check that the URL in each of the following is set to 127.0.0.1:
 
-	* Check your Fitbit app online and change the field 'Callback URL' to http://127.0.0.1/redirect.html
-	* Update all of the fields on your Fitbit app in `exp/credentials/credentials_fitbit.json`
-	* Change `adserver_revproxy_host` to 127.0.0.1 in `config.txt`
-	* Update `serverporturl` in `config.js` to 127.0.0.1
+* Check your Fitbit app online and change the field 'Callback URL' to http://127.0.0.1/redirect.html
+* Update all of the fields on your Fitbit app in `exp/credentials/credentials_fitbit.json`
+* Change `adserver_revproxy_host` to 127.0.0.1 in `config.txt`
+* Update `serverporturl` in `config.js` to 127.0.0.1
 
 You'll also want to check `exp\config.txt`:
-	* Update experiment title, keywords, and experimenter contact
-	* Create a name for your database
-	* If debugging or in-lab collection, set `debug = true`
-	* Also check that `launch_in_sandbox_mode = True` (otherwise you might accidentally create live links during testing that could cost you if you have your Amazon credentials in the file as well)
-	* If you are testing on the Sandbox site, it might be good to also set `allow_repeats = true` for now since you want to be able to retake the experiment and debug - just make sure you flip this back before going live!
-	* For more information on this config file, refer to: <http://psiturk.readthedocs.io/en/latest/configuration.html#local-configuration-file>
+* Update experiment title, keywords, and experimenter contact
+* Create a name for your database
+* If debugging or in-lab collection, set `debug = true`
+* Also check that `launch_in_sandbox_mode = True` (otherwise you might accidentally create live links during testing that could cost you if you have your Amazon credentials in the file as well)
+* If you are testing on the Sandbox site, it might be good to also set `allow_repeats = true` for now since you want to be able to retake the experiment and debug - just make sure you flip this back before going live!
+* For more information on this config file, refer to: <http://psiturk.readthedocs.io/en/latest/configuration.html#local-configuration-file>
 
 ### Testing or Collecting Data Online
 
@@ -119,19 +119,19 @@ Before you run your experiment online, you'll need to acquire a static public IP
 
 To test run experiments online in either the Sandbox (developer) or live mode, check that the URL in each of the following is set to your public IP address (referred to as PUBLICIPADDRESS):
 
-	* Check your Fitbit app online and change the field 'Callback URL' to http://PUBLICIPADDRESS/redirect.html
-	* Update all of the fields on your Fitbit app in `exp/credentials/credentials_fitbit.json`
-	* Change `adserver_revproxy_host` to PUBLICIPADDRESS in `config.txt`
-	* Update `serverporturl` in `config.js` to PUBLICIPADDRESS
+* Check your Fitbit app online and change the field 'Callback URL' to http://PUBLICIPADDRESS/redirect.html
+* Update all of the fields on your Fitbit app in `exp/credentials/credentials_fitbit.json`
+* Change `adserver_revproxy_host` to PUBLICIPADDRESS in `config.txt`
+* Update `serverporturl` in `config.js` to PUBLICIPADDRESS
 
 You'll also want to check `exp\config.txt`:
-	* Update experiment title, keywords, and experimenter contact
-	* Make sure you've added your PsiTurk and Amazon Web Services credentials
-	* Create a name for your database
-	* If debugging in Sandbox mode, set `debug = true`; otherwise if live set `debug = false`
-	* If debugging in Sandbox mode set `launch_in_sandbox_mode = True`, otherwise to create live links set `launch_in_sandbox_mode = True`
-	* Check that `allow_repeats = false` so you don't get repeat participants!
-	* For more information on this config file, refer to: <http://psiturk.readthedocs.io/en/latest/configuration.html#local-configuration-file>
+* Update experiment title, keywords, and experimenter contact
+* Make sure you've added your PsiTurk and Amazon Web Services credentials
+* Create a name for your database
+* If debugging in Sandbox mode, set `debug = true`; otherwise if live set `debug = false`
+* If debugging in Sandbox mode set `launch_in_sandbox_mode = True`, otherwise to create live links set `launch_in_sandbox_mode = True`
+* Check that `allow_repeats = false` so you don't get repeat participants!
+* For more information on this config file, refer to: <http://psiturk.readthedocs.io/en/latest/configuration.html#local-configuration-file>
 
 #### Amazon Mechanical Turk, Sandbox Mode
 
