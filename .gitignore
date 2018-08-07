@@ -1,7 +1,9 @@
+# comment these lines back in to ignore once you add your credentials
+# exp/static/credentials/*
+# exp/config.txt
+
+
 *.pyc
+*.DS_Store
 data/*
-exp/config.txt
 exp/fitbit/*
-exp/audio/*
-exp/fitbit/.DS_Store
-exp/static/credentials/*
