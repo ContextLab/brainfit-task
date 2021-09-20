@@ -1,4 +1,4 @@
-# Fitbrain
+# Brainfit Experiment
 
 This package is aimed at investigating the effects of fitness on cognition by acquiring both Fitbit data and cognitive task data through the Amazon Mechanical Turk platform. More specifically, this repo contains a suite of memory tasks developed using JsPsych and PsiTurk, including a word list task with spoken recall, a naturalistic movie clip and spoken recall, a vocabulary-image pair learning task, and a spatial task in which users drag icons across the screen to locations they were presented in. These tasks are aimed at probing several memory domains and relating these findings to individual's physical activity measures via Fitbit data acquired through the Fitbit web API.
 
@@ -10,8 +10,8 @@ Exercise is long-reported to influence physical health and cognitive ability, wi
 
 This package requires Docker (v3) to run. Install here: https://docs.docker.com/install/
 
-1. Clone the repository `git clone https://github.com/ContextLab/fitbrain.git`
-2. Navigate to the Fitbrain folder in the terminal
+1. Clone the repository `git clone https://github.com/ContextLab/brainfit-task.git`
+2. Navigate to the brainfit-task folder in the terminal
 3. Enter `docker-compose up -d` to build the docker image
 4. Attach this image via `docker attach fitbrain_psiturk_1`
 5. This will open the terminal from within the docker image. From here, enter the command `psiturk` to launch the server followed by `server on`. To debug, enter `debug` and paste the link into the browser (developed with Google Chrome, other browsers may require additional considerations).
@@ -32,28 +32,23 @@ All required components for running this experiment will be installed when build
 
 ### Local Use - Accounts Required
 
-For testing or collecting data locally, the following accounts are needed:
+For testing or collecting data locally, the following accounts and registration steps are required:
 
-* Create project Gmail account to link up all of the following accounts
-* Create Fitbit account
-	* https://www.fitbit.com/
-* Register App on Fitbit developer site to gain Fitbit credentials for authorization link generation
+* Create a project [Gmail](https://www.gmail.com) account to link up all of the following accounts
+* Create a [Fitbit](https://www.fitbit.com) account
+* Register App on the Fitbit developer site to gain Fitbit credentials for authorization link generation:
 	* https://dev.fitbit.com/apps
-	* add ClientID, ClientSecret, and Callback URL to a JSON file in `exp/static/credentials/credentials_fitbit.json`
-	* NOTE: if want second- or minute-resolution data access for research use, must contact Fitbit directly for this access and explain intended use
+	* add ClientID, ClientSecret, and Callback URL to a the JSON file in `exp/static/credentials/credentials_fitbit.json`
+	* NOTE: if second- or minute-resolution data access is required for research use, you must contact Fitbit directly for this access and explain its intended use
 
 ### Web Use - Additional Accounts Required
 
-For acquiring data on the Amazon Mechanical Turk platform, the following accounts are needed in addition to the ones listed above:
+For acquiring data on the Amazon Mechanical Turk platform, the following accounts are needed in addition to those listed above:
 
-* Create Psiturk Account (free)
-	* https://psiturk.org
-* Create Amazon Web Services (AWS) account (create a user account and give this user permissions to RDS and MTurk to generate keys)
-	* https://aws.amazon.com/console/
-* Create Amazon MTurk Sandbox Account and link to AWS account (for testing prior to going live)
-	* https://requestersandbox.mturk.com/developer
-* Create Amazon MTurk Account and link to AWS account
-	* https://requester.mturk.com/developer
+* [Psiturk](https://psiturk.org) (free)
+* [Amazon Web Services (AWS)](https://aws.amazon.com/console/) (create a user account and give this user permissions to RDS and MTurk to generate keys)
+* [Amazon MTurk Sandbox Account](https://requestersandbox.mturk.com/developer): link to your AWS account (for testing prior to going live)
+* [Amazon MTurk Account](https://requester.mturk.com/developer): link to your AWS account
 
 #### Experiment Walkthrough
 
