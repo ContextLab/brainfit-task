@@ -1,4 +1,4 @@
-# Brainfit Experiment
+# BrainFit Experiment
 
 This package is aimed at investigating the effects of fitness on cognition by acquiring both Fitbit data and cognitive task data through the Amazon Mechanical Turk platform. More specifically, this repo contains a suite of memory tasks developed using JsPsych and PsiTurk, including a word list task with spoken recall, a naturalistic movie clip and spoken recall, a vocabulary-image pair learning task, and a spatial task in which users drag icons across the screen to locations they were presented in. These tasks are aimed at probing several memory domains and relating these findings to individual's physical activity measures via Fitbit data acquired through the Fitbit web API.
 
